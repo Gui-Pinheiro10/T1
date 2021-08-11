@@ -1,7 +1,7 @@
 from pessoa import Pessoa
 
 class Cliente(Pessoa):
-    def __init__(self, codigo: int, nome: str, cpf: int, rua: str, numero: int, complemento: str, idade: int):
+    def __init__(self, nome: str, cpf: int, rua: str, numero: int, complemento: str, idade: int,  codigo: int):
         super().__init__(nome, cpf, rua, numero, complemento, idade)
         if isinstance(codigo, int):
             self.__codigo = codigo
