@@ -2,7 +2,7 @@ from entidade.enfermeiro import Enfermeiro
 from telas.telaEnfermeiro import TelaEnfermeiro
 
 
-class ControladorEnfermeiro(self):
+class ControladorEnfermeiro:
     self.__tela_enfermeiro = TelaEnfermeiro(self)
     self.__enfermeiros = []
 

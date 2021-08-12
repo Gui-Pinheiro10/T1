@@ -2,7 +2,7 @@ from entidade.limpeza import Limpeza
 from telas.telaLimpeza import TelaLimpeza
 
 
-class ControladorLimpeza(self):
+class ControladorLimpeza:
     self.__tela_limpeza = TelaLimpeza(self)
     self.__limpezas = []
 

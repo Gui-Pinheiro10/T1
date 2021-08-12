@@ -2,7 +2,7 @@ from entidade.agendamento import Agendamento
 from telas.telaAgendamento import TelaAgendamento
 
 
-class ControladorAgendamento(self):
+class ControladorAgendamento:
     self.__tela_agendamento = TelaAgendamento(self)
     self.__agendamentos = []
 

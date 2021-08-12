@@ -1,7 +1,7 @@
 from controladores.controladorAgendamento import ControladorAgendamento
 
 
-class TelaAgendamento(self):
+class TelaAgendamento:
     def __init__(self, controlador: ControladorAgendamento):
         self.__controlador = controlador
 

@@ -1,7 +1,7 @@
 from controladores.controladorLimpeza import ControladorLimpeza
 
 
-class TelaLimpeza(self):
+class TelaLimpeza:
     def __init__(self, controlador: ControladorLimpeza):
         self.__controlador = controlador
 

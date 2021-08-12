@@ -1,7 +1,7 @@
 from controladores.controladorEnfermeiro import ControladorEnfermeiro
 
 
-class TelaEnfermeiro(self):
+class TelaEnfermeiro:
     def __init__(self, controlador: ControladorEnfermeiro):
         self.__controlador = controlador
 
