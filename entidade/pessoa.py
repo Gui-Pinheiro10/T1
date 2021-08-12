@@ -3,10 +3,10 @@ from endereco import Endereco
 
 class Pessoa(Endereco, ABC):
     @abstractmethod
-    def __init__(self, nome: str, cpf: int, rua: str, numero: int, complemento: str, idade: int):
+    def __init__(self, nome: str, cpf: str, rua: str, numero: int, complemento: str, idade: int):
         if isinstance(nome, str):
             self.__nome = nome
-        if isinstance(cpf, int):
+        if isinstance(cpf, str):
             self.__cpf = cpf
         if isinstance(idade, int):
             self.__idade = idade
@@ -26,8 +26,8 @@ class Pessoa(Endereco, ABC):
         return self.__cpf
 
     @cpf.setter
-    def cpf(self, cpf: int):
-        if isinstance(cpf, int):
+    def cpf(self, cpf: str):
+        if isinstance(cpf, str):
             self.__cpf = cpf
 
     @property
