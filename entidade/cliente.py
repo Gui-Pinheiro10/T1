@@ -1,8 +1,8 @@
-from pessoa import Pessoa
+from entidade.pessoa import Pessoa
 
 class Cliente(Pessoa):
-    def __init__(self, nome: str, cpf: str, rua: str, numero: int, complemento: str, idade: int,  codigo: int):
-        super().__init__(nome, cpf, rua, numero, complemento, idade)
+    def __init__(self, nome: str, cpf: str, idade: int, rua: str, numero: int, complemento: str,  codigo: int):
+        super().__init__(nome, cpf, idade, rua, numero, complemento)
         if isinstance(codigo, int):
             self.__codigo = codigo
 
