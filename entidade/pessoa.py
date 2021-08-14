@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
-from endereco import Endereco
+from entidade.endereco import Endereco
 
 class Pessoa(Endereco, ABC):
     @abstractmethod
-    def __init__(self, nome: str, cpf: str, rua: str, numero: int, complemento: str, idade: int):
+    def __init__(self, nome: str, cpf: str, idade: int, rua: str, numero: int, complemento: str):
         if isinstance(nome, str):
             self.__nome = nome
         if isinstance(cpf, str):
@@ -29,6 +29,15 @@ class Pessoa(Endereco, ABC):
     def cpf(self, cpf: str):
         if isinstance(cpf, str):
             self.__cpf = cpf
+
+    @property
+    def idade(self):
+        return self.__idade
+
+    @idade.setter
+    def idade(self, idade: int):
+        if isinstance(idade, int):
+            self.__idade = idade
 
     @property
     def endereco(self):
