@@ -1,5 +1,5 @@
-from tipoAgendamento import TipoAgendamento
-from cliente import Cliente
+from entidade.tipoAgendamento import TipoAgendamento
+from entidade.cliente import Cliente
 from datetime import date
 
 
@@ -8,7 +8,7 @@ class Agendamento():
         self.__horario = horario
         self.__valor = valor
         self.__data = data
-        self.__cliente = Cliente
+        self.__cliente = cliente # mudei Cliente para cliente
         self.__tipoAgendamento = tipoAgendamento
         self.__codigo = codigo
 
@@ -52,8 +52,8 @@ class Agendamento():
     def tipoAgendamento(self):
         return self.__tipoAgendamento
     
-    @tipoAgendamento.setter
-    def tipoAgendamento(self, tipoAgendamento: TipoAgendamento):
+    @cliente.setter
+    def cliente(self, tipoAgendamento: TipoAgendamento):
         if isinstance(tipoAgendamento, TipoAgendamento):
             self.__tipoAgendamento = tipoAgendamento
 
@@ -65,3 +65,4 @@ class Agendamento():
     def codigo(self, codigo: int):
         if isinstance(codigo, int):
             self.__codigo = codigo
+
