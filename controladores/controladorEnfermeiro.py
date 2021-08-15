@@ -1,12 +1,11 @@
 from entidade import enfermeiro
 from entidade.enfermeiro import Enfermeiro
 from telas.telaEnfermeiro import TelaEnfermeiro
-from controladorSistema import ControladorSistema
 
 
 class ControladorEnfermeiro():
-    def __init__(self, controlador_sistema: ControladorSistema):
-        self.__tela_enfermeiro = TelaEnfermeiro(self)
+    def __init__(self, controlador_sistema):
+        self.__tela_enfermeiro = TelaEnfermeiro()
         self.__enfermeiros = []
         self.__controlador_sistema = controlador_sistema
 
@@ -50,7 +49,7 @@ class ControladorEnfermeiro():
     def listar_enfermeiros(self):
         print('Listagem de enfermeiros:\n')
         for enfermeiro in self.__enfermeiros:
-            self.__tela_enfermeiro.mostra_mesagem(f'Nome: {enfermeiro.nome} | CPF: {enfermeiro.cpf} | Idade: {enfermeiro.idade} | Endereço: {enfermeiro.rua}, {enfermeiro.numero}, {enfermeiro.complemento} | Matrícula: {enfermeiro.matricula} ')
+            print(f'Nome: {enfermeiro.nome} | CPF: {enfermeiro.cpf} | Idade: {enfermeiro.idade} | Endereço: {enfermeiro.rua}, {enfermeiro.numero}, {enfermeiro.complemento} | Matrícula: {enfermeiro.matricula} ')
 
     def pega_enfermeiro_por_matricula(self, matricula: int):
         for enfermeiro in self.__enfermeiros:
@@ -64,6 +63,6 @@ class ControladorEnfermeiro():
     def abre_tela_enfermeiro(self):
         opcoes = {0: self.retornar, 1: self.inclui_enfermeiro, 2: self.altera_enfermeiro, 3: self.exclui_enfermeiro, 4: self.listar_enfermeiros}
         while True:
-            opcao = self.__tela_enfermeiro.mostra_tela_opcoes()
+            opcao = self.__tela_enfermeiro.tela_opcoes()
             funcao_escolhida = opcoes[opcao]
             funcao_escolhida()
