@@ -1,10 +1,10 @@
-from medico import Medico
+from enfermeiro import Enfermeiro
 
 
 class Vacina():
-    def __init__(self, tipo_da_vacina: str, medico: Medico):
+    def __init__(self, tipo_da_vacina: str, enfermeiro: Enfermeiro):
         self.__tipo_da_vacina = tipo_da_vacina
-        self.__medico = medico
+        self.__enfermeiro = enfermeiro
     
     @property
     def tipo_da_vacina(self):
@@ -15,9 +15,9 @@ class Vacina():
         self.__tipo_da_vacina = tipo_da_vacina
     
     @property
-    def medico(self):
-        return self.__medico
+    def enfermeiro(self):
+        return self.__enfermeiro
 
-    @medico.setter
-    def medico(self, medico: Medico):
-        self.__medico = medico
+    @enfermeiro.setter
+    def enfermeiro(self, enfermeiro: Enfermeiro):
+        self.__enfermeiro = enfermeiro
