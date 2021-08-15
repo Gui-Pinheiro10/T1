@@ -7,13 +7,13 @@ class ControladorCliente:
         self.__clientes = []
         self.__controlador_sistema = controlador_sistema
 
-    def pega_cliente_por_codigo(self, codigo: int): # feito
+    def pega_cliente_por_codigo(self, codigo: int):
         for cliente in self.__clientes:
             if (cliente.codigo == codigo):
                 return cliente
         return None
 
-    def inclui_cliente(self): #feito
+    def inclui_cliente(self):
         dados_cliente = self.__tela_cliente.pega_dados_cliente()
         cliente = Cliente(dados_cliente["nome"], dados_cliente["cpf"], dados_cliente["idade"], dados_cliente["rua"],
                           dados_cliente["numero"], dados_cliente["complemento"], dados_cliente["codigo"])
@@ -21,7 +21,7 @@ class ControladorCliente:
             self.__clientes.append(cliente)
             self.__tela_cliente.mostra_mesagem("Cliente adicionado com sucesso!")
         else:
-            self.__tela_cliente.mostra_mesagem("Não foi possível adicionar o cliente, pois este código já está cadastratado.")
+            self.__tela_cliente.mostra_mesagem("Não foi possível adicionar o cliente, pois este código já está cadasdrado.")
 
     def altera_cliente(self):
         self.lista_clientes()
