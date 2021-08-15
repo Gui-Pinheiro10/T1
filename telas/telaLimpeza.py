@@ -41,7 +41,7 @@ class TelaLimpeza(AbstractTela):
         numero = input('Número: ')
         complemento = input('Complemento: ')
         return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento, "salario": salario}
-
+        
     def seleciona_limpeza(self):
         matricula = input('Digite a matrícula do funcionário da limpeza que deseja selecionar: ')
         return matricula

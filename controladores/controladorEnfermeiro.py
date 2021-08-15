@@ -50,7 +50,7 @@ class ControladorEnfermeiro():
     def listar_enfermeiros(self):
         print('Listagem de enfermeiros:\n')
         for enfermeiro in self.__enfermeiros:
-            print(f'Nome: {enfermeiro.nome} | CPF: {enfermeiro.cpf} | Idade: {enfermeiro.idade} | Endereço: {enfermeiro.rua}, {enfermeiro.numero}, {enfermeiro.complemento} | Matrícula: {enfermeiro.matricula} ')
+            self.__tela_enfermeiro.mostra_mesagem(f'Nome: {enfermeiro.nome} | CPF: {enfermeiro.cpf} | Idade: {enfermeiro.idade} | Endereço: {enfermeiro.rua}, {enfermeiro.numero}, {enfermeiro.complemento} | Matrícula: {enfermeiro.matricula} ')
 
     def pega_enfermeiro_por_matricula(self, matricula: int):
         for enfermeiro in self.__enfermeiros:

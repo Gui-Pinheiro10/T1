@@ -49,7 +49,7 @@ class ControladorLimpeza:
     def listar_limpezas(self):
         print('Listagem de funcionários da limpeza:\n')
         for limpeza in self.__limpezas:
-            print(f'Nome: {limpeza.nome} | CPF: {limpeza.cpf} | Idade: {limpeza.idade} | Endereço: {limpeza.rua}, {limpeza.numero}, {limpeza.complemento} | Matrícula: {limpeza.matricula} ')
+            self.__tela_limpeza.mostra_mesagem(f'Nome: {limpeza.nome} | CPF: {limpeza.cpf} | Idade: {limpeza.idade} | Endereço: {limpeza.rua}, {limpeza.numero}, {limpeza.complemento} | Matrícula: {limpeza.matricula} ')
 
     def pega_limpeza_por_matricula(self, matricula: int):
         for limpeza in self.__limpezas:
