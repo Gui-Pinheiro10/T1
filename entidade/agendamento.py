@@ -52,8 +52,8 @@ class Agendamento():
     def tipoAgendamento(self):
         return self.__tipoAgendamento
     
-    @cliente.setter
-    def cliente(self, tipoAgendamento: TipoAgendamento):
+    @tipoAgendamento.setter
+    def tipoAgendamento(self, tipoAgendamento: TipoAgendamento):
         if isinstance(tipoAgendamento, TipoAgendamento):
             self.__tipoAgendamento = tipoAgendamento
 
