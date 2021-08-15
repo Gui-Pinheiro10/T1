@@ -4,8 +4,8 @@ from pessoa import Pessoa
 
 class Funcionario(Pessoa, ABC):
     @abstractmethod
-    def __init__(self, matricula: int, salario: float):
-        super().__init__() ##arrumar classe Pessoa para terminar aqui
+    def __init__(self, nome, cpf, idade, rua, numero, complemento, matricula: int, salario: float):
+        super().__init__(nome, cpf, idade, rua, numero, complemento)
         self.__matricula = matricula
         self.__salario = salario
 
