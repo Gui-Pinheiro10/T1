@@ -1,4 +1,3 @@
-from entidade import agendamento
 from entidade.agendamento import Agendamento
 from telas.telaAgendamento import TelaAgendamento
 from controladorSistema import ControladorSistema
