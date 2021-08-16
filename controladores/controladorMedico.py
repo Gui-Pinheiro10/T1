@@ -48,8 +48,7 @@ class ControladorMedico:
         medico = self.pega_medico_por_matricula(matricula_medico)
         if (medico is not None):
             self.__medicos.remove(medico)
-            print("Médico excluído com sucesso!")
-            print()
+            self.__tela_medico.mostra_mesagem("Médico excluído com sucesso!")
             self.lista_medicos()
         else:
             self.__tela_medico.mostra_mesagem('Não foi possível excluir o médico, pois a matrícula informada não está na lista!')
@@ -60,8 +59,8 @@ class ControladorMedico:
             self.__tela_medico.mostra_medico({"nome": medico.nome, "cpf": medico.cpf, "idade": medico.idade, "rua": medico.endereco.rua,
                                               "numero": medico.endereco.numero, "complemento": medico.endereco.complemento,
                                               "matricula": medico.matricula, "salario": medico.salario, "crm": medico.crm})
-            if len(self.__medicos) == 0:
-                self.__tela_medico.mostra_medico("No momento a lista de médicos está vazia!")
+        if len(self.__medicos) == 0:
+            self.__tela_medico.mostra_mesagem("No momento a lista de médicos está vazia!")
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
@@ -72,6 +71,3 @@ class ControladorMedico:
         continua = True
         while continua:
             lista_opcoes[self.__tela_medico.tela_opcoes()]()
-
-    def retorna_lista_medicos(self):
-        return self.__medicos
