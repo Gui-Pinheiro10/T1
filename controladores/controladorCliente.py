@@ -69,3 +69,5 @@ class ControladorCliente:
         while continua:
             lista_opcoes[self.__tela_cliente.tela_opcoes()]()
 
+    def retorna_lista_clientes(self):
+        return self.__clientes

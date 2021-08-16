@@ -24,23 +24,40 @@ class ControladorAgendamento:
 
     def inclui_agendamento(self):
         tipoAgendamento_agendamento = ''
+        cliente_agendamento = ''
+        medico_agendamento = ''
+        enfermeiro_agendamento = ''
+        lista_de_clientes = self.__controlador_cliente.retorna_lista_clientes()
+        lista_de_medicos = self.__controlador_medico.retorna_lista_medicos()
+        lista_de_enfemeiros = self.__controlador_enfermeiro.retorna_lista_enfermeiro()
         dados_agendamento = self.__tela_agendamento.pega_dados_agendamento()
-        cliente_agendamento = self.__controlador_cliente.pega_cliente_por_codigo(dados_agendamento["codigo_cliente"])
-        medico_agendamento = self.__controlador_medico.pega_medico_por_matricula(dados_agendamento["matricula_medico_ou_enfermeiro"])
-        enfermeiro_agendamento = self.__controlador_enfermeiro.pega_enfermeiro_por_matricula(dados_agendamento["matricula_medico_ou_enfermeiro"])
-        if dados_agendamento["numero_tipoAgendamento"] == 1:
+        for cliente in lista_de_clientes:
+            if dados_agendamento["codigo_cliente"] == cliente.codigo:
+                cliente_agendamento == cliente
+                break
+        for medico in lista_de_medicos:
+            if dados_agendamento["matricula_medico_ou_enfermeiro"] == medico.matricula:
+                medico_agendamento = medico
+        for enfemeiro in lista_de_enfemeiros:
+            if dados_agendamento["matricula_medico_ou_enfermeiro"] == enfemeiro.matricula:
+                enfermeiro_agendamento = enfemeiro
+        if dados_agendamento["numero_tipoAgendamento"] == 2:
             tipoAgendamento_agendamento == Consulta(dados_agendamento["nome_tipoAgendamento"], medico_agendamento)
             agendamento_para_incluir = Agendamento(dados_agendamento["horario"], dados_agendamento["valor"], dados_agendamento["data"], cliente_agendamento, tipoAgendamento_agendamento, dados_agendamento["codigo"])
-        elif dados_agendamento["numero_tipoAgendamento"] == 2:
+        elif dados_agendamento["numero_tipoAgendamento"] == 1:
             tipoAgendamento_agendamento == Vacina(dados_agendamento["nome_tipoAgendamento"], enfermeiro_agendamento)
             agendamento_para_incluir = Agendamento(dados_agendamento["horario"], dados_agendamento["valor"], dados_agendamento["data"], cliente_agendamento, tipoAgendamento_agendamento, dados_agendamento["codigo"])
-        for agendamento in self.__agendamentos:
-            if  agendamento_para_incluir.codigo == agendamento.codigo:
-                self.__tela_agendamento.mostra_mesagem('Não foi possível cadastrar o agendamento pois o código já existe!')
-                break
-            else:
-                self.__agendamentos.append(agendamento_para_incluir)
-                self.__tela_agendamento.mostra_mesagem('Agendamento cadastrado com sucesso!')
+        if len(self.__agendamentos) == 0:
+            self.__agendamentos.append(agendamento_para_incluir)
+            self.__tela_agendamento.mostra_mesagem('Agendamento cadastrado com sucesso!')
+        else:  
+            for agendamento in self.__agendamentos:
+                if agendamento.codigo == agendamento_para_incluir.codigo:
+                    self.__tela_agendamento.mostra_mesagem('Não foi possível cadastrar o agendamento pois o código já existe!')
+                    break
+                else:
+                    self.__agendamentos.append(agendamento_para_incluir)
+                    self.__tela_agendamento.mostra_mesagem('Agendamento cadastrado com sucesso!')
 
     def exclui_agendamento(self):
         self.listar_agendamentos()
@@ -71,7 +88,7 @@ class ControladorAgendamento:
     def listar_agendamentos(self):
         self.__tela_agendamento.mostra_mesagem("LISTA DE AGENDAMENTO".center(30, '-'))
         for agendamento in self.__agendamentos:
-            self.__tela_agendamento.mostra_mesagem(f'Horário: {agendamento.horario} | Data: {agendamento.data} | Valor (R$): {agendamento.valor}\nCliente: {agendamento.cliente} | Código: {agendamento.codigo}')
+            self.__tela_agendamento.mostra_mesagem(f'Horário: {agendamento.horario} | Data: {agendamento.data} | Valor (R$): {agendamento.valor}\nCliente: {agendamento.cliente.nome} | Código do Agendamento: {agendamento.codigo}')
         if len(self.__agendamentos) == 0:
             self.__tela_agendamento.mostra_mesagem("No momento a lista de agendamentos está vazia.")
 

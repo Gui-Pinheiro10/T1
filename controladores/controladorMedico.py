@@ -72,3 +72,6 @@ class ControladorMedico:
         continua = True
         while continua:
             lista_opcoes[self.__tela_medico.tela_opcoes()]()
+
+    def retorna_lista_medicos(self):
+        return self.__medicos
