@@ -1,7 +1,7 @@
 from entidade.medico import Medico
 
 
-class Vacina():
+class Consulta():
     def __init__(self, especialidade: str, medico: Medico):
         self.__especialidade = especialidade
         self.__medico = medico

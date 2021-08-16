@@ -16,19 +16,21 @@ class TelaAgendamento(AbstractTela):
     def pega_dados_agendamento(self):
         print('---------- DADOS DO AGENDAMENTO ----------')
         horario = input('Horário: ')
-        valor = input('Valor: ')
         data = input('Data: ')
-        cliente = input('Cliente: ')
-        tipoAgendamento = input('Tipo de Agendamento: ')
-        codigo = input('Código: ')
-        return {"horario": horario, "valor": valor, "data": data, "codigo": codigo, "cliente": cliente, "tipoAgendamento": tipoAgendamento}
+        valor = int(input('Valor: '))
+        codigo_cliente = int(input('Código do Cliente: '))
+        matricula_medico_ou_enfermeiro = int(input('Matrícula do Médico ou Enfemeiro: '))
+        numero_tipoAgendamento = int(input('Digite apenas 1 ou 2 - [1] Vacina [2] Consulta: '))
+        nome_tipoAgendamento = input('Digite a especialidade ou tipo de vacina: ')
+        codigo = int(input('Código: '))
+        return {"horario": horario, "valor": valor, "data": data, "codigo": codigo, "codigo_cliente": codigo_cliente, "numero_tipoAgendamento": numero_tipoAgendamento, "nome_tipoAgendamento": nome_tipoAgendamento, "matricula_medico_ou_enfermeiro": matricula_medico_ou_enfermeiro}
 
     def pega_dados_para_alterar_agendamento(self):
         print('---------- DADOS PARA ALTERAÇÃO DE AGENDAMENTO ----------')
         print('ATENÇÃO! Não é permitido alterar o código do agendamento.')
         horario = input('Horário: ')
-        valor = input('Valor: ')
         data = input('Data: ')
+        valor = int(input('Valor: '))
         cliente = input('Cliente: ')
         tipoAgendamento = input('Tipo de Agendamento: ')
         return {"horario": horario, "valor": valor, "data": data, "cliente": cliente, "tipoAgendamento": tipoAgendamento}

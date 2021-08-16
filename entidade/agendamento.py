@@ -4,7 +4,7 @@ from datetime import date
 
 
 class Agendamento():
-    def __init__(self, horario: date, valor: int, data: date, cliente: Cliente, tipoAgendamento: TipoAgendamento, codigo: int):
+    def __init__(self, horario: str, valor: int, data: str, cliente: Cliente, tipoAgendamento: TipoAgendamento, codigo: int):
         self.__horario = horario
         self.__valor = valor
         self.__data = data
@@ -17,8 +17,8 @@ class Agendamento():
         return self.__horario
 
     @horario.setter
-    def horario(self, horario: date):
-        if isinstance(horario, date):
+    def horario(self, horario: str):
+        if isinstance(horario, str):
             self.__horario = horario
 
     @property
@@ -35,8 +35,8 @@ class Agendamento():
         return self.__data
 
     @data.setter
-    def data(self, data: date):
-        if isinstance(data, date):
+    def data(self, data: str):
+        if isinstance(data, str):
             self.__data = data
 
     @property
