@@ -1,4 +1,3 @@
-from entidade import enfermeiro
 from entidade.enfermeiro import Enfermeiro
 from telas.telaEnfermeiro import TelaEnfermeiro
 
@@ -10,10 +9,9 @@ class ControladorEnfermeiro():
         self.__controlador_sistema = controlador_sistema
 
     def inclui_enfermeiro(self):
-        dados_enfermeiro = self.__tela_enfermeiro.pega_dados_enfermeiro
+        dados_enfermeiro = self.__tela_enfermeiro.pega_dados_enfermeiro()
         enfermeiro = Enfermeiro(dados_enfermeiro["nome"], dados_enfermeiro["cpf"], dados_enfermeiro["idade"], dados_enfermeiro["rua"], dados_enfermeiro["numero"], dados_enfermeiro["complemento"], dados_enfermeiro["matricula"], dados_enfermeiro["salario"])
-        matricula_enfermeiro = self.pega_enfermeiro_por_matricula(enfermeiro.matricula)
-        if matricula_enfermeiro is None:
+        if self.pega_enfermeiro_por_matricula(dados_enfermeiro["matricula"]) is None:
             self.__enfermeiros.append(enfermeiro)
             self.__tela_enfermeiro.mostra_mesagem('Funcionário da Limpeza adicionado com sucesso!')
         else:
@@ -39,17 +37,19 @@ class ControladorEnfermeiro():
             novos_dados = self.__tela_enfermeiro.pega_dados_para_alterar_enfermeiro()
             enfermeiro_alterado.nome = novos_dados["nome"]
             enfermeiro_alterado.idade = novos_dados["idade"]
-            enfermeiro_alterado.rua = novos_dados["rua"]
-            enfermeiro_alterado.numero = novos_dados["numero"]
-            enfermeiro_alterado.complemento = novos_dados["complemento"]
+            enfermeiro_alterado.endereco.rua = novos_dados["rua"]
+            enfermeiro_alterado.endereco.numero = novos_dados["numero"]
+            enfermeiro_alterado.endereco.complemento = novos_dados["complemento"]
             enfermeiro_alterado.salario = novos_dados["salario"]
             self.__tela_enfermeiro.mostra_mesagem('Enfermeiro alterado com sucesso!\n')
             self.listar_enfermeiros()
 
     def listar_enfermeiros(self):
-        print('Listagem de enfermeiros:\n')
+        self.__tela_enfermeiro.mostra_mesagem("LISTA DE FUNCIONÁRIO".center(30, '-'))
         for enfermeiro in self.__enfermeiros:
-            print(f'Nome: {enfermeiro.nome} | CPF: {enfermeiro.cpf} | Idade: {enfermeiro.idade} | Endereço: {enfermeiro.rua}, {enfermeiro.numero}, {enfermeiro.complemento} | Matrícula: {enfermeiro.matricula} ')
+            self.__tela_enfermeiro.mostra_mesagem(f'Nome: {enfermeiro.nome} | CPF: {enfermeiro.cpf} | Idade: {enfermeiro.idade}\nRua: {enfermeiro.endereco.rua} | Número: {enfermeiro.endereco.numero} | Complemento: {enfermeiro.endereco.complemento}\nMatrícula: {enfermeiro.matricula} Salário: {enfermeiro.salario}')
+        if len(self.__enfermeiros) == 0:
+            self.__tela_enfermeiro.mostra_mesagem("No momento a lista de enfermeiros está vazia.")
 
     def pega_enfermeiro_por_matricula(self, matricula: int):
         for enfermeiro in self.__enfermeiros:

@@ -21,3 +21,13 @@ class AbstractTela(ABC):
 
     def mostra_mesagem(self, msg):
         print(msg)
+
+    def le_valor_inteiro(self, mensagem: str=""):
+        lido = False
+        while not lido:
+            try:
+                numero = int(input(mensagem))
+                lido = True
+                return numero
+            except ValueError:
+                print("VALOR INVÁLIDO. Digite um valor numérico inteiro válido.")

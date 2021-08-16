@@ -50,10 +50,9 @@ class ControladorLimpeza:
     def listar_limpezas(self): # visto
         self.__tela_limpeza.mostra_mesagem("LISTA DE FUNCIONÁRIO".center(30, '-'))
         for limpeza in self.__limpezas:
-            self.__tela_limpeza.mostra_mesagem({"nome": limpeza.nome, "cpf": limpeza.cpf, "idade": limpeza.idade, "rua": limpeza.endereco.rua, "numero": limpeza.endereco.numero,
-                                                "complemento": limpeza.endereco.complemento, "matricula": limpeza.matricula, "salario": limpeza.salario})
+            self.__tela_limpeza.mostra_mesagem(f'Nome: {limpeza.nome} | CPF: {limpeza.cpf} | Idade: {limpeza.idade}\nRua: {limpeza.endereco.rua} | Número: {limpeza.endereco.numero} | Complemento: {limpeza.endereco.complemento}\nMatrícula: {limpeza.matricula} |Salário: {limpeza.salario}')
         if len(self.__limpezas) == 0:
-            self.__tela_limpeza.mostra_mesagem("No momento a lista de funcionários de limpeza está vazio.")
+            self.__tela_limpeza.mostra_mesagem("No momento a lista de funcionários de limpeza está vazia.")
 
     def pega_limpeza_por_matricula(self, matricula: int): # VISTO
         for limpeza in self.__limpezas:
@@ -69,4 +68,3 @@ class ControladorLimpeza:
         continua = True
         while continua:
             opcoes[self.__tela_limpeza.tela_opcoes()]()
-

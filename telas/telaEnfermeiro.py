@@ -17,26 +17,28 @@ class TelaEnfermeiro(AbstractTela):
         print('---------- DADOS DO ENFERMEIRO ----------')
         nome = input('Nome: ')
         cpf = input('CPF: ')
-        idade = input('Idade: ')
+        idade = int(input('Idade: '))
         print('Digite os dados do seu endereço abaixo:')
         rua = input('Rua: ')
-        numero = input('Número: ')
+        numero = int(input('Número: '))
         complemento = input('Complemento: ')
-        matricula = input('Matrícula: ')
+        matricula = int(input('Matrícula: '))
+        salario = float(input('Salário: '))
         return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
-                "matricula": matricula}
-            
+                "matricula": matricula, "salario": salario}
+
     def pega_dados_para_alterar_enfermeiro(self):
         print('---------- DADOS PARA ALTERAÇÃO DE ENFERMEIRO ----------')
         print('ATENÇÃO! Não é permitido alterar CPF e matrícula de enfermeiro.')
         nome = input('Nome: ')
-        idade = input('Idade: ')
+        idade = int(input('Idade: '))
+        salario = float(input('Salário: '))
         print('Digite os novos dados do seu endereço abaixo:')
         rua = input('Rua: ')
-        numero = input('Número: ')
+        numero = int(input('Número: '))
         complemento = input('Complemento: ')
-        return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento}
+        return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento, "salario": salario}
 
     def seleciona_enfermeiro(self):
-        matricula = input('Digite a matrícula do enfermeiro que deseja selecionar: ')
+        matricula = int(input('Digite a matrícula do enfermeiro que deseja selecionar: '))
         return matricula
