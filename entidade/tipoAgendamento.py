@@ -1,5 +1,5 @@
-from vacina import Vacina
-from consulta import Consulta
+from entidade.vacina import Vacina
+from entidade.consulta import Consulta
 
 
 class TipoAgendamento():
