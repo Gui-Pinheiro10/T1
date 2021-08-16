@@ -19,11 +19,14 @@ class ControladorAtendente:
         atendente = Atendente(dados_atendente["nome"], dados_atendente["cpf"], dados_atendente["idade"],
                               dados_atendente["rua"], dados_atendente["numero"], dados_atendente["complemento"],
                               dados_atendente["matricula"], dados_atendente["salario"])
-        if self.pega_atendente_por_matricula(dados_atendente["matricula"]) is None:
+        try:
+            if self.pega_atendente_por_matricula(dados_atendente["matricula"]) is not None:
+                raise Exception
+        except Exception:
+            self.__tela_atendente.mostra_mesagem("Não foi possível cadastrar o enfermeiro pois a matrícula já existe!")
+        else:
             self.__atendentes.append(atendente)
             self.__tela_atendente.mostra_mesagem("Atendente adicionado com sucesso!")
-        else:
-            self.__tela_atendente.mostra_mesagem("Não foi possível cadastrar o enfermeiro pois a matrícula já existe!")
 
     def altera_atendente(self):
         self.lista_atendentes()
@@ -72,3 +75,4 @@ class ControladorAtendente:
         continua = True
         while continua:
             lista_opcoes[self.__tela_atendente.tela_opcoes()]()
+            
