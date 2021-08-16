@@ -18,13 +18,13 @@ class TelaLimpeza(AbstractTela):
         print('---------- DADOS DO FUNCIONÁRIO DA LIMPEZA ----------')
         nome = input('Nome: ')
         cpf = self.verifica_cpf()
-        idade = int(input('Idade: '))
+        idade = self.verifica_idade('Idade: ')
         print('Digite os dados do seu endereço abaixo:')
         rua = input('Rua: ')
         numero = self.le_valor_inteiro('Número: ')
         complemento = input('Complemento: ')
         matricula = self.le_valor_inteiro('Matrícula: ')
-        salario = float(input('Salário:'))
+        salario = self.le_valor_inteiro('Salário: ')
         return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
                 "matricula": matricula, "salario": salario}
 
@@ -32,11 +32,11 @@ class TelaLimpeza(AbstractTela):
         print('---------- DADOS PARA ALTERAÇÃO DE FUNCIONÁRIO DA LIMPEZA ----------')
         print('ATENÇÃO! Não é permitido alterar CPF e matrícula de funcionário de limpeza.')
         nome = input('Nome: ')
-        idade = int(input('Idade: '))
-        salario = input('Salário: ')
+        idade = self.le_valor_inteiro('Idade: ')
+        salario = self.le_valor_inteiro('Salário: ')
         print('Digite os novos dados do seu endereço abaixo:')
         rua = input('Rua: ')
-        numero = int(input('Número: '))
+        numero = self.le_valor_inteiro('Número: ')
         complemento = input('Complemento: ')
         return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento, "salario": salario}
 
@@ -49,5 +49,5 @@ class TelaLimpeza(AbstractTela):
         print("ENDEREÇO: Rua: ",dados_funcionario["rua"], "// Número: ",dados_funcionario["numero"], "// Complemento: ", dados_funcionario["complemento"])
 
     def seleciona_limpeza(self):
-        matricula = int(input('Digite a matrícula do funcionário da limpeza que deseja selecionar: '))
+        matricula = self.le_valor_inteiro('Digite a matrícula do funcionário da limpeza que deseja selecionar: ')
         return matricula

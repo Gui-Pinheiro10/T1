@@ -82,7 +82,7 @@ class ControladorAgendamento:
     def listar_agendamentos(self):
         self.__tela_agendamento.mostra_mesagem("LISTA DE AGENDAMENTO".center(30, '-'))
         for agendamento in self.__agendamentos:
-            self.__tela_agendamento.mostra_mesagem(f'Horário: {agendamento.horario} | Data: {agendamento.data} | Valor (R$): {agendamento.valor}\nNome do Cliente: {agendamento.cliente.nome} | Código do Cliente: {agendamento.cliente.codigo}\nCódigo do Agendamento: {agendamento.codigo}')
+            self.__tela_agendamento.mostra_mesagem(f'Horário: {agendamento.horario} | Data: {agendamento.data} | Valor (R$): {agendamento.valor}\nNome do Cliente: {agendamento.cliente.nome} | Código do Cliente: {agendamento.cliente.codigo}\nCódigo do Agendamento: {agendamento.codigo}\n')
         if len(self.__agendamentos) == 0:
             self.__tela_agendamento.mostra_mesagem("No momento a lista de agendamentos está vazia.")
 

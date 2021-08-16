@@ -17,11 +17,11 @@ class TelaAgendamento(AbstractTela):
         print('---------- DADOS DO AGENDAMENTO ----------')
         horario = input('Horário: ')
         data = input('Data: ')
-        codigo_cliente = int(input('Código do Cliente: '))
-        matricula_medico_ou_enfermeiro = int(input('Matrícula do Médico ou Enfemeiro: '))
-        numero_tipoAgendamento = int(input('Digite apenas 1 ou 2 - [1] Vacina [2] Consulta: '))
+        codigo_cliente = self.le_valor_inteiro('Código do Cliente: ')
+        matricula_medico_ou_enfermeiro = self.le_valor_inteiro('Matrícula do Médico ou Enfemeiro: ')
+        numero_tipoAgendamento = self.le_num_inteiro('Digite apenas 1 ou 2 - [1] Vacina [2] Consulta: ', [1, 2])
         nome_tipoAgendamento = input('Digite a especialidade ou tipo de vacina: ')
-        codigo = int(input('Código: '))
+        codigo = self.le_valor_inteiro('Código: ')
         return {"horario": horario, "data": data, "codigo": codigo, "codigo_cliente": codigo_cliente, "numero_tipoAgendamento": numero_tipoAgendamento, "nome_tipoAgendamento": nome_tipoAgendamento, "matricula_medico_ou_enfermeiro": matricula_medico_ou_enfermeiro}
 
     def pega_dados_para_alterar_agendamento(self):
@@ -32,5 +32,5 @@ class TelaAgendamento(AbstractTela):
         return {"horario": horario, "data": data}
 
     def seleciona_agendamento(self):
-        codigo_agendamento = int(input('Digite o código do agendamento que deseja selecionar: '))
+        codigo_agendamento = self.le_valor_inteiro('Digite o código do agendamento que deseja selecionar: ')
         return codigo_agendamento

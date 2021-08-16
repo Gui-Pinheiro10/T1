@@ -47,7 +47,7 @@ class ControladorEnfermeiro():
     def listar_enfermeiros(self):
         self.__tela_enfermeiro.mostra_mesagem("LISTA DE FUNCIONÁRIO".center(30, '-'))
         for enfermeiro in self.__enfermeiros:
-            self.__tela_enfermeiro.mostra_mesagem(f'Nome: {enfermeiro.nome} | CPF: {enfermeiro.cpf} | Idade: {enfermeiro.idade}\nRua: {enfermeiro.endereco.rua} | Número: {enfermeiro.endereco.numero} | Complemento: {enfermeiro.endereco.complemento}\nMatrícula: {enfermeiro.matricula} Salário: {enfermeiro.salario}')
+            self.__tela_enfermeiro.mostra_mesagem(f'Nome: {enfermeiro.nome} | CPF: {enfermeiro.cpf} | Idade: {enfermeiro.idade}\nRua: {enfermeiro.endereco.rua} | Número: {enfermeiro.endereco.numero} | Complemento: {enfermeiro.endereco.complemento}\nMatrícula: {enfermeiro.matricula} Salário: {enfermeiro.salario}\n')
         if len(self.__enfermeiros) == 0:
             self.__tela_enfermeiro.mostra_mesagem("No momento a lista de enfermeiros está vazia.")
 

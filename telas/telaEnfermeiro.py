@@ -16,14 +16,14 @@ class TelaEnfermeiro(AbstractTela):
     def pega_dados_enfermeiro(self):
         print('---------- DADOS DO ENFERMEIRO ----------')
         nome = input('Nome: ')
-        cpf = input('CPF: ')
-        idade = int(input('Idade: '))
+        cpf = self.verifica_cpf()
+        idade = self.le_valor_inteiro('Idade: ')
         print('Digite os dados do seu endereço abaixo:')
         rua = input('Rua: ')
-        numero = int(input('Número: '))
+        numero = self.le_valor_inteiro('Número: ')
         complemento = input('Complemento: ')
-        matricula = int(input('Matrícula: '))
-        salario = float(input('Salário: '))
+        matricula = self.le_valor_inteiro('Matrícula: ')
+        salario = self.le_valor_inteiro('Salário: ')
         return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
                 "matricula": matricula, "salario": salario}
 
@@ -31,14 +31,14 @@ class TelaEnfermeiro(AbstractTela):
         print('---------- DADOS PARA ALTERAÇÃO DE ENFERMEIRO ----------')
         print('ATENÇÃO! Não é permitido alterar CPF e matrícula de enfermeiro.')
         nome = input('Nome: ')
-        idade = int(input('Idade: '))
-        salario = float(input('Salário: '))
+        idade = self.le_valor_inteiro('Idade: ')
+        salario = self.le_valor_inteiro('Salário: ')
         print('Digite os novos dados do seu endereço abaixo:')
         rua = input('Rua: ')
-        numero = int(input('Número: '))
+        numero = self.le_valor_inteiro('Número: ')
         complemento = input('Complemento: ')
         return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento, "salario": salario}
 
     def seleciona_enfermeiro(self):
-        matricula = int(input('Digite a matrícula do enfermeiro que deseja selecionar: '))
+        matricula = self.le_valor_inteiro('Digite a matrícula do enfermeiro que deseja selecionar: ')
         return matricula
