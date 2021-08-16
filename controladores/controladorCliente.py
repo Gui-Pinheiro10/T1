@@ -21,7 +21,7 @@ class ControladorCliente:
             self.__clientes.append(cliente)
             self.__tela_cliente.mostra_mesagem("Cliente adicionado com sucesso!")
         else:
-            self.__tela_cliente.mostra_mesagem("Não foi possível adicionar o cliente, pois este código já está cadasdrado.")
+            self.__tela_cliente.mostra_mesagem("Não foi possível adicionar o cliente, pois este código já está cadastrado.")
 
     def altera_cliente(self):
         self.lista_clientes()
@@ -34,6 +34,7 @@ class ControladorCliente:
             pessoa.endereco.rua = novos_dados_pessoa["rua"]
             pessoa.endereco.numero = novos_dados_pessoa["numero"]
             pessoa.endereco.complemento = novos_dados_pessoa["complemento"]
+            self.__tela_cliente.mostra_mesagem("Cliente alterado com sucesso!")
             self.lista_clientes()
         else:
             self.__tela_cliente.mostra_mesagem("Não foi possível alterar este cadastro, pois ele não existe.")
@@ -45,8 +46,7 @@ class ControladorCliente:
         cliente = self.pega_cliente_por_codigo(codigo_cliente)
         if (cliente is not None):
             self.__clientes.remove(cliente)
-            print('Cliente excluído com sucesso!')
-            print()
+            self.__tela_cliente.mostra_mesagem('Cliente excluído com sucesso!')
             self.lista_clientes()
         else:
             self.__tela_cliente.mostra_mesagem("Não foi possível excluir este cadastro, pois ele não existe.")
@@ -68,3 +68,4 @@ class ControladorCliente:
         continua = True
         while continua:
             lista_opcoes[self.__tela_cliente.tela_opcoes()]()
+
