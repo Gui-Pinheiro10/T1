@@ -1,13 +1,9 @@
-from entidade import tipoAgendamento
-from controladores.controladorAgendamento import ControladorAgendamento
-from abstractTela import AbstractTela
+from telas.abstractTela import AbstractTela
 
 
 class TelaAgendamento(AbstractTela):
-    def __init__(self, controlador: ControladorAgendamento):
-        self.__controlador = controlador
     
-    def mostra_tela_opcoes(self):
+    def tela_opcoes(self):
         print("---------- OPÇÕES DE AGENDAMENTOS ----------")
         print('1 - Incluir Agendamento')
         print('2 - Alterar Agendamento')
