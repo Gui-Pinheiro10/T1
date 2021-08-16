@@ -69,5 +69,6 @@ class AbstractTela(ABC):
                     raise Exception
                 else:
                     lido = True
+                    return entrada
             except Exception:
                 print("ENTRADA VAZIA. Digite um valor válido.")

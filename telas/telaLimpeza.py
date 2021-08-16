@@ -32,7 +32,7 @@ class TelaLimpeza(AbstractTela):
         print('---------- DADOS PARA ALTERAÇÃO DE FUNCIONÁRIO DA LIMPEZA ----------')
         print('ATENÇÃO! Não é permitido alterar CPF e matrícula de funcionário de limpeza.')
         nome = self.le_str('Nome: ')
-        idade = self.le_valor_inteiro('Idade: ')
+        idade = self.verifica_idade('Idade: ')
         salario = self.le_valor_inteiro('Salário: ')
         print('Digite os novos dados do seu endereço abaixo:')
         rua = self.le_str('Rua: ')

@@ -13,46 +13,61 @@ class ControladorLimpeza:
         dados_limpeza = self.__tela_limpeza.pega_dados_limpeza()
         limpeza = Limpeza(dados_limpeza["nome"], dados_limpeza["cpf"], dados_limpeza["idade"], dados_limpeza["rua"], dados_limpeza["numero"],
                           dados_limpeza["complemento"], dados_limpeza["matricula"], dados_limpeza["salario"])
-        if self.pega_limpeza_por_matricula(dados_limpeza["matricula"]) is None:
+        try:
+            if self.pega_limpeza_por_matricula(dados_limpeza["matricula"]) is not None:
+                raise Exception
+        except Exception:
+            self.__tela_limpeza.mostra_mesagem('Não foi possível cadastrar o funcionário pois a matrícula já existe!')
+        else:
             self.__limpezas.append(limpeza)
             self.__tela_limpeza.mostra_mesagem('Funcionário da Limpeza adicionado com sucesso!')
-        else:
-            self.__tela_limpeza.mostra_mesagem('Não foi possível cadastrar o funcionário pois a matrícula já existe!')
 
     def exclui_limpeza(self): # VISTO
         self.listar_limpezas()
         matricula_funcionario_excluido =  self.__tela_limpeza.seleciona_limpeza()
-        for funcionario_limpeza in self.__limpezas:
-            if funcionario_limpeza.matricula == matricula_funcionario_excluido:
-                self.__limpezas.remove(self.pega_limpeza_por_matricula(matricula_funcionario_excluido))
-                self.__tela_limpeza.mostra_mesagem('Funcionário da Limpeza excluído com sucesso!')
-                self.listar_limpezas()
-            else:
-                self.__tela_limpeza.mostra_mesagem('Não foi possível excluir o funcionário, pois a matrícula informada não está na lista!')
+        funcionario_excluido = self.pega_limpeza_por_matricula(matricula_funcionario_excluido)
+        try:
+            if funcionario_excluido not in self.__limpezas:
+                raise Exception
+        except Exception:
+            self.__tela_limpeza.mostra_mesagem('Não foi possível excluir o funcionário, pois a matrícula informada não está na lista!')
+        else:
+            self.__limpezas.remove(self.pega_limpeza_por_matricula(matricula_funcionario_excluido))
+            self.__tela_limpeza.mostra_mesagem('Funcionário da Limpeza excluído com sucesso!')
+            self.listar_limpezas()
 
     def altera_limpeza(self):
         self.listar_limpezas()
         matricula_funcionario_alterado = self.__tela_limpeza.seleciona_limpeza()
-        for funcionario_limpeza in self.__limpezas:
-            if funcionario_limpeza.matricula == matricula_funcionario_alterado:
-                novos_dados = self.__tela_limpeza.pega_dados_para_alterar_limpeza()
-                funcionario_limpeza.nome = novos_dados["nome"]
-                funcionario_limpeza.idade = novos_dados["idade"]
-                funcionario_limpeza.endereco.rua = novos_dados["rua"]
-                funcionario_limpeza.endereco.numero = novos_dados["numero"]
-                funcionario_limpeza.endereco.complemento = novos_dados["complemento"]
-                funcionario_limpeza.salario = novos_dados["salario"]
-                self.__tela_limpeza.mostra_mesagem('Funcionário da limpeza alterado com sucesso!\n')
-                self.listar_limpezas()
-            else:
-                self.__tela_limpeza.mostra_mesagem('Não foi possível alterar o funcionário, pois a matrícula informada não está na lista!')
+        funcionario_alterado = self.pega_limpeza_por_matricula(matricula_funcionario_alterado)
+        try:
+            if funcionario_alterado is None:
+                raise Exception
+        except Exception:
+            self.__tela_limpeza.mostra_mesagem('Não foi possível alterar o funcionário, pois a matrícula informada não está na lista!')
+        else:
+            for funcionario_limpeza in self.__limpezas:
+                if funcionario_limpeza.matricula == matricula_funcionario_alterado:
+                    novos_dados = self.__tela_limpeza.pega_dados_para_alterar_limpeza()
+                    funcionario_limpeza.nome = novos_dados["nome"]
+                    funcionario_limpeza.idade = novos_dados["idade"]
+                    funcionario_limpeza.endereco.rua = novos_dados["rua"]
+                    funcionario_limpeza.endereco.numero = novos_dados["numero"]
+                    funcionario_limpeza.endereco.complemento = novos_dados["complemento"]
+                    funcionario_limpeza.salario = novos_dados["salario"]
+                    self.__tela_limpeza.mostra_mesagem('Funcionário da limpeza alterado com sucesso!\n')
+                    self.listar_limpezas()
 
     def listar_limpezas(self): # visto
         self.__tela_limpeza.mostra_mesagem("LISTA DE FUNCIONÁRIO".center(30, '-'))
-        for limpeza in self.__limpezas:
-            self.__tela_limpeza.mostra_mesagem(f'Nome: {limpeza.nome} | CPF: {limpeza.cpf} | Idade: {limpeza.idade}\nRua: {limpeza.endereco.rua} | Número: {limpeza.endereco.numero} | Complemento: {limpeza.endereco.complemento}\nMatrícula: {limpeza.matricula} | Salário: {limpeza.salario}\n')
-        if len(self.__limpezas) == 0:
+        try:
+            if len(self.__limpezas) == 0:
+                raise Exception
+        except Exception:
             self.__tela_limpeza.mostra_mesagem("No momento a lista de funcionários de limpeza está vazia.")
+        else:
+            for limpeza in self.__limpezas:
+                self.__tela_limpeza.mostra_mesagem(f'Nome: {limpeza.nome} | CPF: {limpeza.cpf} | Idade: {limpeza.idade}\nRua: {limpeza.endereco.rua} | Número: {limpeza.endereco.numero} | Complemento: {limpeza.endereco.complemento}\nMatrícula: {limpeza.matricula} | Salário: {limpeza.salario}\n')
 
     def pega_limpeza_por_matricula(self, matricula: int): # VISTO
         for limpeza in self.__limpezas:

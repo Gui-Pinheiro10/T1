@@ -11,17 +11,23 @@ class ControladorEnfermeiro():
     def inclui_enfermeiro(self):
         dados_enfermeiro = self.__tela_enfermeiro.pega_dados_enfermeiro()
         enfermeiro = Enfermeiro(dados_enfermeiro["nome"], dados_enfermeiro["cpf"], dados_enfermeiro["idade"], dados_enfermeiro["rua"], dados_enfermeiro["numero"], dados_enfermeiro["complemento"], dados_enfermeiro["matricula"], dados_enfermeiro["salario"])
-        if self.pega_enfermeiro_por_matricula(dados_enfermeiro["matricula"]) is None:
+        try:
+            if self.pega_enfermeiro_por_matricula(dados_enfermeiro["matricula"]) is not None:
+                raise Exception
+        except Exception:
+            self.__tela_enfermeiro.mostra_mesagem('Não foi possível cadastrar o enfermeiro pois a matrícula já existe!')
+        else:
             self.__enfermeiros.append(enfermeiro)
             self.__tela_enfermeiro.mostra_mesagem('Funcionário da Limpeza adicionado com sucesso!')
-        else:
-            self.__tela_enfermeiro.mostra_mesagem('Não foi possível cadastrar o enfermeiro pois a matrícula já existe!')
 
     def exclui_enfermeiro(self):
         self.listar_enfermeiros()
         matricula_enfermeiro_excluido = self.__tela_enfermeiro.seleciona_enfermeiro()
         enfermeiro_excluido = self.pega_enfermeiro_por_matricula(matricula_enfermeiro_excluido)
-        if enfermeiro_excluido not in self.__enfermeiros:
+        try:
+            if enfermeiro_excluido not in self.__enfermeiros:
+                raise Exception
+        except Exception:
             self.__tela_enfermeiro.mostra_mesagem('Não foi possível excluir o enfermeiro, pois a matrícula informada não está na lista!')
         else:
             self.__enfermeiros.remove(enfermeiro_excluido)
@@ -31,7 +37,10 @@ class ControladorEnfermeiro():
         self.listar_enfermeiros()
         matricula_enfermeiro_alterado = self.__tela_enfermeiro.seleciona_enfermeiro()
         enfermeiro_alterado = self.pega_enfermeiro_por_matricula(matricula_enfermeiro_alterado)
-        if enfermeiro_alterado is None:
+        try:
+            if enfermeiro_alterado is None:
+                raise Exception
+        except Exception:
             self.__tela_enfermeiro.mostra_mesagem('Não foi possível alterar o enfermeiro, pois a matrícula informada não está na lista!')
         else:
             novos_dados = self.__tela_enfermeiro.pega_dados_para_alterar_enfermeiro()
@@ -46,10 +55,14 @@ class ControladorEnfermeiro():
 
     def listar_enfermeiros(self):
         self.__tela_enfermeiro.mostra_mesagem("LISTA DE FUNCIONÁRIO".center(30, '-'))
-        for enfermeiro in self.__enfermeiros:
-            self.__tela_enfermeiro.mostra_mesagem(f'Nome: {enfermeiro.nome} | CPF: {enfermeiro.cpf} | Idade: {enfermeiro.idade}\nRua: {enfermeiro.endereco.rua} | Número: {enfermeiro.endereco.numero} | Complemento: {enfermeiro.endereco.complemento}\nMatrícula: {enfermeiro.matricula} Salário: {enfermeiro.salario}\n')
-        if len(self.__enfermeiros) == 0:
+        try:
+            if len(self.__enfermeiros) == 0:
+                raise Exception
+        except Exception:
             self.__tela_enfermeiro.mostra_mesagem("No momento a lista de enfermeiros está vazia.")
+        else:
+            for enfermeiro in self.__enfermeiros:
+                self.__tela_enfermeiro.mostra_mesagem(f'Nome: {enfermeiro.nome} | CPF: {enfermeiro.cpf} | Idade: {enfermeiro.idade}\nRua: {enfermeiro.endereco.rua} | Número: {enfermeiro.endereco.numero} | Complemento: {enfermeiro.endereco.complemento}\nMatrícula: {enfermeiro.matricula} Salário: {enfermeiro.salario}')
 
     def pega_enfermeiro_por_matricula(self, matricula: int):
         for enfermeiro in self.__enfermeiros:
