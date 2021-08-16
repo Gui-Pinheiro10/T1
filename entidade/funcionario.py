@@ -1,13 +1,15 @@
 from abc import ABC, abstractmethod
-from pessoa import Pessoa
+from entidade.pessoa import Pessoa
 
 
 class Funcionario(Pessoa, ABC):
     @abstractmethod
-    def __init__(self, nome, cpf, idade, rua, numero, complemento, matricula: int, salario: float):
+    def __init__(self, nome: str, cpf: str, idade: int, rua: str, numero: int, complemento: str, matricula: int, salario: float):
         super().__init__(nome, cpf, idade, rua, numero, complemento)
-        self.__matricula = matricula
-        self.__salario = salario
+        if isinstance(matricula, int):
+            self.__matricula = matricula
+        if isinstance(salario, float):
+            self.__salario = salario
 
     @property
     def matricula(self):
