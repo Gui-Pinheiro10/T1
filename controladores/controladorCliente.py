@@ -17,11 +17,14 @@ class ControladorCliente:
         dados_cliente = self.__tela_cliente.pega_dados_cliente()
         cliente = Cliente(dados_cliente["nome"], dados_cliente["cpf"], dados_cliente["idade"], dados_cliente["rua"],
                           dados_cliente["numero"], dados_cliente["complemento"], dados_cliente["codigo"])
-        if self.pega_cliente_por_codigo(dados_cliente["codigo"]) is None:
+        try:
+            if self.pega_cliente_por_codigo(dados_cliente["codigo"]) is not None:
+                raise Exception
+        except Exception:
+            self.__tela_cliente.mostra_mesagem("Não foi possível adicionar o cliente, pois este código já está cadastrado.")
+        else:
             self.__clientes.append(cliente)
             self.__tela_cliente.mostra_mesagem("Cliente adicionado com sucesso!")
-        else:
-            self.__tela_cliente.mostra_mesagem("Não foi possível adicionar o cliente, pois este código já está cadastrado.")
 
     def altera_cliente(self):
         self.lista_clientes()
