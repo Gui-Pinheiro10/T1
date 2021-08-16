@@ -18,14 +18,14 @@ class TelaMedico(AbstractTela):
     def pega_dados_medico(self):
         print(" DADOS MÉDICO ".center(30,"*"))
         nome = input("Nome: ")
-        cpf = input("CPF: ")
-        idade = int(input("Idade: "))
+        cpf = self.verifica_cpf()
+        idade = self.verifica_idade("Idade: ")
         print("Digite o seu Endereço abaixo.")
         rua = input("Rua: ")
-        numero = int(input("Número: "))
+        numero = self.le_valor_inteiro("Número: ")
         complemento = input("Complemento: ")
-        matricula = int(input("Matrícula: "))
-        salario = float(input("Salário: "))
+        matricula = self.le_valor_inteiro("Matrícula: ")
+        salario = self.le_valor_inteiro("Salário: ")
         crm = input("CRM: ")
         return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero,
                  "complemento": complemento, "matricula": matricula, "salario": salario, "crm": crm}
@@ -34,12 +34,12 @@ class TelaMedico(AbstractTela):
         print("ATENÇÃO! Não é possível alterar CPF, matrícula e CRM do médico.")
         print(" DADOS DO MÉDICO ".center(30, "*"))
         nome = input("Nome: ")
-        idade = int(input("Idade: "))
+        idade = self.verifica_idade("Idade: ")
         print("Digite o seu Endereço abaixo.")
         rua = input("Rua: ")
-        numero = int(input("Número: "))
+        numero = self.le_valor_inteiro("Número: ")
         complemento = input("Complemento: ")
-        salario = float(input("Salário: "))
+        salario = self.le_valor_inteiro("Salário: ")
         return {"nome": nome, "idade": idade, "rua": rua, "numero": numero,
                 "complemento": complemento, "salario": salario}
 
@@ -56,6 +56,5 @@ class TelaMedico(AbstractTela):
         print("\n")
 
     def seleciona_medico(self):
-        matricula = int(input('Digite a matrícula do Médico que deseja selecionar: '))
+        matricula = self.le_valor_inteiro('Digite a matrícula do Médico que deseja selecionar: ')
         return matricula
-        
