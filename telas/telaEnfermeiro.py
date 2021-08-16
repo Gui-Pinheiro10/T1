@@ -1,12 +1,9 @@
-from controladores.controladorEnfermeiro import ControladorEnfermeiro
 from telas.abstractTela import AbstractTela
 
 
 class TelaEnfermeiro(AbstractTela):
-    def __init__(self, controlador: ControladorEnfermeiro):
-        self.__controlador = controlador
  
-    def mostra_tela_opcoes(self):
+    def tela_opcoes(self):
         print("---------- OPÇÕES DE ENFERMEIROS ----------")
         print('1 - Incluir Enfermeiro')
         print('2 - Alterar Enfermeiro')
