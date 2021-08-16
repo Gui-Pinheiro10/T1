@@ -60,4 +60,4 @@ class ControladorSistema:
         return self.__controlador_medico.retorna_lista_medicos()
     
     def retorna_lista_enfermeiros_sistema(self):
-        return self.__controlador_enfermeiro.retorna_lista_enfermeiro()
+        return self.__controlador_enfermeiro.retorna_lista_enfermeiros()

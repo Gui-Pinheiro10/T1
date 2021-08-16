@@ -38,9 +38,9 @@ class ControladorLimpeza:
                 novos_dados = self.__tela_limpeza.pega_dados_para_alterar_limpeza()
                 funcionario_limpeza.nome = novos_dados["nome"]
                 funcionario_limpeza.idade = novos_dados["idade"]
-                funcionario_limpeza.rua = novos_dados["rua"]
-                funcionario_limpeza.numero = novos_dados["numero"]
-                funcionario_limpeza.complemento = novos_dados["complemento"]
+                funcionario_limpeza.endereco.rua = novos_dados["rua"]
+                funcionario_limpeza.endereco.numero = novos_dados["numero"]
+                funcionario_limpeza.endereco.complemento = novos_dados["complemento"]
                 funcionario_limpeza.salario = novos_dados["salario"]
                 self.__tela_limpeza.mostra_mesagem('Funcionário da limpeza alterado com sucesso!\n')
                 self.listar_limpezas()

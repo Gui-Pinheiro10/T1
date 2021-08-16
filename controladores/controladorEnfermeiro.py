@@ -67,5 +67,5 @@ class ControladorEnfermeiro():
             funcao_escolhida = opcoes[opcao]
             funcao_escolhida()
 
-    def retorna_lista_enfermeiro(self):
+    def retorna_lista_enfermeiros(self):
         return self.__enfermeiros
