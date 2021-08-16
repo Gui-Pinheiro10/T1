@@ -17,13 +17,13 @@ class TelaAtendente(AbstractTela):
 
     def pega_dados_atendente(self):
         print(' DADOS DO ATENDENTE '.center(30, "*"))
-        nome = input("Nome: ")
+        nome = self.le_str("Nome: ")
         cpf = self.verifica_cpf()
         idade = self.verifica_idade("Idade: ")
         print("Digite o seu Endereço abaixo.")
-        rua = input("Rua: ")
+        rua = self.le_str("Rua: ")
         numero = self.le_valor_inteiro("Número: ")
-        complemento = input("Complemento: ")
+        complemento = self.le_str("Complemento: ")
         matricula = self.le_valor_inteiro("Matrícula: ")
         salario = self.le_valor_inteiro("Salário: ")
         return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero,
@@ -32,12 +32,12 @@ class TelaAtendente(AbstractTela):
     def pega_dados_para_alterar_atendente(self):
         print('ATENÇÃO! Não é permitido alterar CPF e matrícula de atendente.')
         print(" DADOS DE ATENDENTE ".center(30, '*'))
-        nome = input('Nome: ')
+        nome = self.le_str('Nome: ')
         idade = self.verifica_idade('Idade: ')
         print('Digite os novos dados do seu endereço abaixo:')
-        rua = input('Rua: ')
+        rua = self.le_str('Rua: ')
         numero = self.le_valor_inteiro('Número: ')
-        complemento = input('Complemento: ')
+        complemento = self.le_str('Complemento: ')
         salario = self.le_valor_inteiro("Salário: ")
         return {"nome": nome, "idade": idade, "rua": rua, "numero": numero,
                 "complemento": complemento, "salario": salario}
@@ -54,4 +54,3 @@ class TelaAtendente(AbstractTela):
     def seleciona_atendente(self):
         matricula = self.le_valor_inteiro('Digite a matrícula do atendente que deseja selecionar: ')
         return matricula
-
