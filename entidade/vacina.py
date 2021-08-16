@@ -1,4 +1,4 @@
-from enfermeiro import Enfermeiro
+from entidade.enfermeiro import Enfermeiro
 
 
 class Vacina():
