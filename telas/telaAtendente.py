@@ -18,14 +18,14 @@ class TelaAtendente(AbstractTela):
     def pega_dados_atendente(self):
         print(' DADOS DO ATENDENTE '.center(30, "*"))
         nome = input("Nome: ")
-        cpf = input("CPF: ")
-        idade = int(input("Idade: "))
+        cpf = self.verifica_cpf()
+        idade = self.verifica_idade("Idade: ")
         print("Digite o seu Endereço abaixo.")
         rua = input("Rua: ")
-        numero = int(input("Número: "))
+        numero = self.le_valor_inteiro("Número: ")
         complemento = input("Complemento: ")
-        matricula = int(input("Matrícula: "))
-        salario = float(input("Salário: "))
+        matricula = self.le_valor_inteiro("Matrícula: ")
+        salario = self.le_valor_inteiro("Salário: ")
         return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero,
                 "complemento": complemento, "matricula": matricula, "salario": salario}
 
@@ -33,12 +33,12 @@ class TelaAtendente(AbstractTela):
         print('ATENÇÃO! Não é permitido alterar CPF e matrícula de atendente.')
         print(" DADOS DE ATENDENTE ".center(30, '*'))
         nome = input('Nome: ')
-        idade = int(input('Idade: '))
+        idade = self.verifica_idade('Idade: ')
         print('Digite os novos dados do seu endereço abaixo:')
         rua = input('Rua: ')
-        numero = int(input('Número: '))
+        numero = self.le_valor_inteiro('Número: ')
         complemento = input('Complemento: ')
-        salario = float(input("Salário: "))
+        salario = self.le_valor_inteiro("Salário: ")
         return {"nome": nome, "idade": idade, "rua": rua, "numero": numero,
                 "complemento": complemento, "salario": salario}
 
@@ -52,5 +52,6 @@ class TelaAtendente(AbstractTela):
         print('\n')
 
     def seleciona_atendente(self):
-        matricula = int(input('Digite a matrícula do atendente que deseja selecionar: '))
+        matricula = self.le_valor_inteiro('Digite a matrícula do atendente que deseja selecionar: ')
         return matricula
+
