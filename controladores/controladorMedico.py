@@ -19,11 +19,14 @@ class ControladorMedico:
         medico = Medico(dados_medico["nome"],  dados_medico["cpf"], dados_medico["idade"],
                         dados_medico["rua"], dados_medico["numero"], dados_medico["complemento"],
                         dados_medico["matricula"], dados_medico["salario"], dados_medico["crm"])
-        if self.pega_medico_por_matricula(dados_medico["matricula"]) is None:
+        try:
+            if self.pega_medico_por_matricula(dados_medico["matricula"]) is not None:
+                raise Exception
+        except Exception:
+            self.__tela_medico.mostra_mesagem("Não foi possível adicionar o médico, pois esta matrícula já está cadastrada.")
+        else:
             self.__medicos.append(medico)
             self.__tela_medico.mostra_mesagem("Médico adicionado com sucesso!")
-        else:
-            self.__tela_medico.mostra_mesagem("Não foi possível adicionar o médico, pois esta matrícula já está cadastrada.")
 
     def altera_medico(self):
         self.lista_medicos()
