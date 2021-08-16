@@ -17,13 +17,13 @@ class TelaLimpeza(AbstractTela):
     def pega_dados_limpeza(self):
         print('---------- DADOS DO FUNCIONÁRIO DA LIMPEZA ----------')
         nome = input('Nome: ')
-        cpf = input('CPF: ')
+        cpf = self.verifica_cpf()
         idade = int(input('Idade: '))
         print('Digite os dados do seu endereço abaixo:')
         rua = input('Rua: ')
-        numero = int(input('Número: '))
+        numero = self.le_valor_inteiro('Número: ')
         complemento = input('Complemento: ')
-        matricula = int(input('Matrícula: '))
+        matricula = self.le_valor_inteiro('Matrícula: ')
         salario = float(input('Salário:'))
         return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
                 "matricula": matricula, "salario": salario}

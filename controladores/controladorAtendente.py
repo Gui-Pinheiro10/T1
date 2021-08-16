@@ -56,7 +56,10 @@ class ControladorAtendente:
     def lista_atendentes(self):
         self.__tela_atendente.mostra_mesagem("LISTA DE ATENDENTES".center(30, '*'))
         for atendente in self.__atendentes:
-            self.__tela_atendente.mostra_atendente(f'Nome: {atendente.nome} | CPF: {atendente.cpf} | Idade: {atendente.idade}\nRua: {atendente.endereco.rua} | Número: {atendente.endereco.numero} | Complemento: {atendente.endereco.complemento}\nMatrícula: {atendente.matricula} |Salário: {atendente.salario}')
+            self.__tela_atendente.mostra_atendente({"nome": atendente.nome, "cpf": atendente.cpf, "idade": atendente.idade,
+                                                    "rua": atendente.endereco.rua, "numero": atendente.endereco.numero,
+                                                    "complemento": atendente.endereco.complemento, "matricula": atendente.matricula,
+                                                    "salario": atendente.salario})
         if len(self.__atendentes) == 0:
             self.__tela_atendente.mostra_mesagem("No momento a lista de atendentes está vazia!")
 

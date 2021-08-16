@@ -31,3 +31,16 @@ class AbstractTela(ABC):
                 return numero
             except ValueError:
                 print("VALOR INVÁLIDO. Digite um valor numérico inteiro válido.")
+
+    def verifica_cpf(self):
+        cpf_valido = False
+        while not cpf_valido:
+            try:
+                cpf = input('CPF: ')
+                if len(cpf) != 11:
+                    raise Exception
+                if len(cpf) == 11 and cpf.isnumeric():
+                    cpf_valido = True
+                    return cpf
+            except Exception:
+                print('CPF informado incorretamente. Favor fornecer CPF válido!')
