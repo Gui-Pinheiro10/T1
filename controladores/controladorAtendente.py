@@ -21,7 +21,7 @@ class ControladorAtendente:
                               dados_atendente["matricula"], dados_atendente["salario"])
         if self.pega_atendente_por_matricula(dados_atendente["matricula"]) is None:
             self.__atendentes.append(atendente)
-            self.__tela_atendente.mostra_mesagem("Atendente adicionador com sucesso!")
+            self.__tela_atendente.mostra_mesagem("Atendente adicionado com sucesso!")
         else:
             self.__tela_atendente.mostra_mesagem("Não foi possível cadastrar o enfermeiro pois a matrícula já existe!")
 
@@ -49,6 +49,7 @@ class ControladorAtendente:
         if (atendente is not None):
             self.__atendentes.remove(atendente)
             self.__tela_atendente.mostra_mesagem("Atendente excluído com sucesso!")
+            self.lista_atendentes()
         else:
             self.__tela_atendente.mostra_mesagem("Não foi possível excluir o atendente, pois a matrícula informada não está na lista!")
 
@@ -59,6 +60,8 @@ class ControladorAtendente:
                                                     "rua": atendente.endereco.rua, "numero": atendente.endereco.numero,
                                                     "complemento": atendente.endereco.complemento, "matricula": atendente.matricula,
                                                     "salario": atendente.salario})
+        if len(self.__atendentes) == 0:
+            self.__tela_atendente.mostra_mesagem("No momento a lista de atendentes está vazia!")
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
