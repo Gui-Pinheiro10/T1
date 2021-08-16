@@ -47,8 +47,17 @@ class ControladorSistema:
         exit(0)
 
     def abre_tela(self):
-        lista_opcoes = {1: self.cadastro_cliente, 3: self.cadastro_limpeza, 4: self.cadastro_enfermeiro, 6: self.cadastro_agendamento, 0: self.encerra_sistema}
+        lista_opcoes = {1: self.cadastro_cliente, 2: self.cadastro_medico, 3: self.cadastro_limpeza, 4: self.cadastro_enfermeiro, 5: self.cadastro_atendente, 6: self.cadastro_agendamento, 0: self.encerra_sistema}
         while True:
             opcao_escolhida = self.__tela_sistema.tela_opcoes()
             funcao_escolhida = lista_opcoes[opcao_escolhida]
             funcao_escolhida()
+
+    def retorna_lista_clientes_sistema(self):
+        return self.__controlador_cliente.retorna_lista_clientes()
+
+    def retorna_lista_medicos_sistema(self):
+        return self.__controlador_medico.retorna_lista_medicos()
+    
+    def retorna_lista_enfermeiros_sistema(self):
+        return self.__controlador_enfermeiro.retorna_lista_enfermeiro()
