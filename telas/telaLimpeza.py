@@ -16,13 +16,13 @@ class TelaLimpeza(AbstractTela):
 
     def pega_dados_limpeza(self):
         print('---------- DADOS DO FUNCIONÁRIO DA LIMPEZA ----------')
-        nome = input('Nome: ')
+        nome = self.le_str('Nome: ')
         cpf = self.verifica_cpf()
         idade = self.verifica_idade('Idade: ')
         print('Digite os dados do seu endereço abaixo:')
-        rua = input('Rua: ')
+        rua = self.le_str('Rua: ')
         numero = self.le_valor_inteiro('Número: ')
-        complemento = input('Complemento: ')
+        complemento = self.le_str('Complemento: ')
         matricula = self.le_valor_inteiro('Matrícula: ')
         salario = self.le_valor_inteiro('Salário: ')
         return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
@@ -31,13 +31,13 @@ class TelaLimpeza(AbstractTela):
     def pega_dados_para_alterar_limpeza(self):
         print('---------- DADOS PARA ALTERAÇÃO DE FUNCIONÁRIO DA LIMPEZA ----------')
         print('ATENÇÃO! Não é permitido alterar CPF e matrícula de funcionário de limpeza.')
-        nome = input('Nome: ')
+        nome = self.le_str('Nome: ')
         idade = self.le_valor_inteiro('Idade: ')
         salario = self.le_valor_inteiro('Salário: ')
         print('Digite os novos dados do seu endereço abaixo:')
-        rua = input('Rua: ')
+        rua = self.le_str('Rua: ')
         numero = self.le_valor_inteiro('Número: ')
-        complemento = input('Complemento: ')
+        complemento = self.le_str('Complemento: ')
         return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento, "salario": salario}
 
     def mostra_funcionario_limpeza(self, dados_funcionario):

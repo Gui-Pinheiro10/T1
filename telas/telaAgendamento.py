@@ -15,8 +15,8 @@ class TelaAgendamento(AbstractTela):
 
     def pega_dados_agendamento(self):
         print('---------- DADOS DO AGENDAMENTO ----------')
-        horario = input('Horário: ')
-        data = input('Data: ')
+        horario = self.le_str('Horário: ')
+        data = self.le_str('Data: ')
         codigo_cliente = self.le_valor_inteiro('Código do Cliente: ')
         matricula_medico_ou_enfermeiro = self.le_valor_inteiro('Matrícula do Médico ou Enfemeiro: ')
         numero_tipoAgendamento = self.le_num_inteiro('Digite apenas 1 ou 2 - [1] Vacina [2] Consulta: ', [1, 2])
@@ -27,8 +27,8 @@ class TelaAgendamento(AbstractTela):
     def pega_dados_para_alterar_agendamento(self):
         print('---------- DADOS PARA ALTERAÇÃO DE AGENDAMENTO ----------')
         print('ATENÇÃO! Só é permitido alterar o horário, data e valor do agendamento.')
-        horario = input('Horário: ')
-        data = input('Data: ')
+        horario = self.le_str('Horário: ')
+        data = self.le_str('Data: ')
         return {"horario": horario, "data": data}
 
     def seleciona_agendamento(self):
