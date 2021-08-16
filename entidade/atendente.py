@@ -3,5 +3,5 @@ from entidade.funcionario import Funcionario
 
 class Atendente(Funcionario):
     def __init__(self, nome: str, cpf: str, idade: int, rua: str, numero: int, complemento: str,
-                 matricula: int, salario: float):
+                 matricula: int, salario: int):
         super().__init__(nome, cpf, idade, rua, numero, complemento, matricula, salario)
