@@ -45,7 +45,7 @@ class AbstractTela(ABC):
             except Exception:
                 print('CPF informado incorretamente. Favor fornecer CPF válido!')
 
-    def verifica_idade(self, mensagem):
+    def verifica_idade(self, mensagem: str=""):
         lido = False
         while not lido:
             try:
@@ -56,6 +56,18 @@ class AbstractTela(ABC):
                 else:
                     raise Exception
             except ValueError:
-                print("VALOR INVÁLIDO. Digite um valor numérico inteiro válido.")
+                print("VALOR INVÁLIDO! Digite um valor numérido inteiro válido.")
             except Exception:
-                print("VALOR INVÁLIDO. Digite um valor numérico inteiro entre 0 e 150.")
+                print("VALOR INVÁLIDO! Digite um valor numérido inteiro entre 0 e 150.")
+
+    def le_str(self, mensagem: str=""):
+        lido = False
+        while not lido:
+            try:
+                entrada = str(input(mensagem))
+                if len(entrada.strip()) == 0:
+                    raise Exception
+                else:
+                    lido = True
+            except Exception:
+                print("ENTRADA VAZIA. Digite um valor válido.")
