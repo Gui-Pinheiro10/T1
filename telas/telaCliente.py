@@ -24,12 +24,10 @@ class TelaCliente(AbstractTela):
         rua = self.le_str("Rua: ")
         numero = self.le_valor_inteiro("Número: ")
         complemento = self.le_str("Complemento: ")
-        codigo = self.le_valor_inteiro("Código: ")
-        return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
-                "codigo": codigo}
+        return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento}
 
     def pega_dados_para_alterar_cliente(self):
-        print('ATENÇÃO. Não é possível alterar CPF ou Código do cliente.')
+        print('ATENÇÃO. Não é possível alterar o CPF do cliente.')
         print(' DADOS DO CLIENTES '.center(30, '*')) 
         nome = self.le_str("Nome: ")
         idade = self.verifica_idade("Idade: ")
@@ -44,10 +42,8 @@ class TelaCliente(AbstractTela):
         print("CPF: ",dados_cliente["cpf"])
         print("IDADE: ",dados_cliente["idade"])
         print("ENDEREÇO: Rua: ",dados_cliente["rua"], "// Número: ",dados_cliente["numero"], "// Complemento: ", dados_cliente["complemento"])
-        print("CÓDIGO: ",dados_cliente["codigo"])
         print("\n")
 
     def seleciona_cliente(self):
-        codigo = self.le_valor_inteiro("Código do cliente que deseja selecionar: ")
-        return codigo
-
+        cpf = self.le_str("CPF do cliente que deseja selecionar: ")
+        return cpf
