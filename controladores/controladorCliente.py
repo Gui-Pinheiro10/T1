@@ -7,30 +7,30 @@ class ControladorCliente:
         self.__clientes = []
         self.__controlador_sistema = controlador_sistema
 
-    def pega_cliente_por_codigo(self, codigo: int):
+    def pega_cliente_por_cpf(self, cpf: str):
         for cliente in self.__clientes:
-            if (cliente.codigo == codigo):
+            if cliente.cpf == cpf:
                 return cliente
         return None
 
     def inclui_cliente(self):
         dados_cliente = self.__tela_cliente.pega_dados_cliente()
         cliente = Cliente(dados_cliente["nome"], dados_cliente["cpf"], dados_cliente["idade"], dados_cliente["rua"],
-                          dados_cliente["numero"], dados_cliente["complemento"], dados_cliente["codigo"])
+                          dados_cliente["numero"], dados_cliente["complemento"])
         try:
-            if self.pega_cliente_por_codigo(dados_cliente["codigo"]) is not None:
+            if self.pega_cliente_por_cpf(dados_cliente["cpf"]) is not None:
                 raise Exception
         except Exception:
-            self.__tela_cliente.mostra_mesagem("Não foi possível adicionar o cliente, pois este código já está cadastrado.")
+            self.__tela_cliente.mostra_mesagem("Não foi possível adicionar o cliente, pois este CPF já está cadastrado.")
         else:
             self.__clientes.append(cliente)
             self.__tela_cliente.mostra_mesagem("Cliente adicionado com sucesso!")
 
     def altera_cliente(self):
         self.lista_clientes()
-        codigo_pessoa = self.__tela_cliente.seleciona_cliente()
-        pessoa = self.pega_cliente_por_codigo(codigo_pessoa)
-        if (pessoa is not None):
+        cpf_pessoa = self.__tela_cliente.seleciona_cliente()
+        pessoa = self.pega_cliente_por_cpf(cpf_pessoa)
+        if pessoa is not None:
             novos_dados_pessoa = self.__tela_cliente.pega_dados_para_alterar_cliente()
             pessoa.nome = novos_dados_pessoa["nome"]
             pessoa.idade = novos_dados_pessoa["idade"]
@@ -46,8 +46,8 @@ class ControladorCliente:
     def exclui_cliente(self):
         self.lista_clientes()
         codigo_cliente = self.__tela_cliente.seleciona_cliente()
-        cliente = self.pega_cliente_por_codigo(codigo_cliente)
-        if (cliente is not None):
+        cliente = self.pega_cliente_por_cpf(codigo_cliente)
+        if cliente is not None:
             self.__clientes.remove(cliente)
             self.__tela_cliente.mostra_mesagem('Cliente excluído com sucesso!')
             self.lista_clientes()
@@ -57,8 +57,10 @@ class ControladorCliente:
     def lista_clientes(self):
         self.__tela_cliente.mostra_mesagem("LISTA DE CLIENTES".center(30, '-'))
         for cliente in self.__clientes:
-            self.__tela_cliente.mostra_cliente({"nome": cliente.nome, "cpf": cliente.cpf, "idade": cliente.idade, "rua": cliente.endereco.rua, "numero": cliente.endereco.numero, "complemento": cliente.endereco.complemento,
-                                                "codigo": cliente.codigo})
+            self.__tela_cliente.mostra_cliente({"nome": cliente.nome, "cpf": cliente.cpf, "idade": cliente.idade,
+                                                "rua": cliente.endereco.rua, "numero": cliente.endereco.numero,
+                                                "complemento": cliente.endereco.complemento,})
+        self.__tela_cliente.mostra_mesagem(f"Total de clientes: {len(self.__clientes)}")
         if len(self.__clientes) == 0:
             self.__tela_cliente.mostra_mesagem("No momento, a lista de clientes está vazia.")
 
