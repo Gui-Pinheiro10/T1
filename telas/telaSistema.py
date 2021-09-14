@@ -1,16 +1,48 @@
+import PySimpleGUI as sg
 from telas.abstractTela import AbstractTela
 
+
 class TelaSistema(AbstractTela):
+    def __init__(self):
+        self.__window = None
+        self.init_components()
 
     def tela_opcoes(self):
-        print("-------- SISTEMA CADASTRO CLIENTES ---------")
-        print("Escolha sua opcao: ")
-        print("1 - MENU CLIENTES")
-        print("2 - MENU MÉDICOS")
-        print("3 - MENU LIMPEZA")
-        print("4 - MENU ENFERMEIROS")
-        print("5 - MENU ATENDENTE")
-        print("6 - MENU AGENDAMENTO")
-        print("0 - Finalizar sistema")
-        opcao = self.le_num_inteiro("Escolha a opcao: ", [1, 2, 3, 4, 5, 6, 0])
+        self.init_components()
+        button, values = self.__window.Read()
+        opcao = 0
+        if values['1']:
+            opcao = 1
+        if values['2']:
+            opcao = 2
+        if values['3']:
+            opcao = 3
+        if values['4']:
+            opcao = 4
+        if values['5']:
+            opcao = 5
+        if values['6']:
+            opcao = 6
+        if values['0'] or button in (None, 'Cancelar'):
+            opcao = 0
+        self.close()
         return opcao
+
+    def close(self):
+        self.__window.Close()
+
+    def init_components(self):
+        sg.ChangeLookAndFeel('LightBrown2')
+        layout = [
+            [sg.Text('Bem vindo ao sistema da clínica médica!', font=("Garamond", 30))],
+            [sg.Text('Escolha sua opção:', font=("Garamond", 20))],
+            [sg.Radio("CLIENTES", "RD1", key='1')],
+            [sg.Radio("MÉDICOS", "RD1", key='2')],
+            [sg.Radio("LIMPEZA", "RD1", key='3')],
+            [sg.Radio("ENFERMEIROS", "RD1", key='4')],
+            [sg.Radio("ATENDENTES", "RD1", key='5')],
+            [sg.Radio("AGENDAMENTO", "RD1", key='6')],
+            [sg.Radio("Finalizar sistema", "RD1", key='0')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Sistema Clínica Médica').Layout(layout)
