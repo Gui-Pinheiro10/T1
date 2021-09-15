@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import PySimpleGUI as sg
 
 
 class AbstractTela(ABC):
@@ -20,7 +21,7 @@ class AbstractTela(ABC):
                     print("Os valores válidos são: ",inteiros_validos)
 
     def mostra_mesagem(self, msg):
-        print(msg)
+        sg.popup("", msg)
 
     def le_valor_inteiro(self, mensagem: str=""):
         lido = False
