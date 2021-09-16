@@ -1,44 +1,120 @@
 from telas.abstractTela import AbstractTela
+import PySimpleGUI as sg
 
 
 class TelaEnfermeiro(AbstractTela):
- 
+    def __init__(self):
+        self.__window = None
+        self.init_components()
+
     def tela_opcoes(self):
-        print("---------- OPÇÕES DE ENFERMEIROS ----------")
-        print('1 - Incluir Enfermeiro')
-        print('2 - Alterar Enfermeiro')
-        print('3 - Excluir Enfermeiro')
-        print('4 - Listar os Enfermeiros')
-        print('0 - Voltar')
-        opcao = self.le_num_inteiro('Escolha a opção: ', [0, 1, 2, 3, 4])
+        self.init_components()
+        button, values = self.__window.Read()
+        opcao = 0
+        if values['1']:
+            opcao = 1
+        if values['2']:
+            opcao = 2
+        if values['3']:
+            opcao = 3
+        if values['4']:
+            opcao = 4
+        if values['0'] or button in (None, 'Cancelar'):
+            opcao = 0
+        self.close()
         return opcao
 
+    def close(self):
+        self.__window.Close()
+
+    def init_components(self):
+        # sg.theme_previewer()
+        sg.ChangeLookAndFeel('LightBrown2')
+        layout = [
+            [sg.Text('SISTEMA DE CONTROLE DO ENFERMEIRO', font=("Helvica", 25))],
+            [sg.Text('Escolha sua opção', font=("Helvica", 15))],
+            [sg.Radio('Adicionar Enfermeiro', "RD1", key='1')],
+            [sg.Radio('Alterar Enfermeiro', "RD1", key='2')],
+            [sg.Radio('Excluir Enfemeiro', "RD1", key='3')],
+            [sg.Radio('Listar Enfermeiros', "RD1", key='4')],
+            [sg.Radio('Finalizar sistema', "RD1", key='0')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Sistema de controle do Enfermeiro').Layout(layout)
+
     def pega_dados_enfermeiro(self):
-        print('---------- DADOS DO ENFERMEIRO ----------')
-        nome = self.le_str('Nome: ')
-        cpf = self.verifica_cpf()
-        idade = self.verifica_idade('Idade: ')
-        print('Digite os dados do seu endereço abaixo:')
-        rua = self.le_str('Rua: ')
-        numero = self.le_valor_inteiro('Número: ')
-        complemento = self.le_str('Complemento: ')
-        matricula = self.le_valor_inteiro('Matrícula: ')
-        salario = self.le_valor_inteiro('Salário: ')
+        sg.ChangeLookAndFeel('LightBrown2')
+        layout = [
+            [sg.Text('---------- DADOS DO ENFERMEIRO ----------', font=("Helvica", 15))],
+            [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
+            [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
+            [sg.Text('Idade:', size=(15, 1)), sg.InputText('', key='idade')],
+            [sg.Text('Matrícula:', size=(15, 1)), sg.InputText('', key='matricula')],
+            [sg.Text('Salário:', size=(15, 1)), sg.InputText('', key='salario')],
+            [sg.Text('Digite os dados do endereço abaixo:', font=("Helvica", 25))],
+            [sg.Text('Rua:', size=(15, 1)), sg.InputText('', key='rua')],
+            [sg.Text('Número:', size=(15, 1)), sg.InputText('', key='numero')],
+            [sg.Text('Complemento:', size=(15, 1)), sg.InputText('', key='complemento')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Dados do Enfermeiro').Layout(layout)
+        button, values = self.open()
+        nome = values['nome']
+        cpf = values['cpf']
+        idade = values['idade']
+        matricula = values['matricula']
+        salario = values['salario']
+        rua = values['rua']
+        numero = values['numero']
+        complemento = values['complemento']
+
+        self.close()
+
         return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
                 "matricula": matricula, "salario": salario}
 
     def pega_dados_para_alterar_enfermeiro(self):
-        print('---------- DADOS PARA ALTERAÇÃO DE ENFERMEIRO ----------')
-        print('ATENÇÃO! Não é permitido alterar CPF e matrícula de enfermeiro.')
-        nome = self.le_str('Nome: ')
-        idade = self.verifica_idade('Idade: ')
-        salario = self.le_valor_inteiro('Salário: ')
-        print('Digite os novos dados do seu endereço abaixo:')
-        rua = self.le_str('Rua: ')
-        numero = self.le_valor_inteiro('Número: ')
-        complemento = self.le_str('Complemento: ')
-        return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento, "salario": salario}
+        sg.ChangeLookAndFeel('LightBrown2')
+        layout = [
+            [sg.Text('---------- DADOS PARA ALTERAÇÃO DO ENFERMEIRO ----------', font=("Helvica", 15))],
+            [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
+            [sg.Text('Idade:', size=(15, 1)), sg.InputText('', key='idade')],
+            [sg.Text('Salário:', size=(15, 1)), sg.InputText('', key='salario')],
+            [sg.Text('Digite os dados do endereço abaixo:', font=("Helvica", 25))],
+            [sg.Text('Rua:', size=(15, 1)), sg.InputText('', key='rua')],
+            [sg.Text('Número:', size=(15, 1)), sg.InputText('', key='numero')],
+            [sg.Text('Complemento:', size=(15, 1)), sg.InputText('', key='complemento')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Dados do Enfermeiro').Layout(layout)
+        button, values = self.open()
+        nome = values['nome']
+        idade = values['idade']
+        salario = values['salario']
+        rua = values['rua']
+        numero = values['numero']
+        complemento = values['complemento']
+
+        self.close()
+
+        return {"nome": nome, "idade": idade, "rua": rua, "numero": numero,
+                "complemento": complemento, "salario": salario}
 
     def seleciona_enfermeiro(self):
-        matricula = self.le_valor_inteiro('Digite a matrícula do enfermeiro que deseja selecionar: ')
-        return matricula
+        sg.ChangeLookAndFeel('LightBrown2')
+        layout = [
+            [sg.Text('-------- SELECIONAR ENFERMEIRO ----------', font=("Helvica", 25))],
+            [sg.Text('Digite o CPF do enfermeiro que deseja selecionar:', font=("Helvica", 15))],
+            [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Seleciona Enfermeiro').Layout(layout)
+
+        button, values = self.open()
+        cpf = values['cpf']
+        self.close()
+        return cpf
+
+    def open(self):
+        button, values = self.__window.Read()
+        return button, values

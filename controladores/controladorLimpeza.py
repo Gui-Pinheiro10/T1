@@ -1,12 +1,14 @@
 from entidade.limpeza import Limpeza
 from telas.telaLimpeza import TelaLimpeza
-#from controladores.controladorSistema import ControladorSistema
+from DAOs.limpeza_dao import LimpezaDAO
 
 
 class ControladorLimpeza:
     def __init__(self, controlador_sistema):
+        #self.__limpezas = []
+        self.__limpezas_DAO = LimpezaDAO()
+
         self.__tela_limpeza = TelaLimpeza()
-        self.__limpezas = []
         self.__controlador_sistema = controlador_sistema
 
     def inclui_limpeza(self): # VISTO
@@ -19,35 +21,35 @@ class ControladorLimpeza:
         except Exception:
             self.__tela_limpeza.mostra_mesagem('Não foi possível cadastrar o funcionário pois a matrícula já existe!')
         else:
-            self.__limpezas.append(limpeza)
+            self.__limpezas_DAO.add(limpeza)
             self.__tela_limpeza.mostra_mesagem('Funcionário da Limpeza adicionado com sucesso!')
 
     def exclui_limpeza(self): # VISTO
         self.listar_limpezas()
-        matricula_funcionario_excluido =  self.__tela_limpeza.seleciona_limpeza()
-        funcionario_excluido = self.pega_limpeza_por_matricula(matricula_funcionario_excluido)
+        cpf_funcionario_excluido =  self.__tela_limpeza.seleciona_limpeza()
+        funcionario_excluido = self.pega_limpeza_por_cpf(cpf_funcionario_excluido)
         try:
-            if funcionario_excluido not in self.__limpezas:
+            if funcionario_excluido is None:
                 raise Exception
         except Exception:
             self.__tela_limpeza.mostra_mesagem('Não foi possível excluir o funcionário, pois a matrícula informada não está na lista!')
         else:
-            self.__limpezas.remove(self.pega_limpeza_por_matricula(matricula_funcionario_excluido))
+            self.__limpezas_DAO.remove(funcionario_excluido.cpf)
             self.__tela_limpeza.mostra_mesagem('Funcionário da Limpeza excluído com sucesso!')
             self.listar_limpezas()
 
     def altera_limpeza(self):
         self.listar_limpezas()
-        matricula_funcionario_alterado = self.__tela_limpeza.seleciona_limpeza()
-        funcionario_alterado = self.pega_limpeza_por_matricula(matricula_funcionario_alterado)
+        cpf_funcionario_alterado = self.__tela_limpeza.seleciona_limpeza()
+        funcionario_alterado = self.pega_limpeza_por_cpf(cpf_funcionario_alterado)
         try:
             if funcionario_alterado is None:
                 raise Exception
         except Exception:
             self.__tela_limpeza.mostra_mesagem('Não foi possível alterar o funcionário, pois a matrícula informada não está na lista!')
         else:
-            for funcionario_limpeza in self.__limpezas:
-                if funcionario_limpeza.matricula == matricula_funcionario_alterado:
+            for funcionario_limpeza in self.__limpezas_DAO:
+                if funcionario_limpeza.cpf == cpf_funcionario_alterado:
                     novos_dados = self.__tela_limpeza.pega_dados_para_alterar_limpeza()
                     funcionario_limpeza.nome = novos_dados["nome"]
                     funcionario_limpeza.idade = novos_dados["idade"]
@@ -58,20 +60,23 @@ class ControladorLimpeza:
                     self.__tela_limpeza.mostra_mesagem('Funcionário da limpeza alterado com sucesso!\n')
                     self.listar_limpezas()
 
-    def listar_limpezas(self): # visto
+    def listar_limpezas(self):
+        dados_limpezas = []
         self.__tela_limpeza.mostra_mesagem("LISTA DE FUNCIONÁRIO".center(30, '-'))
         try:
-            if len(self.__limpezas) == 0:
+            if len(self.__limpezas_DAO) == 0:
                 raise Exception
         except Exception:
             self.__tela_limpeza.mostra_mesagem("No momento a lista de funcionários de limpeza está vazia.")
         else:
-            for limpeza in self.__limpezas:
-                self.__tela_limpeza.mostra_mesagem(f'Nome: {limpeza.nome} | CPF: {limpeza.cpf} | Idade: {limpeza.idade}\nRua: {limpeza.endereco.rua} | Número: {limpeza.endereco.numero} | Complemento: {limpeza.endereco.complemento}\nMatrícula: {limpeza.matricula} | Salário: {limpeza.salario}\n')
+            for limpeza in self.__limpezas_DAO:
+                dados_limpezas.append({"nome": limpeza.nome, "idade": limpeza.idade, "cpf": limpeza.cpf, "salario": limpeza.salario, "matricula": limpeza.matricula, "rua": limpeza.rua, "numero": limpeza.numero, "complemento": limpeza.complemento})
+                self.__tela_limpeza.mostra_limpeza(dados_limpezas)
 
-    def pega_limpeza_por_matricula(self, matricula: int): # VISTO
-        for limpeza in self.__limpezas:
-            if limpeza.matricula == matricula:
+    def pega_limpeza_por_cpf(self, cpf: int):
+        for limpeza in self.__limpezas_DAO.get_all():
+            print(limpeza.cpf)
+            if limpeza.cpf == cpf:
                 return limpeza
         return None
 
