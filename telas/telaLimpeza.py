@@ -118,3 +118,12 @@ class TelaLimpeza(AbstractTela):
     def open(self):
         button, values = self.__window.Read()
         return button, values
+
+    def mostra_limpeza(self, dados_limpeza):
+        string_todos_limpeza = ""
+        for dado in dados_limpeza:
+            string_todos_limpeza = string_todos_limpeza + "NOME DO FUNCIONÁRIO DA LIMPEZA: " + dado["nome"] + '\n'
+            string_todos_limpeza = string_todos_limpeza + "FONE DO FUNCIONÁRIO DA LIMPEZA: " + str(dado["telefone"]) + '\n'
+            string_todos_limpeza = string_todos_limpeza + "CPF DO FUNCIONÁRIO DA LIMPEZA: " + str(dado["cpf"]) + '\n\n'
+
+        sg.Popup('-------- LISTA DE FUNCIONÁRIOS DA LIMPEZA ----------', string_todos_limpeza)
