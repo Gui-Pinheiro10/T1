@@ -1,56 +1,130 @@
 from telas.abstractTela import AbstractTela
+import PySimpleGUI as sg
 
 
 class TelaAtendente(AbstractTela):
 
+    def __init__(self):
+        self.__window = None
+        self.init_opcoes()
+
     def tela_opcoes(self):
-        print("\n")
-        print(" OPÇÕES DE ATENDENTES".center(30, '*'))
-        print("1 - Adicionar Atendente")
-        print('2 - Alterar Atendente')
-        print('3 - Excluir Atendente')
-        print('4 - Lista de Atendentes')
-        print('0 - Retornar')
-        opcao = self.le_num_inteiro("Escolha a opção: ", [1, 2, 3, 4, 0])
-        print("\n")
+        self.init_opcoes()
+        button, values = self.open()
+        if values['1']:
+            opcao = 1
+        if values['2']:
+            opcao = 2
+        if values['3']:
+            opcao = 3
+        if values['4']:
+            opcao = 4
+        if values['0'] or button in (None, 'Cancelar'):
+            opcao = 0
+        self.close()
         return opcao
 
+    def init_opcoes(self):
+        sg.ChangeLookAndFeel('LightBrown2')
+        layout = [
+            [sg.Text('-------- CADASTRO DE ATENDENTES ----------', font=("Garamond", 25, 'bold'))],
+            [sg.Text('Escolha sua opção:', font=("Garamond", 20, 'bold'))],
+            [sg.Radio('Adicionar Atendente', "RD1", key='1', font=("Garamond", 18))],
+            [sg.Radio('Alterar Atendente', "RD1", key='2', font=("Garamond", 18))],
+            [sg.Radio('Excluir Atendente', "RD1", key='3', font=("Garamond", 18))],
+            [sg.Radio('Lista de Atendentes', "RD1", key='4', font=("Garamond", 18))],
+            [sg.Radio('Retornar', "RD1", key='0', font=("Garamond", 18))],
+            [sg.Button('Confirmar', font=("Garamond", 15, 'bold')), sg.Cancel('Cancelar', font=("Garamond", 15, 'bold'))]
+        ]
+        self.__window = sg.Window('Sistema de Cadastro de Atendentes').Layout(layout)
+
     def pega_dados_atendente(self):
-        print(' DADOS DO ATENDENTE '.center(30, "*"))
-        nome = self.le_str("Nome: ")
-        cpf = self.verifica_cpf()
-        idade = self.verifica_idade("Idade: ")
-        print("Digite o seu Endereço abaixo.")
-        rua = self.le_str("Rua: ")
-        numero = self.le_valor_inteiro("Número: ")
-        complemento = self.le_str("Complemento: ")
-        matricula = self.le_valor_inteiro("Matrícula: ")
-        salario = self.le_valor_inteiro("Salário: ")
-        return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero,
-                "complemento": complemento, "matricula": matricula, "salario": salario}
+        sg.ChangeLookAndFeel('LightBrown2')
+        layout = [
+            [sg.Text('--------- DADOS ATENDENTE ----------', font=("Garamond", 25, 'bold'))],
+            [sg.Text('Nome:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='nome')],
+            [sg.Text('CPF:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='cpf')],
+            [sg.Text('Idade:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='idade')],
+            [sg.Text('Rua:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='rua')],
+            [sg.Text('Número:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='numero')],
+            [sg.Text('Complemento:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='complemento')],
+            [sg.Text('Matrícula:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='matricula')],
+            [sg.Text('Salário:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='salario')],
+            [sg.Button('Confirmar', font=("Garamond", 15, 'bold')), sg.Cancel('Cancelar', font=("Garamond", 15, 'bold'))]
+        ]
+        self.__window = sg.Window('Sistema de Cadastro de Atendentes').Layout(layout)
+     #   while True:
+        button, values = self.open()
+        #    try:
+        nome = values['nome']
+        cpf = values['cpf']
+        idade = (values['idade'])
+        rua = values['rua']
+        numero = values['numero']
+        complemento = (values['complemento'])
+        matricula = values['matricula']
+        salario = values['salario']
+        self.close()
+        return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
+                "matricula": matricula, "salario": salario}
+            #except ValueError as e: # no momento, só to fznd tratamento de "idade"
+             #   self.mostra_mesagem(e)
 
     def pega_dados_para_alterar_atendente(self):
-        print('ATENÇÃO! Não é permitido alterar CPF e matrícula de atendente.')
-        print(" DADOS DE ATENDENTE ".center(30, '*'))
-        nome = self.le_str('Nome: ')
-        idade = self.verifica_idade('Idade: ')
-        print('Digite os novos dados do seu endereço abaixo:')
-        rua = self.le_str('Rua: ')
-        numero = self.le_valor_inteiro('Número: ')
-        complemento = self.le_str('Complemento: ')
-        salario = self.le_valor_inteiro("Salário: ")
-        return {"nome": nome, "idade": idade, "rua": rua, "numero": numero,
-                "complemento": complemento, "salario": salario}
+        sg.ChangeLookAndFeel('LightBrown2')
+        layout = [
+            [sg.Text('--------- DADOS PARA ALTERAR ATENDENTE ----------', font=("Garamond", 25, 'bold'))],
+            [sg.Text('ATENÇÃO! Não é permitido alterar CPF e matrícula de atendente.')],
+            [sg.Text('Nome:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='nome')],
+            [sg.Text('Idade:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='idade')],
+            [sg.Text('Rua:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='rua')],
+            [sg.Text('Número:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='numero')],
+            [sg.Text('Complemento:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='complemento')],
+            [sg.Text('Salário:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='salario')],
+            [sg.Button('Confirmar', font=("Garamond", 15, 'bold')), sg.Cancel('Cancelar', font=("Garamond", 15, 'bold'))]
+        ]
+        self.__window = sg.Window('Dados de Médico').Layout(layout)
+        button, values = self.open()
+        nome = (values['nome'])
+        idade = (values(['idade']))
+        rua = (values['rua'])
+        numero = (values['numero'])
+        complemento = (values['complemento'])
+        salario = values['salario']
+        self.close()
+        return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento, "salario": salario}
 
     def mostra_atendente(self, dados_atendente):
-        print("NOME: ", dados_atendente["nome"])
-        print("CPF: ",dados_atendente["cpf"])
-        print("IDADE: ", dados_atendente["idade"])
-        print("SALÁRIO: ", dados_atendente["salario"])
-        print("MATRÍCULA: ", dados_atendente["matricula"])
-        print("ENDEREÇO: Rua: ",dados_atendente["rua"], "// Número: ",dados_atendente["numero"], "// Complemento: ", dados_atendente["complemento"])
-        print('\n')
+        string_todos_atendentes = ""
+        for dado in dados_atendente:
+            string_todos_atendentes = string_todos_atendentes + "NOME: "+ dado["nome"]+ '\n'
+            string_todos_atendentes = string_todos_atendentes + "CPF: " + dado["cpf"] + '\n'
+            string_todos_atendentes = string_todos_atendentes + "IDADE: " + dado["idade"] + '\n'
+            string_todos_atendentes = string_todos_atendentes + "RUA: " + dado["rua"] + '\n'
+            string_todos_atendentes = string_todos_atendentes + "NÚMERO: " + dado["numero"] + '\n'
+            string_todos_atendentes = string_todos_atendentes + "COMPLEMENTO: " + dado["complemento"] + '\n'
+            string_todos_atendentes = string_todos_atendentes + "MATRÍCULA: " + dado["matricula"] + '\n'
+            string_todos_atendentes = string_todos_atendentes + "SALÁRIO: " + dado["salario"] + '\n\n'
+        sg.Popup('----------- LISTA DE ATENDENTES -------------')
 
     def seleciona_atendente(self):
-        matricula = self.le_valor_inteiro('Digite a matrícula do atendente que deseja selecionar: ')
+        sg.ChangeLookAndFeel('LightBrown2')
+        layout = [
+            [sg.Text('-------- SELECIONAR ATENDENTE ----------', font=("Garamond", 25))],
+            [sg.Text("Digite a matrícula do atendente que deseja selecionar:", font=("Garamond", 15))],
+            [sg.Text('MATRÍCULA:', size=(15, 1), font=("Garamond", 15)), sg.InputText('', key='cpf')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Seleciona Atendente').Layout(layout)
+
+        button, values = self.open()
+        matricula = values["matricula"]
+        self.close()
         return matricula
+
+    def close(self):
+        self.__window.Close()
+
+    def open(self):
+        button, values = self.__window.Read()
+        return button, values

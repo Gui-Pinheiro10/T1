@@ -32,7 +32,12 @@ class ControladorMedico:
         self.lista_medicos()
         matricula_medico = self.__tela_medico.seleciona_medico()
         medico = self.pega_medico_por_matricula(matricula_medico)
-        if (medico is not None):
+        try:
+            if medico is None:
+                raise Exception
+        except Exception:
+            self.__tela_medico.mostra_mesagem('Não foi possível alterar o enfermeiro, pois esta matrícula não está cadastrada.')
+        else:
             novos_dados_medico = self.__tela_medico.pega_dados_para_alterar_medico()
             medico.nome = novos_dados_medico["nome"]
             medico.idade = novos_dados_medico["idade"]
@@ -42,28 +47,35 @@ class ControladorMedico:
             medico.salario = novos_dados_medico["salario"]
             self.__tela_medico.mostra_mesagem("Médico alterado com sucesso!")
             self.lista_medicos()
-        else:
-            self.__tela_medico.mostra_mesagem("Não foi possível alterar o médico, pois a matrícula informada não está na lista!")
 
     def exclui_medico(self):
         self.lista_medicos()
         matricula_medico = self.__tela_medico.seleciona_medico()
         medico = self.pega_medico_por_matricula(matricula_medico)
-        if (medico is not None):
+        try:
+            if medico is None:
+                raise Exception
+        except Exception:
+            self.__tela_medico.mostra_mesagem('Não foi possível excluir o médico, pois a matrícula informada não está na lista!')
+        else:
             self.__medicos.remove(medico)
             self.__tela_medico.mostra_mesagem("Médico excluído com sucesso!")
             self.lista_medicos()
-        else:
-            self.__tela_medico.mostra_mesagem('Não foi possível excluir o médico, pois a matrícula informada não está na lista!')
 
     def lista_medicos(self):
-        self.__tela_medico.mostra_mesagem("LISTA DE MÉDICOS".center(30, '-'))
-        for medico in self.__medicos:
-            self.__tela_medico.mostra_medico({"nome": medico.nome, "cpf": medico.cpf, "idade": medico.idade, "rua": medico.endereco.rua,
-                                              "numero": medico.endereco.numero, "complemento": medico.endereco.complemento,
-                                              "matricula": medico.matricula, "salario": medico.salario, "crm": medico.crm})
-        if len(self.__medicos) == 0:
+       # self.__tela_medico.mostra_mesagem("LISTA DE MÉDICOS".center(30, '-'))
+        dados_medico = []
+        try:
+            if len(self.__medicos) == 0:
+                raise Exception
+        except Exception:
             self.__tela_medico.mostra_mesagem("No momento a lista de médicos está vazia!")
+        else:
+            for medico in self.__medicos:
+                dados_medico.append({"nome": medico.nome, "cpf": medico.cpf, "idade": medico.idade, "rua": medico.endereco.rua,
+                                                  "numero": medico.endereco.numero, "complemento": medico.endereco.complemento,
+                                                  "matricula": medico.matricula, "salario": medico.salario, "crm": medico.crm})
+                self.__tela_medico.mostra_medico(dados_medico)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

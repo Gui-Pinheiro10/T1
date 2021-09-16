@@ -32,7 +32,12 @@ class ControladorAtendente:
         self.lista_atendentes()
         matricula_atendente = self.__tela_atendente.seleciona_atendente()
         atendente = self.pega_atendente_por_matricula(matricula_atendente)
-        if (atendente is not None):
+        try:
+            if atendente is None:
+                raise Exception
+        except Exception:
+            self.__tela_atendente.mostra_mesagem("Não foi possível alterar o atendente, pois a matrícula informada não está na lista!")
+        else:
             novos_dados_atendente = self.__tela_atendente.pega_dados_para_alterar_atendente()
             atendente.nome = novos_dados_atendente["nome"]
             atendente.idade = novos_dados_atendente["idade"]
@@ -42,29 +47,36 @@ class ControladorAtendente:
             atendente.salario = novos_dados_atendente["salario"]
             self.__tela_atendente.mostra_mesagem("Atendente alterado com sucesso!")
             self.lista_atendentes()
-        else:
-            self.__tela_atendente.mostra_mesagem("Não foi possível alterar o atendente, pois a matrícula informada não está na lista!")
 
     def exclui_atendente(self):
         self.lista_atendentes()
         marticula_atendente = self.__tela_atendente.seleciona_atendente()
         atendente = self.pega_atendente_por_matricula(marticula_atendente)
-        if (atendente is not None):
+        try:
+            if atendente is None:
+                raise Exception
+        except Exception:
+            self.__tela_atendente.mostra_mesagem("Não foi possível excluir o atendente, pois a matrícula informada não está na lista!")
+        else:
             self.__atendentes.remove(atendente)
             self.__tela_atendente.mostra_mesagem("Atendente excluído com sucesso!")
             self.lista_atendentes()
-        else:
-            self.__tela_atendente.mostra_mesagem("Não foi possível excluir o atendente, pois a matrícula informada não está na lista!")
 
     def lista_atendentes(self):
-        self.__tela_atendente.mostra_mesagem("LISTA DE ATENDENTES".center(30, '*'))
-        for atendente in self.__atendentes:
-            self.__tela_atendente.mostra_atendente({"nome": atendente.nome, "cpf": atendente.cpf, "idade": atendente.idade,
-                                                    "rua": atendente.endereco.rua, "numero": atendente.endereco.numero,
-                                                    "complemento": atendente.endereco.complemento, "matricula": atendente.matricula,
-                                                    "salario": atendente.salario})
-        if len(self.__atendentes) == 0:
+       # self.__tela_atendente.mostra_mesagem("LISTA DE ATENDENTES".center(30, '*'))
+        dados_atendente = []
+        try:
+            if len(self.__atendentes) == 0:
+                raise Exception
+        except Exception:
             self.__tela_atendente.mostra_mesagem("No momento a lista de atendentes está vazia!")
+        else:
+            for atendente in self.__atendentes:
+                dados_atendente.append({"nome": atendente.nome, "cpf": atendente.cpf, "idade": atendente.idade,
+                                                        "rua": atendente.endereco.rua, "numero": atendente.endereco.numero,
+                                                        "complemento": atendente.endereco.complemento, "matricula": atendente.matricula,
+                                                        "salario": atendente.salario})
+                self.__tela_atendente.mostra_atendente(dados_atendente)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
@@ -75,4 +87,3 @@ class ControladorAtendente:
         continua = True
         while continua:
             lista_opcoes[self.__tela_atendente.tela_opcoes()]()
-            
