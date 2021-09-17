@@ -2,7 +2,7 @@ from DAOs.dao import DAO
 from entidade.atendente import Atendente
 
 
-class AtendentenDAO(DAO):
+class AtendenteDAO(DAO):
     def __init__(self):
         super().__init__('atendentes.pkl')
 
