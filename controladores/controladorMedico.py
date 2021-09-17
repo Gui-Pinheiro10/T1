@@ -1,16 +1,17 @@
 from entidade.medico import Medico
 from telas.telaMedico import TelaMedico
+from DAOs.medico_dao import MedicoDAO
 
 
 class ControladorMedico:
     def __init__(self, controlador_sistema):
-       self.__tela_medico = TelaMedico()
-       self.__medicos = []
-       self.__controlador_sistema = controlador_sistema
+        self.__medico_DAO = MedicoDAO()
+        self.__tela_medico = TelaMedico()
+        self.__controlador_sistema = controlador_sistema
 
-    def pega_medico_por_matricula(self, matricula: int):
-        for med in self.__medicos:
-            if (med.matricula == matricula):
+    def pega_medico_por_cpf(self, cpf: str):
+        for med in self.__medico_DAO.get_all():
+            if med.cpf == cpf:
                 return med
         return None
 
@@ -20,23 +21,23 @@ class ControladorMedico:
                         dados_medico["rua"], dados_medico["numero"], dados_medico["complemento"],
                         dados_medico["matricula"], dados_medico["salario"], dados_medico["crm"])
         try:
-            if self.pega_medico_por_matricula(dados_medico["matricula"]) is not None:
+            if self.pega_medico_por_cpf(dados_medico["cpf"]) is not None:
                 raise Exception
         except Exception:
-            self.__tela_medico.mostra_mesagem("Não foi possível adicionar o médico, pois esta matrícula já está cadastrada.")
+            self.__tela_medico.mostra_mesagem("Não foi possível adicionar o médico, pois este CPF já está cadastrado.")
         else:
-            self.__medicos.append(medico)
+            self.__medico_DAO.add(medico)
             self.__tela_medico.mostra_mesagem("Médico adicionado com sucesso!")
 
     def altera_medico(self):
         self.lista_medicos()
-        matricula_medico = self.__tela_medico.seleciona_medico()
-        medico = self.pega_medico_por_matricula(matricula_medico)
+        cpf_medico = self.__tela_medico.seleciona_medico()
+        medico = self.pega_medico_por_cpf(cpf_medico)
         try:
             if medico is None:
                 raise Exception
         except Exception:
-            self.__tela_medico.mostra_mesagem('Não foi possível alterar o enfermeiro, pois esta matrícula não está cadastrada.')
+            self.__tela_medico.mostra_mesagem('Não foi possível alterar o médico, pois este CPF não está cadastrado.')
         else:
             novos_dados_medico = self.__tela_medico.pega_dados_para_alterar_medico()
             medico.nome = novos_dados_medico["nome"]
@@ -50,15 +51,15 @@ class ControladorMedico:
 
     def exclui_medico(self):
         self.lista_medicos()
-        matricula_medico = self.__tela_medico.seleciona_medico()
-        medico = self.pega_medico_por_matricula(matricula_medico)
+        cpf_medico = self.__tela_medico.seleciona_medico()
+        medico_exluido = self.pega_medico_por_cpf(cpf_medico)
         try:
-            if medico is None:
+            if medico_exluido is None:
                 raise Exception
         except Exception:
-            self.__tela_medico.mostra_mesagem('Não foi possível excluir o médico, pois a matrícula informada não está na lista!')
+            self.__tela_medico.mostra_mesagem('Não foi possível excluir o médico, pois o CPF informado não está na lista!')
         else:
-            self.__medicos.remove(medico)
+            self.__medico_DAO.remove(medico_exluido.cpf)
             self.__tela_medico.mostra_mesagem("Médico excluído com sucesso!")
             self.lista_medicos()
 
@@ -66,12 +67,12 @@ class ControladorMedico:
        # self.__tela_medico.mostra_mesagem("LISTA DE MÉDICOS".center(30, '-'))
         dados_medico = []
         try:
-            if len(self.__medicos) == 0:
+            if len(self.__medico_DAO.get_all()) == 0:
                 raise Exception
         except Exception:
             self.__tela_medico.mostra_mesagem("No momento a lista de médicos está vazia!")
         else:
-            for medico in self.__medicos:
+            for medico in self.__medico_DAO.get_all():
                 dados_medico.append({"nome": medico.nome, "cpf": medico.cpf, "idade": medico.idade, "rua": medico.endereco.rua,
                                                   "numero": medico.endereco.numero, "complemento": medico.endereco.complemento,
                                                   "matricula": medico.matricula, "salario": medico.salario, "crm": medico.crm})
@@ -88,4 +89,4 @@ class ControladorMedico:
             lista_opcoes[self.__tela_medico.tela_opcoes()]()
 
     def retorna_lista_medicos(self):
-        return self.__medicos
+        return self.__medico_DAO.get_all()
