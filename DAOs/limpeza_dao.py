@@ -1,4 +1,4 @@
-from DAOs.dao import DAO
+from DAOs.DAO import DAO
 from entidade.limpeza import Limpeza
 
 
