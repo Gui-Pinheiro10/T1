@@ -1,6 +1,6 @@
 from entidade.atendente import Atendente
 from telas.telaAtendente import TelaAtendente
-from DAOS.atendente_dao import AtendenteDAO
+from DAOs.atendente_dao import AtendenteDAO
 
 
 class ControladorAtendente:

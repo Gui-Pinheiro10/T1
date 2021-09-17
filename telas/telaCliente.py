@@ -50,19 +50,21 @@ class TelaCliente(AbstractTela):
             [sg.Button('Confirmar', font=("Garamond", 15, 'bold')), sg.Cancel('Cancelar', font=("Garamond", 15, 'bold'))]
         ]
         self.__window = sg.Window('Sistema de Cadastro de Clientes').Layout(layout)
-        while True:
-            button, values = self.open()
-            try:
-                nome = values['nome']
-                cpf = values['cpf']
-                idade = self.verifica_idade(values['idade'])
-                rua = values['rua']
-                numero = int(values['numero'])
-                complemento = (values['complemento'])
-                self.close()
-                return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento}
-            except ValueError as e: # no momento, só to fznd tratamento de "idade"
-                self.mostra_mesagem(e)
+     #   while True:
+        button, values = self.open()
+        try:
+            nome = values['nome']
+            cpf = values['cpf']
+            idade = int(values['idade'])
+            rua = values['rua']
+            numero = int(values['numero'])
+            complemento = (values['complemento'])
+        except ValueError as e: # no momento, só to fznd tratamento de "idade"
+            self.mostra_mesagem('Valor deve ser inteiro')
+        else:
+            return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento}
+        finally:
+            self.close()
 
         # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
         # opção de tratamento: adicionar um if e só coletar nome e telefone se o button é 'Confirmar'
@@ -98,7 +100,8 @@ class TelaCliente(AbstractTela):
             string_todos_clientes = string_todos_clientes + "CPF DO CLIENTE: " + dado["cpf"] + '\n'
             string_todos_clientes = string_todos_clientes + "IDADE DO CLIENTE: " + str(dado["idade"]) + '\n'
             string_todos_clientes = string_todos_clientes + "ENDEREÇO DO CLIENTE: Rua " + dado["rua"] + " // Número: " + str(dado["numero"])\
-            + " // Complemento: " + dado["complemento"]
+            + " // Complemento: " + dado["complemento"] + '\n\n'
+
 
         sg.Popup('-------- LISTA DE CLIENTES ----------', string_todos_clientes)
 

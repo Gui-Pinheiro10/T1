@@ -18,16 +18,19 @@ class ControladorCliente:
 
     def inclui_cliente(self):
         dados_cliente = self.__tela_cliente.pega_dados_cliente()
-        cliente = Cliente(dados_cliente["nome"], dados_cliente["cpf"], dados_cliente["idade"], dados_cliente["rua"],
-                          dados_cliente["numero"], dados_cliente["complemento"])
-        try:
-            if self.pega_cliente_por_cpf(dados_cliente["cpf"]) is not None:
-                raise Exception
-        except Exception:
-            self.__tela_cliente.mostra_mesagem("Não foi possível adicionar o cliente, pois este CPF já está cadastrado.")
-        else:
-            self.__cliente_DAO.add(cliente)
-            self.__tela_cliente.mostra_mesagem("Cliente adicionado com sucesso!")
+        if dados_cliente is not None:
+            try:
+                if self.pega_cliente_por_cpf(dados_cliente["cpf"]) is not None:
+                    raise Exception
+            except Exception:
+                self.__tela_cliente.mostra_mesagem("Não foi possível adicionar o cliente, pois este CPF já está cadastrado.")
+            else:
+                cliente = Cliente(dados_cliente["nome"], dados_cliente["cpf"], dados_cliente["idade"],
+                                  dados_cliente["rua"],
+                                  dados_cliente["numero"], dados_cliente["complemento"])
+                self.__cliente_DAO.add(cliente)
+                self.__tela_cliente.mostra_mesagem("Cliente adicionado com sucesso!")
+
 
     def altera_cliente(self):
        # self.lista_clientes() # PORQUE NAO FUNCIONA?
