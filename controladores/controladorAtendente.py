@@ -1,16 +1,17 @@
 from entidade.atendente import Atendente
 from telas.telaAtendente import TelaAtendente
+from DAOS.atendente_dao import AtendenteDAO
 
 
 class ControladorAtendente:
     def __init__(self, controlador_sistema):
+        self.__atendente_DAO = AtendenteDAO
         self.__tela_atendente = TelaAtendente()
-        self.__atendentes = []
         self.__controlador_sistema = controlador_sistema
 
-    def pega_atendente_por_matricula(self, matricula: int):
-        for atendente in self.__atendentes:
-            if (atendente.matricula == matricula):
+    def pega_atendente_por_cpf(self, cpf: str):
+        for atendente in self.__atendente_DAO.get_all():
+            if atendente.cpf == cpf:
                 return atendente
         return None
 
@@ -20,23 +21,23 @@ class ControladorAtendente:
                               dados_atendente["rua"], dados_atendente["numero"], dados_atendente["complemento"],
                               dados_atendente["matricula"], dados_atendente["salario"])
         try:
-            if self.pega_atendente_por_matricula(dados_atendente["matricula"]) is not None:
+            if self.pega_atendente_por_cpf(dados_atendente["cpf"]) is not None:
                 raise Exception
         except Exception:
-            self.__tela_atendente.mostra_mesagem("Não foi possível cadastrar o enfermeiro pois a matrícula já existe!")
+            self.__tela_atendente.mostra_mesagem("Não foi possível cadastrar o atendente, pois este CPF já está cadastrado!")
         else:
-            self.__atendentes.append(atendente)
+            self.__atendente_DAO.add(atendente)
             self.__tela_atendente.mostra_mesagem("Atendente adicionado com sucesso!")
 
     def altera_atendente(self):
         self.lista_atendentes()
-        matricula_atendente = self.__tela_atendente.seleciona_atendente()
-        atendente = self.pega_atendente_por_matricula(matricula_atendente)
+        cpf_atendente = self.__tela_atendente.seleciona_atendente()
+        atendente = self.pega_atendente_por_cpf(cpf_atendente)
         try:
             if atendente is None:
                 raise Exception
         except Exception:
-            self.__tela_atendente.mostra_mesagem("Não foi possível alterar o atendente, pois a matrícula informada não está na lista!")
+            self.__tela_atendente.mostra_mesagem("Não foi possível alterar o atendente, pois este CPF não está cadastrado!")
         else:
             novos_dados_atendente = self.__tela_atendente.pega_dados_para_alterar_atendente()
             atendente.nome = novos_dados_atendente["nome"]
@@ -50,15 +51,15 @@ class ControladorAtendente:
 
     def exclui_atendente(self):
         self.lista_atendentes()
-        marticula_atendente = self.__tela_atendente.seleciona_atendente()
-        atendente = self.pega_atendente_por_matricula(marticula_atendente)
+        cpf_atendente = self.__tela_atendente.seleciona_atendente()
+        atendente = self.pega_atendente_por_cpf(cpf_atendente)
         try:
             if atendente is None:
                 raise Exception
         except Exception:
-            self.__tela_atendente.mostra_mesagem("Não foi possível excluir o atendente, pois a matrícula informada não está na lista!")
+            self.__tela_atendente.mostra_mesagem("Não foi possível excluir o atendente, pois este CPF não está cadastrado!")
         else:
-            self.__atendentes.remove(atendente)
+            self.__atendente_DAO.remove(atendente.cpf)
             self.__tela_atendente.mostra_mesagem("Atendente excluído com sucesso!")
             self.lista_atendentes()
 
@@ -66,12 +67,12 @@ class ControladorAtendente:
        # self.__tela_atendente.mostra_mesagem("LISTA DE ATENDENTES".center(30, '*'))
         dados_atendente = []
         try:
-            if len(self.__atendentes) == 0:
+            if len(self.__atendente_DAO.get_all()) == 0:
                 raise Exception
         except Exception:
             self.__tela_atendente.mostra_mesagem("No momento a lista de atendentes está vazia!")
         else:
-            for atendente in self.__atendentes:
+            for atendente in self.__atendente_DAO.get_all():
                 dados_atendente.append({"nome": atendente.nome, "cpf": atendente.cpf, "idade": atendente.idade,
                                                         "rua": atendente.endereco.rua, "numero": atendente.endereco.numero,
                                                         "complemento": atendente.endereco.complemento, "matricula": atendente.matricula,

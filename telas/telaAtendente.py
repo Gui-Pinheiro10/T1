@@ -111,16 +111,16 @@ class TelaAtendente(AbstractTela):
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
             [sg.Text('-------- SELECIONAR ATENDENTE ----------', font=("Garamond", 25))],
-            [sg.Text("Digite a matrícula do atendente que deseja selecionar:", font=("Garamond", 15))],
-            [sg.Text('MATRÍCULA:', size=(15, 1), font=("Garamond", 15)), sg.InputText('', key='cpf')],
+            [sg.Text("Digite o CPF do atendente que deseja selecionar:", font=("Garamond", 15))],
+            [sg.Text('CPF:', size=(15, 1), font=("Garamond", 15)), sg.InputText('', key='cpf')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Seleciona Atendente').Layout(layout)
 
         button, values = self.open()
-        matricula = values["matricula"]
+        cpf = values["cpf"]
         self.close()
-        return matricula
+        return cpf
 
     def close(self):
         self.__window.Close()
