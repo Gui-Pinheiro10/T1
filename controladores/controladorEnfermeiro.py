@@ -1,72 +1,79 @@
 from entidade.enfermeiro import Enfermeiro
 from telas.telaEnfermeiro import TelaEnfermeiro
+from DAOs.enfermeiro_dao import EnfermeiroDAO
 
 
 class ControladorEnfermeiro():
     def __init__(self, controlador_sistema):
+        self.__enfermeiros_DAO = EnfermeiroDAO
+
         self.__tela_enfermeiro = TelaEnfermeiro()
-        self.__enfermeiros = []
         self.__controlador_sistema = controlador_sistema
 
     def inclui_enfermeiro(self):
         dados_enfermeiro = self.__tela_enfermeiro.pega_dados_enfermeiro()
         enfermeiro = Enfermeiro(dados_enfermeiro["nome"], dados_enfermeiro["cpf"], dados_enfermeiro["idade"], dados_enfermeiro["rua"], dados_enfermeiro["numero"], dados_enfermeiro["complemento"], dados_enfermeiro["matricula"], dados_enfermeiro["salario"])
         try:
-            if self.pega_enfermeiro_por_matricula(dados_enfermeiro["matricula"]) is not None:
+            if self.pega_enfermeiro_por_cpf(dados_enfermeiro["cpf"]) is not None:
                 raise Exception
         except Exception:
-            self.__tela_enfermeiro.mostra_mesagem('Não foi possível cadastrar o enfermeiro pois a matrícula já existe!')
+            self.__tela_enfermeiro.mostra_mesagem('Não foi possível cadastrar o enfermeiro pois o CPF já está cadastrado!')
         else:
-            self.__enfermeiros.append(enfermeiro)
+            self.___enfermeiros_DAO.add(enfermeiro)
             self.__tela_enfermeiro.mostra_mesagem('Funcionário da Limpeza adicionado com sucesso!')
 
     def exclui_enfermeiro(self):
         self.listar_enfermeiros()
-        matricula_enfermeiro_excluido = self.__tela_enfermeiro.seleciona_enfermeiro()
-        enfermeiro_excluido = self.pega_enfermeiro_por_matricula(matricula_enfermeiro_excluido)
+        cpf_enfermeiro_excluido = self.__tela_enfermeiro.seleciona_enfermeiro()
+        enfermeiro_excluido = self.pega_enfermeiro_por_matricula(cpf_enfermeiro_excluido)
         try:
-            if enfermeiro_excluido not in self.__enfermeiros:
+            if enfermeiro_excluido is None:
                 raise Exception
         except Exception:
             self.__tela_enfermeiro.mostra_mesagem('Não foi possível excluir o enfermeiro, pois a matrícula informada não está na lista!')
         else:
-            self.__enfermeiros.remove(enfermeiro_excluido)
+            self.__enfermeiros_DAO.remove(enfermeiro_excluido)
             self.__tela_enfermeiro.mostra_mesagem('Enfermeiro excluído com sucesso!')
 
     def altera_enfermeiro(self):
         self.listar_enfermeiros()
-        matricula_enfermeiro_alterado = self.__tela_enfermeiro.seleciona_enfermeiro()
-        enfermeiro_alterado = self.pega_enfermeiro_por_matricula(matricula_enfermeiro_alterado)
+        cpf_enfermeiro_alterado = self.__tela_enfermeiro.seleciona_enfermeiro()
+        enfermeiro_alterado = self.pega_enfermeiro_por_matricula(cpf_enfermeiro_alterado)
         try:
             if enfermeiro_alterado is None:
                 raise Exception
         except Exception:
             self.__tela_enfermeiro.mostra_mesagem('Não foi possível alterar o enfermeiro, pois a matrícula informada não está na lista!')
         else:
-            novos_dados = self.__tela_enfermeiro.pega_dados_para_alterar_enfermeiro()
-            enfermeiro_alterado.nome = novos_dados["nome"]
-            enfermeiro_alterado.idade = novos_dados["idade"]
-            enfermeiro_alterado.endereco.rua = novos_dados["rua"]
-            enfermeiro_alterado.endereco.numero = novos_dados["numero"]
-            enfermeiro_alterado.endereco.complemento = novos_dados["complemento"]
-            enfermeiro_alterado.salario = novos_dados["salario"]
-            self.__tela_enfermeiro.mostra_mesagem('Enfermeiro alterado com sucesso!\n')
-            self.listar_enfermeiros()
+            for enfermeiro in self.__enfermeiros_DAO:
+                if enfermeiro.cpf == cpf_enfermeiro_alterado:
+                    novos_dados = self.__tela_enfermeiro.pega_dados_para_alterar_enfermeiro()
+                    enfermeiro_alterado.nome = novos_dados["nome"]
+                    enfermeiro_alterado.idade = novos_dados["idade"]
+                    enfermeiro_alterado.endereco.rua = novos_dados["rua"]
+                    enfermeiro_alterado.endereco.numero = novos_dados["numero"]
+                    enfermeiro_alterado.endereco.complemento = novos_dados["complemento"]
+                    enfermeiro_alterado.salario = novos_dados["salario"]
+                    self.__tela_enfermeiro.mostra_mesagem('Enfermeiro alterado com sucesso!\n')
+                    self.listar_enfermeiros()
 
     def listar_enfermeiros(self):
-        self.__tela_enfermeiro.mostra_mesagem("LISTA DE FUNCIONÁRIO".center(30, '-'))
+        dados_enfermeiros = []
+        self.__tela_enfermeiro.mostra_mesagem("LISTA DE ENFERMEIROS".center(30, '-'))
         try:
-            if len(self.__enfermeiros) == 0:
+            if len(self.__enfermeiros_DAO) == 0:
                 raise Exception
         except Exception:
             self.__tela_enfermeiro.mostra_mesagem("No momento a lista de enfermeiros está vazia.")
         else:
-            for enfermeiro in self.__enfermeiros:
-                self.__tela_enfermeiro.mostra_mesagem(f'Nome: {enfermeiro.nome} | CPF: {enfermeiro.cpf} | Idade: {enfermeiro.idade}\nRua: {enfermeiro.endereco.rua} | Número: {enfermeiro.endereco.numero} | Complemento: {enfermeiro.endereco.complemento}\nMatrícula: {enfermeiro.matricula} Salário: {enfermeiro.salario}')
+            for enfermeiro in self.__enfermeiros_DAO.get_all():
+                dados_enfermeiros.append({"nome": enfermeiro.nome, "idade": enfermeiro.idade, "cpf": enfermeiro.cpf, "salario": enfermeiro.salario, "matricula": enfermeiro.matricula, "rua": enfermeiro.rua, "numero": enfermeiro.numero, "complemento": enfermeiro.complemento})
+                self.__tela_enfermeiro.mostra_enfermeiro(dados_enfermeiros)
 
-    def pega_enfermeiro_por_matricula(self, matricula: int):
-        for enfermeiro in self.__enfermeiros:
-            if enfermeiro.matricula == matricula:
+    def pega_enfermeiro_por_cpf(self, cpf: int):
+        for enfermeiro in self.__enfermeiros_DAO.get_all():
+            print(enfermeiro.cpf)
+            if enfermeiro.cpf == cpf:
                 return enfermeiro
         return None
     

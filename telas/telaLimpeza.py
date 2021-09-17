@@ -122,8 +122,13 @@ class TelaLimpeza(AbstractTela):
     def mostra_limpeza(self, dados_limpeza):
         string_todos_limpeza = ""
         for dado in dados_limpeza:
-            string_todos_limpeza = string_todos_limpeza + "NOME DO FUNCIONÁRIO DA LIMPEZA: " + dado["nome"] + '\n'
-            string_todos_limpeza = string_todos_limpeza + "FONE DO FUNCIONÁRIO DA LIMPEZA: " + str(dado["telefone"]) + '\n'
-            string_todos_limpeza = string_todos_limpeza + "CPF DO FUNCIONÁRIO DA LIMPEZA: " + str(dado["cpf"]) + '\n\n'
+            string_todos_limpeza = string_todos_limpeza + "NOME: " + dado["nome"] + '\n'
+            string_todos_limpeza = string_todos_limpeza + "CPF: " + dado["cpf"] + '\n'
+            string_todos_limpeza = string_todos_limpeza + "IDADE: " + dado["idade"] + '\n'
+            string_todos_limpeza = string_todos_limpeza + "SALÁRIO: " + dado["salario"] + '\n'
+            string_todos_limpeza = string_todos_limpeza + "MATRÍCULA: " + dado["matricula"] + '\n'
+            string_todos_limpeza = string_todos_limpeza + "RUA: " + dado["rua"] + '\n'
+            string_todos_limpeza = string_todos_limpeza + "NÚMERO: " + dado["numero"] + '\n'
+            string_todos_limpeza = string_todos_limpeza + "COMPLEMENTO: " + dado["complemento"] + '\n\n'
 
         sg.Popup('-------- LISTA DE FUNCIONÁRIOS DA LIMPEZA ----------', string_todos_limpeza)

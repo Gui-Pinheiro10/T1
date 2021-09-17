@@ -118,3 +118,17 @@ class TelaEnfermeiro(AbstractTela):
     def open(self):
         button, values = self.__window.Read()
         return button, values
+
+    def mostra_enfermeiro(self, dados_enfermeiro):
+        string_todos_enfermeiro = ""
+        for dado in dados_enfermeiro:
+            string_todos_enfermeiro = string_todos_enfermeiro + "NOME: " + dado["nome"] + '\n'
+            string_todos_enfermeiro = string_todos_enfermeiro + "CPF: " + dado["cpf"] + '\n'
+            string_todos_enfermeiro = string_todos_enfermeiro + "IDADE: " + dado["idade"] + '\n'
+            string_todos_enfermeiro = string_todos_enfermeiro + "SALÁRIO: " + dado["salario"] + '\n'
+            string_todos_enfermeiro = string_todos_enfermeiro + "MATRÍCULA: " + dado["matricula"] + '\n'
+            string_todos_enfermeiro = string_todos_enfermeiro + "RUA: " + dado["rua"] + '\n'
+            string_todos_enfermeiro = string_todos_enfermeiro + "NÚMERO: " + dado["numero"] + '\n'
+            string_todos_enfermeiro = string_todos_enfermeiro + "COMPLEMENTO: " + dado["complemento"] + '\n\n'
+
+        sg.Popup('-------- LISTA DE ENFERMEIROS ----------', string_todos_enfermeiro)

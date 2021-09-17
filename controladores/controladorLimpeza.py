@@ -5,21 +5,20 @@ from DAOs.limpeza_dao import LimpezaDAO
 
 class ControladorLimpeza:
     def __init__(self, controlador_sistema):
-        #self.__limpezas = []
         self.__limpezas_DAO = LimpezaDAO()
 
         self.__tela_limpeza = TelaLimpeza()
         self.__controlador_sistema = controlador_sistema
 
-    def inclui_limpeza(self): # VISTO
+    def inclui_limpeza(self):
         dados_limpeza = self.__tela_limpeza.pega_dados_limpeza()
         limpeza = Limpeza(dados_limpeza["nome"], dados_limpeza["cpf"], dados_limpeza["idade"], dados_limpeza["rua"], dados_limpeza["numero"],
                           dados_limpeza["complemento"], dados_limpeza["matricula"], dados_limpeza["salario"])
         try:
-            if self.pega_limpeza_por_matricula(dados_limpeza["matricula"]) is not None:
+            if self.pega_limpeza_por_cpf(dados_limpeza["cpf"]) is not None:
                 raise Exception
         except Exception:
-            self.__tela_limpeza.mostra_mesagem('Não foi possível cadastrar o funcionário pois a matrícula já existe!')
+            self.__tela_limpeza.mostra_mesagem('Não foi possível cadastrar o funcionário pois o CPF já está cadastrado!')
         else:
             self.__limpezas_DAO.add(limpeza)
             self.__tela_limpeza.mostra_mesagem('Funcionário da Limpeza adicionado com sucesso!')
@@ -34,7 +33,7 @@ class ControladorLimpeza:
         except Exception:
             self.__tela_limpeza.mostra_mesagem('Não foi possível excluir o funcionário, pois a matrícula informada não está na lista!')
         else:
-            self.__limpezas_DAO.remove(funcionario_excluido.cpf)
+            self.__limpezas_DAO.remove(funcionario_excluido)
             self.__tela_limpeza.mostra_mesagem('Funcionário da Limpeza excluído com sucesso!')
             self.listar_limpezas()
 
