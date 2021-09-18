@@ -1,0 +1,202 @@
+Index: telas/abstractTela.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from abc import ABC, abstractmethod\n\n\nclass AbstractTela(ABC):\n    @abstractmethod\n    def tela_opcoes(self):\n        pass\n\n    def le_num_inteiro(self, mensagem: str=\"\", inteiros_validos: []=None):\n        while True:\n            valor_entrada = input(mensagem)\n            try:\n                inteiro = int(valor_entrada)\n                if inteiros_validos and inteiro not in inteiros_validos:\n                    raise ValueError\n                return inteiro\n            except ValueError:\n                print(\"VALOR INVÁLIDO. Digite um valor numérico inteiro válido.\")\n                if inteiros_validos:\n                    print(\"Os valores válidos são: \",inteiros_validos)\n\n    def mostra_mesagem(self, msg):\n        print(msg)\n\n    def le_valor_inteiro(self, mensagem: str=\"\"):\n        lido = False\n        while not lido:\n            try:\n                numero = int(input(mensagem))\n                lido = True\n                return numero\n            except ValueError:\n                print(\"VALOR INVÁLIDO. Digite um valor numérico inteiro válido.\")\n\n    def verifica_cpf(self):\n        cpf_valido = False\n        while not cpf_valido:\n            try:\n                cpf = input('CPF: ')\n                if len(cpf) != 11:\n                    raise Exception\n                if len(cpf) == 11 and cpf.isnumeric():\n                    cpf_valido = True\n                    return cpf\n            except Exception:\n                print('CPF informado incorretamente. Favor fornecer CPF válido!')\n\n    def verifica_idade(self, mensagem: str=\"\"):\n        lido = False\n        while not lido:\n            try:\n                idade = int(input(mensagem))\n                if 0 <= idade <= 150:\n                    lido = True\n                    return idade\n                else:\n                    raise Exception\n            except ValueError:\n                print(\"VALOR INVÁLIDO! Digite um valor numérido inteiro válido.\")\n            except Exception:\n                print(\"VALOR INVÁLIDO! Digite um valor numérido inteiro entre 0 e 150.\")\n\n    def le_str(self, mensagem: str=\"\"):\n        lido = False\n        while not lido:\n            try:\n                entrada = str(input(mensagem))\n                if len(entrada.strip()) == 0:\n                    raise Exception\n                else:\n                    lido = True\n                    return entrada\n            except Exception:\n                print(\"ENTRADA VAZIA. Digite um valor válido.\")\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- telas/abstractTela.py	(revision 7ccd526b72932ddbefa76a865004cdf503b6300b)
++++ telas/abstractTela.py	(date 1631712097406)
+@@ -1,4 +1,5 @@
+ from abc import ABC, abstractmethod
++import PySimpleGUI as sg
+ 
+ 
+ class AbstractTela(ABC):
+@@ -8,7 +9,7 @@
+ 
+     def le_num_inteiro(self, mensagem: str="", inteiros_validos: []=None):
+         while True:
+-            valor_entrada = input(mensagem)
++            valor_entrada = mensagem
+             try:
+                 inteiro = int(valor_entrada)
+                 if inteiros_validos and inteiro not in inteiros_validos:
+@@ -20,23 +21,23 @@
+                     print("Os valores válidos são: ",inteiros_validos)
+ 
+     def mostra_mesagem(self, msg):
+-        print(msg)
++        sg.popup("", msg)
+ 
+     def le_valor_inteiro(self, mensagem: str=""):
+         lido = False
+         while not lido:
+             try:
+-                numero = int(input(mensagem))
++                numero = int(mensagem)
+                 lido = True
+                 return numero
+             except ValueError:
+                 print("VALOR INVÁLIDO. Digite um valor numérico inteiro válido.")
+ 
+-    def verifica_cpf(self):
++    def verifica_cpf(self, msg: str=""):
+         cpf_valido = False
+         while not cpf_valido:
+             try:
+-                cpf = input('CPF: ')
++                cpf = msg
+                 if len(cpf) != 11:
+                     raise Exception
+                 if len(cpf) == 11 and cpf.isnumeric():
+@@ -46,25 +47,22 @@
+                 print('CPF informado incorretamente. Favor fornecer CPF válido!')
+ 
+     def verifica_idade(self, mensagem: str=""):
+-        lido = False
+-        while not lido:
+-            try:
+-                idade = int(input(mensagem))
+-                if 0 <= idade <= 150:
+-                    lido = True
+-                    return idade
+-                else:
+-                    raise Exception
+-            except ValueError:
+-                print("VALOR INVÁLIDO! Digite um valor numérido inteiro válido.")
+-            except Exception:
+-                print("VALOR INVÁLIDO! Digite um valor numérido inteiro entre 0 e 150.")
++        try:
++            idade = int(mensagem)
++            if 0 <= idade <= 150:
++                return idade
++            else:
++                raise ValueError('IDADE INVÁLIDA') # criar nova classe de excecao
++        except ValueError as erro:
++            raise erro
++
++
+ 
+     def le_str(self, mensagem: str=""):
+         lido = False
+         while not lido:
+             try:
+-                entrada = str(input(mensagem))
++                entrada = str(mensagem)
+                 if len(entrada.strip()) == 0:
+                     raise Exception
+                 else:
+Index: telas/telaSistema.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import PySimpleGUI as sg\r\nfrom telas.abstractTela import AbstractTela\r\n\r\n\r\nclass TelaSistema(AbstractTela):\r\n    def __init__(self):\r\n        self.__window = None\r\n        self.init_components()\r\n\r\n    def tela_opcoes(self):\r\n        self.init_components()\r\n        button, values = self.__window.Read()\r\n        opcao = 0\r\n        if values['1']:\r\n            opcao = 1\r\n        if values['2']:\r\n            opcao = 2\r\n        if values['3']:\r\n            opcao = 3\r\n        if values['4']:\r\n            opcao = 4\r\n        if values['5']:\r\n            opcao = 5\r\n        if values['6']:\r\n            opcao = 6\r\n        if values['0'] or button in (None, 'Cancelar'):\r\n            opcao = 0\r\n        self.close()\r\n        return opcao\r\n\r\n    def close(self):\r\n        self.__window.Close()\r\n\r\n    def init_components(self):\r\n        sg.ChangeLookAndFeel('LightBrown2')\r\n        layout = [\r\n            [sg.Text('Bem vindo ao sistema da clínica médica!', font=(\"Garamond\", 30))],\r\n            [sg.Text('Escolha sua opção:', font=(\"Garamond\", 20))],\r\n            [sg.Radio(\"CLIENTES\", \"RD1\", key='1')],\r\n            [sg.Radio(\"MÉDICOS\", \"RD1\", key='2')],\r\n            [sg.Radio(\"LIMPEZA\", \"RD1\", key='3')],\r\n            [sg.Radio(\"ENFERMEIROS\", \"RD1\", key='4')],\r\n            [sg.Radio(\"ATENDENTES\", \"RD1\", key='5')],\r\n            [sg.Radio(\"AGENDAMENTO\", \"RD1\", key='6')],\r\n            [sg.Radio(\"Finalizar sistema\", \"RD1\", key='0')],\r\n            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]\r\n        ]\r\n        self.__window = sg.Window('Sistema Clínica Médica').Layout(layout)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- telas/telaSistema.py	(revision 7ccd526b72932ddbefa76a865004cdf503b6300b)
++++ telas/telaSistema.py	(date 1631655903579)
+@@ -34,15 +34,15 @@
+     def init_components(self):
+         sg.ChangeLookAndFeel('LightBrown2')
+         layout = [
+-            [sg.Text('Bem vindo ao sistema da clínica médica!', font=("Garamond", 30))],
+-            [sg.Text('Escolha sua opção:', font=("Garamond", 20))],
+-            [sg.Radio("CLIENTES", "RD1", key='1')],
+-            [sg.Radio("MÉDICOS", "RD1", key='2')],
+-            [sg.Radio("LIMPEZA", "RD1", key='3')],
+-            [sg.Radio("ENFERMEIROS", "RD1", key='4')],
+-            [sg.Radio("ATENDENTES", "RD1", key='5')],
+-            [sg.Radio("AGENDAMENTO", "RD1", key='6')],
+-            [sg.Radio("Finalizar sistema", "RD1", key='0')],
+-            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
++            [sg.Text('Bem vindo ao sistema da clínica médica!', font=("Garamond", 25, 'bold'))],
++            [sg.Text('Escolha sua opção:', font=("Garamond", 20, 'bold'))],
++            [sg.Radio("CLIENTES", "RD1", key='1', font=("Garamond", 15))],
++            [sg.Radio("MÉDICOS", "RD1", key='2', font=("Garamond", 15))],
++            [sg.Radio("LIMPEZA", "RD1", key='3', font=("Garamond", 15))],
++            [sg.Radio("ENFERMEIROS", "RD1", key='4', font=("Garamond", 15))],
++            [sg.Radio("ATENDENTES", "RD1", key='5', font=("Garamond", 15))],
++            [sg.Radio("AGENDAMENTO", "RD1", key='6', font=("Garamond", 15))],
++            [sg.Radio("FINALIZAR SISTEMA", "RD1", key='0', font=("Garamond", 15))],
++            [sg.Button('Confirmar', font=("Garamond", 15, 'bold')), sg.Cancel('Cancelar', font=("Garamond", 15, 'bold'))]
+         ]
+         self.__window = sg.Window('Sistema Clínica Médica').Layout(layout)
+\ No newline at end of file
+Index: entidade/endereco.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>class Endereco:\r\n    def __init__(self, rua: str, numero: int, complemento: str):\r\n        if isinstance(rua, str):\r\n            self.__rua = rua\r\n        if isinstance(numero, int):\r\n            self.__numero = numero\r\n        if isinstance(complemento, str):\r\n            self.__complemento = complemento\r\n\r\n    @property\r\n    def rua(self):\r\n        return self.__rua\r\n\r\n    @property\r\n    def numero(self):\r\n        return self.__numero\r\n\r\n    @property\r\n    def complemento(self):\r\n        return self.__complemento\r\n\r\n    @rua.setter\r\n    def rua(self, rua: str):\r\n        if isinstance(rua, str):\r\n            self.__rua = rua\r\n\r\n    @numero.setter\r\n    def numero(self, numero: int):\r\n        if isinstance(numero, int):\r\n            self.__numero = numero\r\n\r\n    @complemento.setter\r\n    def complemento(self, complemento: str):\r\n        if isinstance(complemento, str):\r\n            self.__complemento = complemento\r\n            \r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- entidade/endereco.py	(revision 7ccd526b72932ddbefa76a865004cdf503b6300b)
++++ entidade/endereco.py	(date 1631712630388)
+@@ -33,4 +33,3 @@
+     def complemento(self, complemento: str):
+         if isinstance(complemento, str):
+             self.__complemento = complemento
+-            
+Index: DAOs/dao.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- DAOs/dao.py	(date 1631639513160)
++++ DAOs/dao.py	(date 1631639513160)
+@@ -0,0 +1,52 @@
++import pickle
++from abc import ABC, abstractmethod
++
++
++class DAO(ABC):
++    @abstractmethod
++    def __init__(self, datasource=''):
++        self.__datasource = datasource
++        self.__cache = {} #é aqui que vai ficar a lista que estava no controlador. Nesse exemplo estamos usando um dicionario
++        try:
++            self.__load()
++        except FileNotFoundError:
++            self.__dump()
++
++    def __dump(self):
++        pickle.dump(self.__cache, open(self.__datasource,'wb'))
++
++    def __load(self):
++        self.__cache = pickle.load(open(self.__datasource,'rb'))
++
++    #esse método precisa chamar o self.__dump()
++    def add(self, key, obj):
++        self.__cache[key] = obj # a chave pode ser o cpf
++        self.__dump()  #atualiza o arquivo depois de add novo amigo
++
++    #cuidado: esse update só funciona se o objeto com essa chave já existe
++    def update(self, key, obj):
++        try:
++            if(self.__cache[key] != None):
++                self.__cache[key] = obj #atualiza a entrada
++                self.__dump()  #atualiza o arquivo
++        except KeyError:
++            pass  # implementar aqui o tratamento da exceção
++
++    def get(self, key):
++        try:
++            return self.__cache[key]
++        except KeyError:
++            # raise PessoaNãoExistenteException
++            pass #implementar aqui o tratamento da exceção
++
++    # esse método precisa chamar o self.__dump()
++    def remove(self, key):
++        try:
++            self.__cache.pop(key)
++            self.__dump() #atualiza o arquivo depois de remover um objeto
++        except KeyError:
++            # raise Exceção
++            pass #implementar aqui o tratamento da exceção
++
++    def get_all(self):
++        return self.__cache.values()
+\ No newline at end of file
+diff --git DAOs/__init__.py DAOs/__init__.py
+new file mode 100644

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/main" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d1a7dcbc-f684-4467-a348-90ad7d8f6175" name="Default Changelist" comment="arrumei pequenos erros" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="marinaemerim &lt;marinaemerim@hotmail.com&gt;" />
+      </list>
+    </option>
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1y616kZCb8YS5JPh9fIU3mXbfzF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.project" />
+  </component>
+  <component name="Push.Settings">
+    <option name="SHOW_DETAILS_PANEL" value="false" />
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="T1DSOO" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d1a7dcbc-f684-4467-a348-90ad7d8f6175" name="Default Changelist" comment="" />
+      <created>1631557050977</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1631557050977</updated>
+    </task>
+    <task id="LOCAL-00001" summary="pequena alteracao">
+      <created>1631557533014</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1631557533014</updated>
+    </task>
+    <task id="LOCAL-00002" summary="interface gráfica telaSistema.py">
+      <created>1631627264941</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1631627264941</updated>
+    </task>
+    <task id="LOCAL-00003" summary="interfaces das telas Atendente, Cliente e Medico, e persistência de Cliente">
+      <created>1631826350683</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1631826350683</updated>
+    </task>
+    <task id="LOCAL-00004" summary="e">
+      <created>1631827252124</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1631827252124</updated>
+    </task>
+    <task id="LOCAL-00005" summary="ig">
+      <created>1631827405580</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1631827405580</updated>
+    </task>
+    <task id="LOCAL-00006" summary="persistencia de medico e pequena alteracao na classe cliente_dao">
+      <created>1631882599693</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1631882599693</updated>
+    </task>
+    <task id="LOCAL-00007" summary="persistencia de Atendente">
+      <created>1631885622062</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1631885622062</updated>
+    </task>
+    <task id="LOCAL-00008" summary="arrumei pequenos erros">
+      <created>1631901842761</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1631901842761</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="pequena alteracao" />
+    <MESSAGE value="interface gráfica telaSistema.py" />
+    <MESSAGE value="interfaces das telas Atendente, Cliente e Medico, e persistência de Cliente" />
+    <MESSAGE value="e" />
+    <MESSAGE value="ig" />
+    <MESSAGE value="persistencia de medico e pequena alteracao na classe cliente_dao" />
+    <MESSAGE value="persistencia de Atendente" />
+    <MESSAGE value="arrumei pequenos erros" />
+    <option name="LAST_COMMIT_MESSAGE" value="arrumei pequenos erros" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="550" y="231" key="#Notifications" timestamp="1631885650968">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state x="550" y="231" key="#Notifications/0.25.1366.679@0.25.1366.679" timestamp="1631885650968" />
+    <state x="488" y="170" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1631631459466">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state x="488" y="170" key="#com.intellij.fileTypes.FileTypeChooser/0.25.1366.679@0.25.1366.679" timestamp="1631631459466" />
+    <state x="323" y="25" key="CommitChangelistDialog2" timestamp="1631901850346">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state x="323" y="25" key="CommitChangelistDialog2/0.25.1366.679@0.25.1366.679" timestamp="1631901850346" />
+    <state x="28" y="79" key="DiffContextDialog" timestamp="1631901999517">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state x="28" y="79" key="DiffContextDialog/0.25.1366.679@0.25.1366.679" timestamp="1631901999517" />
+    <state width="567" height="390" key="GridCell.Tab.0.bottom" timestamp="1632007549291">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state width="1345" height="226" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1631895963776" />
+    <state width="567" height="390" key="GridCell.Tab.0.bottom/0.25.1366.679@0.25.1366.679" timestamp="1632007549291" />
+    <state width="567" height="390" key="GridCell.Tab.0.center" timestamp="1632007549289">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state width="1345" height="226" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1631895963772" />
+    <state width="567" height="390" key="GridCell.Tab.0.center/0.25.1366.679@0.25.1366.679" timestamp="1632007549289" />
+    <state width="567" height="390" key="GridCell.Tab.0.left" timestamp="1632007549288">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state width="1345" height="226" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1631895963771" />
+    <state width="567" height="390" key="GridCell.Tab.0.left/0.25.1366.679@0.25.1366.679" timestamp="1632007549288" />
+    <state width="567" height="390" key="GridCell.Tab.0.right" timestamp="1632007549290">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state width="1345" height="226" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1631895963775" />
+    <state width="567" height="390" key="GridCell.Tab.0.right/0.25.1366.679@0.25.1366.679" timestamp="1632007549290" />
+    <state x="134" y="79" key="MergeDialog" timestamp="1631827493214">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state x="134" y="79" key="MergeDialog/0.25.1366.679@0.25.1366.679" timestamp="1631827493214" />
+    <state x="468" y="235" width="423" height="258" key="MultipleFileMergeDialog" timestamp="1631827493254">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state x="468" y="235" width="423" height="258" key="MultipleFileMergeDialog/0.25.1366.679@0.25.1366.679" timestamp="1631827493254" />
+    <state x="83" y="25" key="SettingsEditor" timestamp="1631557808998">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state x="83" y="25" key="SettingsEditor/0.25.1366.679@0.25.1366.679" timestamp="1631557808998" />
+    <state x="575" y="84" key="VCS.ChangeListViewerDialog" timestamp="1632007848899">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state x="575" y="84" key="VCS.ChangeListViewerDialog/0.25.1366.679@0.25.1366.679" timestamp="1632007848899" />
+    <state x="174" y="101" key="Vcs.Push.Dialog.v2" timestamp="1632007571293">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state x="174" y="86" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1631627614669" />
+    <state x="174" y="101" key="Vcs.Push.Dialog.v2/0.25.1366.679@0.25.1366.679" timestamp="1632007571293" />
+    <state x="557" y="282" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1632007844343">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state x="557" y="282" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1366.679@0.25.1366.679" timestamp="1632007844343" />
+    <state x="316" y="157" key="git4idea.merge.GitPullDialog" timestamp="1632007875122">
+      <screen x="0" y="25" width="1366" height="679" />
+    </state>
+    <state x="316" y="157" key="git4idea.merge.GitPullDialog/0.25.1366.679@0.25.1366.679" timestamp="1632007875122" />
+  </component>
+</project>
