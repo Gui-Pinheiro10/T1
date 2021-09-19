@@ -77,7 +77,7 @@ class ControladorLimpeza:
                                        "salario": limpeza.salario, "matricula": limpeza.matricula,
                                        "rua": limpeza.endereco.rua, "numero": limpeza.endereco.numero,
                                        "complemento": limpeza.endereco.complemento})
-                self.__tela_limpeza.mostra_limpeza(dados_limpezas)
+            self.__tela_limpeza.mostra_limpeza(dados_limpezas)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

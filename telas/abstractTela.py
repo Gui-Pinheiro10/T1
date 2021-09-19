@@ -23,50 +23,123 @@ class AbstractTela(ABC):
     def mostra_mesagem(self, msg):
         sg.popup("", msg)
 
-    def le_valor_inteiro(self, mensagem: str=""):
+    def le_valor_inteiro(self, valor: int):
         lido = False
         while not lido:
             try:
-                numero = int(input(mensagem))
-                lido = True
-                return numero
+                if not valor.isnumeric():
+                    raise ValueError
             except ValueError:
-                print("VALOR INVÁLIDO. Digite um valor numérico inteiro válido.")
+                sg.PopupOK("VALOR INVÁLIDO. Digite um valor numérico inteiro válido.")
+                valor = sg.popup_get_text('Digite um valor inteiro válido: ')
+            else:
+                lido = True
+        return int(valor)
 
-    def verifica_cpf(self):
+    def verifica_matricula(self, matricula: int):
+        lido = False
+        while not lido:
+            try:
+                if not matricula.isnumeric():
+                    raise ValueError
+            except ValueError:
+                sg.PopupOK("MATRÍCULA INVÁLIDA.")
+                matricula = sg.popup_get_text('Digite uma matrícula válida: ')
+            else:
+                lido = True
+        return int(matricula)
+
+    def verifica_salario(self, salario: int):
+        lido = False
+        while not lido:
+            try:
+                if not salario.isnumeric():
+                    raise ValueError
+            except ValueError:
+                sg.PopupOK("SALÁRIO INVÁLIDO.")
+                salario = sg.popup_get_text('Digite um salário válido: ')
+            else:
+                lido = True
+        return int(salario)
+
+    def verifica_numero_rua(self, numero_rua: int):
+        lido = False
+        while not lido:
+            try:
+                if not numero_rua.isnumeric():
+                    raise ValueError
+            except ValueError:
+                sg.PopupOK("NÚMERO DO ENDEREÇO INVÁLIDO.")
+                numero_rua = sg.popup_get_text('Digite um número do endereço válido: ')
+            else:
+                lido = True
+        return int(numero_rua)
+
+    def verifica_cpf(self, cpf: int):
         cpf_valido = False
         while not cpf_valido:
             try:
-                cpf = input('CPF: ')
                 if len(cpf) != 11:
                     raise Exception
-                if len(cpf) == 11 and cpf.isnumeric():
-                    cpf_valido = True
-                    return cpf
+                if not cpf.isnumeric():
+                    raise Exception
             except Exception:
-                print('CPF informado incorretamente. Favor fornecer CPF válido!')
-
-    def verifica_idade(self, mensagem: str=""):
-        try:
-            idade = int(input(mensagem))
-            if 0 <= idade <= 150:
-                return idade
+                sg.PopupOK('CPF informado incorretamente. Favor fornecer CPF válido!')
+                cpf = sg.popup_get_text("Digite o CPF novamente: ")
             else:
-                raise ValueError
-        except ValueError as e:
-            self.mostra_mesagem("VALOR INVÁLIDO!")
-       # except Exception:
-        #    print("VALOR INVÁLIDO! Digite um valor numérido inteiro entre 0 e 150.")
+                cpf_valido = True
+        return cpf
 
-    def le_str(self, mensagem: str=""):
+    def verifica_idade(self, idade: int):
+        idade_valida = False
+        while not idade_valida:
+            try:
+                if not idade.isnumeric():
+                    raise Exception
+                if int(idade) < 0 or int(idade) > 150:
+                    raise Exception
+            except Exception:
+                sg.PopupOK("VALOR INVÁLIDO! Digite um valor numérico inteiro entre 0 e 150.")
+                idade = sg.popup_get_text('Digite a idade novamente: ')
+            else:
+                idade_valida = True
+        return int(idade)
+
+    def le_nome(self, nome: str):
         lido = False
         while not lido:
             try:
-                entrada = str(input(mensagem))
-                if len(entrada.strip()) == 0:
+                if len(nome.strip()) == 0:
                     raise Exception
-                else:
-                    lido = True
-                    return entrada
             except Exception:
-                print("ENTRADA VAZIA. Digite um valor válido.")
+                sg.PopupOK("ENTRADA VAZIA PARA NOME.")
+                nome = sg.popup_get_text('Digite um nome válido: ')
+            else:
+                lido = True
+        return nome
+
+    def le_rua(self, rua: str):
+        lido = False
+        while not lido:
+            try:
+                if len(rua.strip()) == 0:
+                    raise Exception
+            except Exception:
+                sg.PopupOK("ENTRADA VAZIA PARA RUA.")
+                rua = sg.popup_get_text('Digite uma rua válida: ')
+            else:
+                lido = True
+        return rua
+
+    def le_complemento(self, complemento: str):
+        lido = False
+        while not lido:
+            try:
+                if len(complemento.strip()) == 0:
+                    raise Exception
+            except Exception:
+                sg.PopupOK("ENTRADA VAZIA PARA COMPLEMENTO.")
+                complemento = sg.popup_get_text('Digite um complemento de endereço válido: ')
+            else:
+                lido = True
+        return complemento

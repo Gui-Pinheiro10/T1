@@ -59,14 +59,14 @@ class TelaEnfermeiro(AbstractTela):
         ]
         self.__window = sg.Window('Dados do Enfermeiro').Layout(layout)
         button, values = self.open()
-        nome = values['nome']
-        cpf = values['cpf']
-        idade = int(values['idade'])
-        matricula = int(values['matricula'])
-        salario = int(values['salario'])
-        rua = values['rua']
-        numero = int(values['numero'])
-        complemento = values['complemento']
+        nome = self.le_nome(values['nome'])
+        cpf = self.verifica_cpf(values['cpf'])
+        idade = self.verifica_idade(values['idade'])
+        matricula = self.verifica_matricula(values['matricula'])
+        salario = self.verifica_salario(values['salario'])
+        rua = self.le_rua(values['rua'])
+        numero = self.verifica_numero_rua(values['numero'])
+        complemento = self.le_complemento(values['complemento'])
 
         self.close()
 
@@ -88,12 +88,12 @@ class TelaEnfermeiro(AbstractTela):
         ]
         self.__window = sg.Window('Dados do Enfermeiro').Layout(layout)
         button, values = self.open()
-        nome = values['nome']
-        idade = int(values['idade'])
-        salario = int(values['salario'])
-        rua = values['rua']
-        numero = int(values['numero'])
-        complemento = values['complemento']
+        nome = self.le_nome(values['nome'])
+        idade = self.verifica_idade(values['idade'])
+        salario = self.verifica_salario(values['salario'])
+        rua = self.le_rua(values['rua'])
+        numero = self.verifica_numero_rua(values['numero'])
+        complemento = self.le_complemento(values['complemento'])
 
         self.close()
 

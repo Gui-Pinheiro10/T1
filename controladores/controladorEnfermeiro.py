@@ -78,7 +78,7 @@ class ControladorEnfermeiro():
                                           "cpf": enfermeiro.cpf, "salario": enfermeiro.salario,
                                           "matricula": enfermeiro.matricula, "rua": enfermeiro.endereco.rua,
                                           "numero": enfermeiro.endereco.numero, "complemento": enfermeiro.endereco.complemento})
-                self.__tela_enfermeiro.mostra_enfermeiro(dados_enfermeiros)
+            self.__tela_enfermeiro.mostra_enfermeiro(dados_enfermeiros)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
