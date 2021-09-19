@@ -31,13 +31,13 @@ class TelaLimpeza(AbstractTela):
         # sg.theme_previewer()
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
-            [sg.Text('SISTEMA DE CONTROLE DO FUNCIONÁRIO DA LIMPEZA', font=("Helvica", 25))],
-            [sg.Text('Escolha sua opção', font=("Helvica", 15))],
-            [sg.Radio('Adicionar Funcionário da Limpeza', "RD1", key='1')],
-            [sg.Radio('Alterar Funcionário da Limpeza', "RD1", key='2')],
-            [sg.Radio('Excluir Funcionário da Limpeza', "RD1", key='3')],
-            [sg.Radio('Listar Funcionário da Limpeza', "RD1", key='4')],
-            [sg.Radio('Finalizar sistema', "RD1", key='0')],
+            [sg.Text('SISTEMA DE CONTROLE DO FUNCIONÁRIO DA LIMPEZA', font=("Garamond", 25, 'bold'))],
+            [sg.Text('Escolha sua opção', font=("Garamond", 20, 'bold'))],
+            [sg.Radio('Adicionar Funcionário da Limpeza', "RD1", key='1', font=("Garamond", 20))],
+            [sg.Radio('Alterar Funcionário da Limpeza', "RD1", key='2', font=("Garamond", 20))],
+            [sg.Radio('Excluir Funcionário da Limpeza', "RD1", key='3', font=("Garamond", 20))],
+            [sg.Radio('Listar Funcionário da Limpeza', "RD1", key='4', font=("Garamond", 20))],
+            [sg.Radio('Retornar', "RD1", key='0', font=("Garamond", 20))],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Sistema de controle do Funcionário da Limpeza').Layout(layout)
@@ -45,27 +45,28 @@ class TelaLimpeza(AbstractTela):
     def pega_dados_limpeza(self):
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
-            [sg.Text('---------- DADOS DO FUNCIONÁRIO DA LIMPEZA ----------', font=("Helvica", 15))],
-            [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
-            [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
-            [sg.Text('Idade:', size=(15, 1)), sg.InputText('', key='idade')],
-            [sg.Text('Matrícula:', size=(15, 1)), sg.InputText('', key='matricula')],
-            [sg.Text('Salário:', size=(15, 1)), sg.InputText('', key='salario')],
-            [sg.Text('Digite os dados do endereço abaixo:', font=("Helvica", 25))],
-            [sg.Text('Rua:', size=(15, 1)), sg.InputText('', key='rua')],
-            [sg.Text('Número:', size=(15, 1)), sg.InputText('', key='numero')],
-            [sg.Text('Complemento:', size=(15, 1)), sg.InputText('', key='complemento')],
+            [sg.Text('---------- DADOS DO FUNCIONÁRIO DA LIMPEZA ----------', font=("Garamond", 25, 'bold'))],
+            [sg.Text('Nome:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='nome')],
+            [sg.Text('CPF:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='cpf')],
+            [sg.Text('Idade:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='idade')],
+            [sg.Text('Matrícula:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='matricula')],
+            [sg.Text('Salário:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='salario')],
+            [sg.Text('Digite os dados do endereço abaixo:', font=("Garamond", 20, 'bold'))],
+            [sg.Text('Rua:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='rua')],
+            [sg.Text('Número:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='numero')],
+            [sg.Text('Complemento:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='complemento')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
-        self.__window = sg.Window('Dados do Enfermeiro').Layout(layout)
+        self.__window = sg.Window('Dados do Funcionário da Limpeza').Layout(layout)
+
         button, values = self.open()
         nome = values['nome']
         cpf = values['cpf']
-        idade = values['idade']
-        matricula = values['matricula']
-        salario = values['salario']
+        idade = int(values['idade'])
+        matricula = int(values['matricula'])
+        salario = int(values['salario'])
         rua = values['rua']
-        numero = values['numero']
+        numero = int(values['numero'])
         complemento = values['complemento']
 
         self.close()
@@ -76,23 +77,23 @@ class TelaLimpeza(AbstractTela):
     def pega_dados_para_alterar_limpeza(self):
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
-            [sg.Text('---------- DADOS PARA ALTERAÇÃO DO FUNCIONÁRIO DA LIMPEZA ----------', font=("Helvica", 15))],
-            [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
-            [sg.Text('Idade:', size=(15, 1)), sg.InputText('', key='idade')],
-            [sg.Text('Salário:', size=(15, 1)), sg.InputText('', key='salario')],
-            [sg.Text('Digite os dados do endereço abaixo:', font=("Helvica", 25))],
-            [sg.Text('Rua:', size=(15, 1)), sg.InputText('', key='rua')],
-            [sg.Text('Número:', size=(15, 1)), sg.InputText('', key='numero')],
-            [sg.Text('Complemento:', size=(15, 1)), sg.InputText('', key='complemento')],
+            [sg.Text('---------- DADOS PARA ALTERAÇÃO DO FUNCIONÁRIO DA LIMPEZA ----------', font=("Garamond", 25, 'bold'))],
+            [sg.Text('Nome:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='nome')],
+            [sg.Text('Idade:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='idade')],
+            [sg.Text('Salário:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='salario')],
+            [sg.Text('Digite os dados do endereço abaixo:', font=("Garamond", 20, 'bold'))],
+            [sg.Text('Rua:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='rua')],
+            [sg.Text('Número:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='numero')],
+            [sg.Text('Complemento:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='complemento')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Dados do Funcionário da Limpeza').Layout(layout)
         button, values = self.open()
         nome = values['nome']
-        idade = values['idade']
-        salario = values['salario']
+        idade = int(values['idade'])
+        salario = int(values['salario'])
         rua = values['rua']
-        numero = values['numero']
+        numero = int(values['numero'])
         complemento = values['complemento']
 
         self.close()
@@ -103,9 +104,9 @@ class TelaLimpeza(AbstractTela):
     def seleciona_limpeza(self):
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
-            [sg.Text('-------- SELECIONAR FUNCIONÁRIO DA LIMPEZA ----------', font=("Helvica", 25))],
-            [sg.Text('Digite o CPF do funcionário da limpeza que deseja selecionar:', font=("Helvica", 15))],
-            [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
+            [sg.Text('-------- SELECIONAR FUNCIONÁRIO DA LIMPEZA ----------', font=("Garamond", 25, 'bold'))],
+            [sg.Text('Digite o CPF do funcionário da limpeza que deseja selecionar:', font=("Garamond", 20))],
+            [sg.Text('CPF:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='cpf')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Seleciona Funcionário da Limpeza').Layout(layout)
@@ -122,13 +123,11 @@ class TelaLimpeza(AbstractTela):
     def mostra_limpeza(self, dados_limpeza):
         string_todos_limpeza = ""
         for dado in dados_limpeza:
-            string_todos_limpeza = string_todos_limpeza + "NOME: " + dado["nome"] + '\n'
-            string_todos_limpeza = string_todos_limpeza + "CPF: " + dado["cpf"] + '\n'
-            string_todos_limpeza = string_todos_limpeza + "IDADE: " + dado["idade"] + '\n'
-            string_todos_limpeza = string_todos_limpeza + "SALÁRIO: " + dado["salario"] + '\n'
-            string_todos_limpeza = string_todos_limpeza + "MATRÍCULA: " + dado["matricula"] + '\n'
-            string_todos_limpeza = string_todos_limpeza + "RUA: " + dado["rua"] + '\n'
-            string_todos_limpeza = string_todos_limpeza + "NÚMERO: " + dado["numero"] + '\n'
-            string_todos_limpeza = string_todos_limpeza + "COMPLEMENTO: " + dado["complemento"] + '\n\n'
+            string_todos_limpeza = string_todos_limpeza + "NOME DO FUNCIONÁRIO DA LIMPEZA: " + dado["nome"] + '\n'
+            string_todos_limpeza = string_todos_limpeza + "CPF DO FUNCIONÁRIO DA LIMPEZA: " + dado["cpf"] + '\n'
+            string_todos_limpeza = string_todos_limpeza + "IDADE DO FUNCIONÁRIO DA LIMPEZA: " + str(dado["idade"]) + '\n'
+            string_todos_limpeza = string_todos_limpeza + "ENDEREÇO DO FUNCIONÁRIO DA LIMPEZA: Rua " + dado[
+                                                          "rua"] + " // Número: " + str(dado["numero"]) \
+                                                          + " // Complemento: " + dado["complemento"] + '\n\n'
 
         sg.Popup('-------- LISTA DE FUNCIONÁRIOS DA LIMPEZA ----------', string_todos_limpeza)

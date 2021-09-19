@@ -31,13 +31,13 @@ class TelaEnfermeiro(AbstractTela):
         # sg.theme_previewer()
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
-            [sg.Text('SISTEMA DE CONTROLE DO ENFERMEIRO', font=("Helvica", 25))],
-            [sg.Text('Escolha sua opção', font=("Helvica", 15))],
-            [sg.Radio('Adicionar Enfermeiro', "RD1", key='1')],
-            [sg.Radio('Alterar Enfermeiro', "RD1", key='2')],
-            [sg.Radio('Excluir Enfemeiro', "RD1", key='3')],
-            [sg.Radio('Listar Enfermeiros', "RD1", key='4')],
-            [sg.Radio('Finalizar sistema', "RD1", key='0')],
+            [sg.Text('SISTEMA DE CONTROLE DO ENFERMEIRO', font=("Garamond", 25, 'bold'))],
+            [sg.Text('Escolha sua opção', font=("Garamond", 20, 'bold'))],
+            [sg.Radio('Adicionar Enfermeiro', "RD1", key='1', font=("Garamond", 20))],
+            [sg.Radio('Alterar Enfermeiro', "RD1", key='2', font=("Garamond", 20))],
+            [sg.Radio('Excluir Enfemeiro', "RD1", key='3', font=("Garamond", 20))],
+            [sg.Radio('Listar Enfermeiros', "RD1", key='4', font=("Garamond", 20))],
+            [sg.Radio('Retornar', "RD1", key='0', font=("Garamond", 20))],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Sistema de controle do Enfermeiro').Layout(layout)
@@ -45,27 +45,27 @@ class TelaEnfermeiro(AbstractTela):
     def pega_dados_enfermeiro(self):
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
-            [sg.Text('---------- DADOS DO ENFERMEIRO ----------', font=("Helvica", 15))],
-            [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
-            [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
-            [sg.Text('Idade:', size=(15, 1)), sg.InputText('', key='idade')],
-            [sg.Text('Matrícula:', size=(15, 1)), sg.InputText('', key='matricula')],
-            [sg.Text('Salário:', size=(15, 1)), sg.InputText('', key='salario')],
-            [sg.Text('Digite os dados do endereço abaixo:', font=("Helvica", 25))],
-            [sg.Text('Rua:', size=(15, 1)), sg.InputText('', key='rua')],
-            [sg.Text('Número:', size=(15, 1)), sg.InputText('', key='numero')],
-            [sg.Text('Complemento:', size=(15, 1)), sg.InputText('', key='complemento')],
+            [sg.Text('---------- DADOS DO ENFERMEIRO ----------', font=("Garamond", 25, 'bold'))],
+            [sg.Text('Nome:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='nome')],
+            [sg.Text('CPF:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='cpf')],
+            [sg.Text('Idade:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='idade')],
+            [sg.Text('Matrícula:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='matricula')],
+            [sg.Text('Salário:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='salario')],
+            [sg.Text('Digite os dados do endereço abaixo:', font=("Garamond", 20, 'bold'))],
+            [sg.Text('Rua:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='rua')],
+            [sg.Text('Número:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='numero')],
+            [sg.Text('Complemento:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='complemento')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Dados do Enfermeiro').Layout(layout)
         button, values = self.open()
         nome = values['nome']
         cpf = values['cpf']
-        idade = values['idade']
-        matricula = values['matricula']
-        salario = values['salario']
+        idade = int(values['idade'])
+        matricula = int(values['matricula'])
+        salario = int(values['salario'])
         rua = values['rua']
-        numero = values['numero']
+        numero = int(values['numero'])
         complemento = values['complemento']
 
         self.close()
@@ -76,23 +76,23 @@ class TelaEnfermeiro(AbstractTela):
     def pega_dados_para_alterar_enfermeiro(self):
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
-            [sg.Text('---------- DADOS PARA ALTERAÇÃO DO ENFERMEIRO ----------', font=("Helvica", 15))],
-            [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
-            [sg.Text('Idade:', size=(15, 1)), sg.InputText('', key='idade')],
-            [sg.Text('Salário:', size=(15, 1)), sg.InputText('', key='salario')],
-            [sg.Text('Digite os dados do endereço abaixo:', font=("Helvica", 25))],
-            [sg.Text('Rua:', size=(15, 1)), sg.InputText('', key='rua')],
-            [sg.Text('Número:', size=(15, 1)), sg.InputText('', key='numero')],
-            [sg.Text('Complemento:', size=(15, 1)), sg.InputText('', key='complemento')],
+            [sg.Text('---------- DADOS PARA ALTERAÇÃO DO ENFERMEIRO ----------', font=("Garamond", 25, 'bold'))],
+            [sg.Text('Nome:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='nome')],
+            [sg.Text('Idade:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='idade')],
+            [sg.Text('Salário:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='salario')],
+            [sg.Text('Digite os dados do endereço abaixo:', font=("Garamond", 20, 'bold'))],
+            [sg.Text('Rua:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='rua')],
+            [sg.Text('Número:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='numero')],
+            [sg.Text('Complemento:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='complemento')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Dados do Enfermeiro').Layout(layout)
         button, values = self.open()
         nome = values['nome']
-        idade = values['idade']
-        salario = values['salario']
+        idade = int(values['idade'])
+        salario = int(values['salario'])
         rua = values['rua']
-        numero = values['numero']
+        numero = int(values['numero'])
         complemento = values['complemento']
 
         self.close()
@@ -103,9 +103,9 @@ class TelaEnfermeiro(AbstractTela):
     def seleciona_enfermeiro(self):
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
-            [sg.Text('-------- SELECIONAR ENFERMEIRO ----------', font=("Helvica", 25))],
-            [sg.Text('Digite o CPF do enfermeiro que deseja selecionar:', font=("Helvica", 15))],
-            [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
+            [sg.Text('-------- SELECIONAR ENFERMEIRO ----------', font=("Garamond", 25, 'bold'))],
+            [sg.Text('Digite o CPF do enfermeiro que deseja selecionar:', font=("Garamond", 20))],
+            [sg.Text('CPF:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='cpf')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Seleciona Enfermeiro').Layout(layout)
@@ -120,15 +120,13 @@ class TelaEnfermeiro(AbstractTela):
         return button, values
 
     def mostra_enfermeiro(self, dados_enfermeiro):
-        string_todos_enfermeiro = ""
+        string_todos_enfermeiros = ""
         for dado in dados_enfermeiro:
-            string_todos_enfermeiro = string_todos_enfermeiro + "NOME: " + dado["nome"] + '\n'
-            string_todos_enfermeiro = string_todos_enfermeiro + "CPF: " + dado["cpf"] + '\n'
-            string_todos_enfermeiro = string_todos_enfermeiro + "IDADE: " + dado["idade"] + '\n'
-            string_todos_enfermeiro = string_todos_enfermeiro + "SALÁRIO: " + dado["salario"] + '\n'
-            string_todos_enfermeiro = string_todos_enfermeiro + "MATRÍCULA: " + dado["matricula"] + '\n'
-            string_todos_enfermeiro = string_todos_enfermeiro + "RUA: " + dado["rua"] + '\n'
-            string_todos_enfermeiro = string_todos_enfermeiro + "NÚMERO: " + dado["numero"] + '\n'
-            string_todos_enfermeiro = string_todos_enfermeiro + "COMPLEMENTO: " + dado["complemento"] + '\n\n'
+            string_todos_enfermeiros = string_todos_enfermeiros + "NOME DO ENFERMEIRO: " + dado["nome"] + '\n'
+            string_todos_enfermeiros = string_todos_enfermeiros + "CPF DO ENFERMEIRO: " + dado["cpf"] + '\n'
+            string_todos_enfermeiros = string_todos_enfermeiros + "IDADE DO ENFERMEIRO: " + str(dado["idade"]) + '\n'
+            string_todos_enfermeiros = string_todos_enfermeiros + "ENDEREÇO DO ENFERMEIRO: Rua " + dado[
+                                                                   "rua"] + " // Número: " + str(dado["numero"]) \
+                                                                   + " // Complemento: " + dado["complemento"] + '\n\n'
 
-        sg.Popup('-------- LISTA DE ENFERMEIROS ----------', string_todos_enfermeiro)
+        sg.Popup('-------- LISTA DE ENFERMEIROS ----------', string_todos_enfermeiros)

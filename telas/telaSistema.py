@@ -35,14 +35,14 @@ class TelaSistema(AbstractTela):
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
             [sg.Text('Bem vindo ao sistema da clínica médica!', font=("Garamond", 30))],
-            [sg.Text('Escolha sua opção:', font=("Garamond", 20))],
-            [sg.Radio("CLIENTES", "RD1", key='1')],
-            [sg.Radio("MÉDICOS", "RD1", key='2')],
-            [sg.Radio("LIMPEZA", "RD1", key='3')],
-            [sg.Radio("ENFERMEIROS", "RD1", key='4')],
-            [sg.Radio("ATENDENTES", "RD1", key='5')],
-            [sg.Radio("AGENDAMENTO", "RD1", key='6')],
-            [sg.Radio("Finalizar sistema", "RD1", key='0')],
+            [sg.Text('Escolha sua opção:', font=("Garamond", 25))],
+            [sg.Radio("CLIENTES", "RD1", key='1', font=("Garamond", 18))],
+            [sg.Radio("MÉDICOS", "RD1", key='2', font=("Garamond", 18))],
+            [sg.Radio("LIMPEZA", "RD1", key='3', font=("Garamond", 18))],
+            [sg.Radio("ENFERMEIROS", "RD1", key='4', font=("Garamond", 18))],
+            [sg.Radio("ATENDENTES", "RD1", key='5', font=("Garamond", 18))],
+            [sg.Radio("AGENDAMENTO", "RD1", key='6', font=("Garamond", 18))],
+            [sg.Radio("FINALIZAR SISTEMA", "RD1", key='0', font=("Garamond", 18))],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Sistema Clínica Médica').Layout(layout)
