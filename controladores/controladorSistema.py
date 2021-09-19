@@ -1,9 +1,9 @@
 from telas.telaSistema import TelaSistema
 from controladores.controladorCliente import ControladorCliente
-from controladores.controladorMedico import ControladorMedico # ainda preciso criar
+from controladores.controladorMedico import ControladorMedico
 from controladores.controladorLimpeza import ControladorLimpeza
 from controladores.controladorEnfermeiro import ControladorEnfermeiro
-from controladores.controladorAtendente import ControladorAtendente # ainda preciso criar
+from controladores.controladorAtendente import ControladorAtendente
 from controladores.controladorAgendamento import ControladorAgendamento
 
 
@@ -43,7 +43,7 @@ class ControladorSistema:
         self.abre_tela()
 
     def encerra_sistema(self):
-        print("Sistema encerrado!")
+        self.__tela_sistema.mostra_mesagem('SISTEMA ENCERRADO!')
         exit(0)
 
     def abre_tela(self):
