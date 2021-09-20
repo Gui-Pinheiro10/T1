@@ -15,4 +15,3 @@ class Medico(Funcionario):
     def crm(self, crm: str):
         if isinstance(crm, str):
             self.__crm = crm
-            

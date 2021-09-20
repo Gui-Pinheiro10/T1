@@ -6,7 +6,6 @@ from DAOs.enfermeiro_dao import EnfermeiroDAO
 class ControladorEnfermeiro():
     def __init__(self, controlador_sistema):
         self.__enfermeiros_DAO = EnfermeiroDAO()
-
         self.__tela_enfermeiro = TelaEnfermeiro()
         self.__controlador_sistema = controlador_sistema
 
