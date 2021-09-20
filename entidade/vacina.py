@@ -13,7 +13,7 @@ class Vacina():
     @tipo_da_vacina.setter
     def tipo_da_vacina(self, tipo_da_vacina: str):
         self.__tipo_da_vacina = tipo_da_vacina
-    
+
     @property
     def enfermeiro(self):
         return self.__enfermeiro

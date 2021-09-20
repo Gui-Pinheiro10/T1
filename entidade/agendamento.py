@@ -1,6 +1,5 @@
 from entidade.tipoAgendamento import TipoAgendamento
 from entidade.cliente import Cliente
-from datetime import date
 
 
 class Agendamento():
@@ -8,7 +7,7 @@ class Agendamento():
         self.__horario = horario
         self.__valor = valor
         self.__data = data
-        self.__cliente = cliente # mudei Cliente para cliente
+        self.__cliente = cliente
         self.__tipoAgendamento = tipoAgendamento
         self.__codigo = codigo
 

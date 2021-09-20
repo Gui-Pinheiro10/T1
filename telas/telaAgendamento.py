@@ -43,26 +43,30 @@ class TelaAgendamento(AbstractTela):
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
             [sg.Text('---------- DADOS DO AGENDAMENTO ----------', font=("Garamond", 25, 'bold'))],
-            [sg.Text('Horário:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='horario')],
-            [sg.Text('Data:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='data')],
-            [sg.Text('CPF do Cliente:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='cpf_cliente')],
-            [sg.Text('CPF do Médico ou Enfermeiro:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='cpf_medico_ou_enfermeiro')],
-            [sg.Text('Digite apenas 1 ou 2 - [1] Vacina [2] Consulta:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='numero_tipoAgendamento')],
-            [sg.Text('Digite a especialidade ou tipo de vacina:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='nome_tipoAgendamento')],
-            [sg.Text('Código:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='codigo')],
+            [sg.Text('Horário (XX:XX):', size=(22, 1), font=("Garamond", 15)), sg.InputText('', key='horario')],
+            [sg.Text('Data (DD/MM/AA):', size=(22, 1), font=("Garamond", 15)), sg.InputText('', key='data')],
+            [sg.Text('CPF do Cliente:', size=(22, 1), font=("Garamond", 15)), sg.InputText('', key='cpf_cliente')],
+            [sg.Text('CPF do Médico ou Enfermeiro:', size=(22, 1), font=("Garamond", 15)), sg.InputText('', key='cpf_medico_ou_enfermeiro')],
+            [sg.Text('Tipo de agendamento:', size=(22, 1), font=("Garamond", 15)), sg.Radio('Vacina', "RD2", key='1', size=(5, 1), font=("Garamond", 15)), sg.Radio('Consulta', "RD2", key='2', size=(10, 1), font=("Garamond", 15))],
+            [sg.Text('Especialidade ou tipo de vacina:', size=(22, 1), font=("Garamond", 15)), sg.InputText('', key='nome_tipoAgendamento')],
+            [sg.Text('Código:', size=(22, 1), font=("Garamond", 15)), sg.InputText('', key='codigo')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Dados do Agendamento').Layout(layout)
 
         button, values = self.open()
 
-        horario = values['horario']
-        data = values['data']
+        horario = self.le_horario(values['horario'])
+        data = self.le_data(values['data'])
         cpf_cliente = values['cpf_cliente']
-        cpf_medico_ou_enfermeiro = int(values['cpf_medico_ou_enfermeiro'])
-        numero_tipoAgendamento = int(values['numero_tipoAgendamento'])
-        nome_tipoAgendamento = values['nome_tipoAgendamento']
-        codigo = int(values['codigo'])
+        cpf_medico_ou_enfermeiro = values['cpf_medico_ou_enfermeiro']
+        numero_tipoAgendamento = 0
+        if values['1']:
+            numero_tipoAgendamento = 1
+        elif values['2']:
+            numero_tipoAgendamento = 2
+        nome_tipoAgendamento = self.le_especialidade_ou_tipo_de_vacina(values['nome_tipoAgendamento'])
+        codigo = self.verifica_codigo(values['codigo'])
 
         self.close()
 
@@ -72,16 +76,16 @@ class TelaAgendamento(AbstractTela):
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
             [sg.Text('---------- DADOS DO AGENDAMENTO ----------', font=("Garamond", 25, 'bold'))],
-            [sg.Text('Horário:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='horario')],
-            [sg.Text('Data:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='data')],
+            [sg.Text('Horário (XX:XX):', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='horario')],
+            [sg.Text('Data (DD/MM/AA):', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='data')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Dados para alterar o agendamento').Layout(layout)
 
         button, values = self.open()
 
-        horario = values['horario']
-        data = values['data']
+        horario = self.le_horario(values['horario'])
+        data = self.le_data(values['data'])
         return {"horario": horario, "data": data}
 
     def seleciona_agendamento(self):
@@ -112,6 +116,7 @@ class TelaAgendamento(AbstractTela):
             string_todos_agendamentos = string_todos_agendamentos + "HORÁRIO: " + dado["horario"] + '\n'
             string_todos_agendamentos = string_todos_agendamentos + "DATA: " + dado["data"] + '\n'
             string_todos_agendamentos = string_todos_agendamentos + "VALOR (R$): " + str(dado["valor"]) + '\n'
+            string_todos_agendamentos = string_todos_agendamentos + "CLIENTE: " + str(dado["cliente"]) + '\n'
             string_todos_agendamentos = string_todos_agendamentos + "CÓDIGO : " + str(dado["codigo"]) + '\n\n'
 
         sg.Popup('-------- LISTA DE FUNCIONÁRIOS DA LIMPEZA ----------', string_todos_agendamentos)

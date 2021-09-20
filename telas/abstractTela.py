@@ -143,3 +143,76 @@ class AbstractTela(ABC):
             else:
                 lido = True
         return complemento
+
+    def le_horario(self, horario: str):
+        lido = False
+        while not lido:
+            try:
+                if len(horario) != 5:
+                    raise Exception
+                if not horario[0].isnumeric() or not horario[1].isnumeric() or not horario[3].isnumeric() or not horario[4].isnumeric():
+                    raise Exception
+                if horario[2] != ":":
+                    raise Exception
+            except Exception:
+                sg.PopupOK("ENTRADA INVÁLIDA PARA HORÁRIO.")
+                horario = sg.popup_get_text('Digite um horário no formato XX:XX: ')
+            else:
+                lido = True
+        return horario
+
+    def le_data(self, data: str):
+        lido = False
+        while not lido:
+            try:
+                if len(data) != 8:
+                    raise Exception
+                if not data[0].isnumeric() or not data[1].isnumeric() or not data[3].isnumeric() or not data[4].isnumeric or not data[6].isnumeric() or not data[7].isnumeric():
+                    raise Exception
+                if (data[2] != "/") or (data[5] != "/"):
+                    raise Exception
+            except Exception:
+                sg.PopupOK("ENTRADA INVÁLIDA PARA DATA.")
+                data = sg.popup_get_text('Digite uma data no formato DD/MM/AA: ')
+            else:
+                lido = True
+        return data
+
+    def le_especialidade_ou_tipo_de_vacina(self, especialidade_ou_tipo_de_vacina: str):
+        lido = False
+        while not lido:
+            try:
+                if len(especialidade_ou_tipo_de_vacina.strip()) == 0:
+                    raise Exception
+            except Exception:
+                sg.PopupOK("ENTRADA VAZIA PARA ESPECIALIDADE DE CONSULTA OU TIPO DE VACINA.")
+                especialidade_ou_tipo_de_vacina = sg.popup_get_text('Digite uma especialidade ou tipo de vacina: ')
+            else:
+                lido = True
+        return especialidade_ou_tipo_de_vacina
+
+    def verifica_codigo(self, codigo: int):
+        codigo_valido = False
+        while not codigo_valido:
+            try:
+                if not codigo.isnumeric():
+                    raise Exception
+            except Exception:
+                sg.PopupOK("CÓDIGO DE AGENDAMENTO INVÁLIDO!.")
+                codigo = sg.popup_get_text('Digite o código do agendamento novamente: ')
+            else:
+                codigo_valido = True
+        return int(codigo)
+
+    def verifica_tipoAgendamento(self, tipoAgendamento: int):
+        tipoAgendamento_valido = False
+        while not tipoAgendamento_valido:
+            try:
+                if tipoAgendamento == 0:
+                    raise Exception
+            except Exception:
+                sg.PopupOK("TIPO DE AGENDAMENTO NÃO SELECIONADO!.")
+                tipoAgendamento = [sg.Text('Tipo de agendamento:', size=(15, 1), font=("Garamond", 15)), sg.Radio('Vacina', "RD2", key='1', size=(5, 1), font=("Garamond", 15)), sg.Radio('Consulta', "RD2", key='2', size=(10, 1), font=("Garamond", 15))]
+            else:
+                tipoAgendamento_valido = True
+        return int(tipoAgendamento)

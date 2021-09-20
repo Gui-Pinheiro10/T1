@@ -3,6 +3,7 @@ from entidade.consulta import Consulta
 from entidade.agendamento import Agendamento
 from telas.telaAgendamento import TelaAgendamento
 from DAOs.agendamenteo_dao import AgendamentoDAO
+from Cliente_ou_Medico_Enfermeiro_Nao_Existe import ClienteOuMedicoEnfermeiroNaoExiste
 
 
 class ControladorAgendamento:
@@ -34,21 +35,31 @@ class ControladorAgendamento:
                 if dados_agendamento["cpf_medico_ou_enfermeiro"] == medico.cpf:
                     medico_agendamento = medico
                     break
-            tipoAgendamento_agendamento = Consulta(dados_agendamento["nome_tipoAgendamento"], medico_agendamento)
-            agendamento_para_incluir = Agendamento(dados_agendamento["horario"], 250, dados_agendamento["data"], cliente_agendamento, tipoAgendamento_agendamento, dados_agendamento["codigo"])
+            tipoAgendamento_agendamento = Consulta(dados_agendamento["nome_tipoAgendamento"],
+                                                 medico_agendamento)
+            agendamento_para_incluir = Agendamento(dados_agendamento["horario"], 150, dados_agendamento["data"],
+                                                   cliente_agendamento, tipoAgendamento_agendamento,
+                                                   dados_agendamento["codigo"])
         elif dados_agendamento["numero_tipoAgendamento"] == 1:
-            for enfemeiro in lista_de_enfemeiros:
-                if dados_agendamento["cpf_medico_ou_enfermeiro"] == enfemeiro.cpf:
-                    enfermeiro_agendamento = enfemeiro
+            for enfermeiro in lista_de_enfemeiros:
+                if dados_agendamento["cpf_medico_ou_enfermeiro"] == enfermeiro.cpf:
+                    enfermeiro_agendamento = enfermeiro
                     break
-            tipoAgendamento_agendamento = Vacina(dados_agendamento["nome_tipoAgendamento"], enfermeiro_agendamento)
-            agendamento_para_incluir = Agendamento(dados_agendamento["horario"], 150, dados_agendamento["data"], cliente_agendamento, tipoAgendamento_agendamento, dados_agendamento["codigo"])
+            tipoAgendamento_agendamento = Vacina(dados_agendamento["nome_tipoAgendamento"],
+                                                 enfermeiro_agendamento)
+            agendamento_para_incluir = Agendamento(dados_agendamento["horario"], 150, dados_agendamento["data"],
+                                                   cliente_agendamento, tipoAgendamento_agendamento,
+                                                   dados_agendamento["codigo"])
         try:
+            if agendamento_para_incluir.cliente == '' or (enfermeiro_agendamento == '' and medico_agendamento == ''):
+                raise ClienteOuMedicoEnfermeiroNaoExiste()
             for agendamento in self.__agendamento_DAO.get_all():
-                if agendamento.codigo == agendamento_para_incluir.codigo or (agendamento.data == agendamento_para_incluir.data and agendamento.horario == agendamento_para_incluir.horario):
+                if agendamento.codigo == agendamento_para_incluir.codigo or (tipoAgendamento_agendamento == 0) or (agendamento.data == agendamento_para_incluir.data and agendamento.horario == agendamento_para_incluir.horario):
                     raise Exception
+        except ClienteOuMedicoEnfermeiroNaoExiste:
+            self.__tela_agendamento.mostra_mesagem('Cliente ou Médico/Enfermeiros não cadastrados!')
         except Exception:
-            self.__tela_agendamento.mostra_mesagem('Não foi possível cadastrar o agendamento pois o código ou horário já existe!')   
+            self.__tela_agendamento.mostra_mesagem('Não foi possível cadastrar o agendamento pois o código ou horário já existe ou o tipo de agendamento não foi selecionado!')
         else:  
             self.__agendamento_DAO.add(agendamento_para_incluir)
             self.__tela_agendamento.mostra_mesagem('Agendamento cadastrado com sucesso!')
@@ -95,8 +106,9 @@ class ControladorAgendamento:
         else:
             for agendamento in self.__agendamento_DAO.get_all():
                 dados_agendamentos.append({"horario": agendamento.horario, "data": agendamento.data,
-                                          "valor": agendamento.valor, "codigo": agendamento.codigo})
-                self.__tela_agendamento.mostra_agendamento(dados_agendamentos)
+                                          "valor": agendamento.valor, "codigo": agendamento.codigo,
+                                          "cliente": agendamento.cliente.nome})
+            self.__tela_agendamento.mostra_agendamento(dados_agendamentos)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
