@@ -35,7 +35,7 @@ class TelaEnfermeiro(AbstractTela):
             [sg.Text('Escolha sua opção', font=("Garamond", 20, 'bold'))],
             [sg.Radio('Adicionar Enfermeiro', "RD1", key='1', font=("Garamond", 20))],
             [sg.Radio('Alterar Enfermeiro', "RD1", key='2', font=("Garamond", 20))],
-            [sg.Radio('Excluir Enfemeiro', "RD1", key='3', font=("Garamond", 20))],
+            [sg.Radio('Excluir Enfermeiro', "RD1", key='3', font=("Garamond", 20))],
             [sg.Radio('Listar Enfermeiros', "RD1", key='4', font=("Garamond", 20))],
             [sg.Radio('Retornar', "RD1", key='0', font=("Garamond", 20))],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]

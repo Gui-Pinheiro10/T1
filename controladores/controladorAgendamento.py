@@ -41,7 +41,7 @@ class ControladorAgendamento:
                         break
                 tipoAgendamento_agendamento = Consulta(dados_agendamento["nome_tipoAgendamento"],
                                                      medico_agendamento)
-                agendamento_para_incluir = Agendamento(dados_agendamento["horario"], 150, dados_agendamento["data"],
+                agendamento_para_incluir = Agendamento(dados_agendamento["horario"], 250, dados_agendamento["data"],
                                                        cliente_agendamento, tipoAgendamento_agendamento,
                                                        dados_agendamento["codigo"])
             elif dados_agendamento["numero_tipoAgendamento"] == 1:

@@ -33,6 +33,7 @@ class ControladorLimpeza:
                                   dados_limpeza["complemento"], dados_limpeza["matricula"], dados_limpeza["salario"])
                 self.__limpezas_DAO.add(limpeza)
                 self.__tela_limpeza.mostra_mesagem('Funcionário da Limpeza adicionado com sucesso!')
+                self.__tela_limpeza.close()
 
     def exclui_limpeza(self):
         self.listar_limpezas()
