@@ -17,52 +17,64 @@ class ControladorEnfermeiro():
 
     def inclui_enfermeiro(self):
         dados_enfermeiro = self.__tela_enfermeiro.pega_dados_enfermeiro()
-        try:
-            if self.pega_enfermeiro_por_cpf(dados_enfermeiro["cpf"]) is not None:
-                raise Exception
-        except Exception:
-            self.__tela_enfermeiro.mostra_mesagem('Não foi possível cadastrar o enfermeiro pois o CPF já está cadastrado!')
+        if dados_enfermeiro == 'Cancelar':
+            self.__tela_enfermeiro.close()
+            self.__tela_enfermeiro.open()
         else:
-            enfermeiro = Enfermeiro(dados_enfermeiro["nome"], dados_enfermeiro["cpf"], dados_enfermeiro["idade"],
-                                    dados_enfermeiro["rua"], dados_enfermeiro["numero"],
-                                    dados_enfermeiro["complemento"], dados_enfermeiro["matricula"],
-                                    dados_enfermeiro["salario"])
-            self.__enfermeiros_DAO.add(enfermeiro)
-            self.__tela_enfermeiro.mostra_mesagem('Enfermeiro adicionado com sucesso!')
+            try:
+                if self.pega_enfermeiro_por_cpf(dados_enfermeiro["cpf"]) is not None:
+                    raise Exception
+            except Exception:
+                self.__tela_enfermeiro.mostra_mesagem('Não foi possível cadastrar o enfermeiro pois o CPF já está cadastrado!')
+            else:
+                enfermeiro = Enfermeiro(dados_enfermeiro["nome"], dados_enfermeiro["cpf"], dados_enfermeiro["idade"],
+                                        dados_enfermeiro["rua"], dados_enfermeiro["numero"],
+                                        dados_enfermeiro["complemento"], dados_enfermeiro["matricula"],
+                                        dados_enfermeiro["salario"])
+                self.__enfermeiros_DAO.add(enfermeiro)
+                self.__tela_enfermeiro.mostra_mesagem('Enfermeiro adicionado com sucesso!')
 
     def exclui_enfermeiro(self):
         self.listar_enfermeiros()
         cpf_enfermeiro_excluido = self.__tela_enfermeiro.seleciona_enfermeiro()
-        enfermeiro_excluido = self.pega_enfermeiro_por_cpf(cpf_enfermeiro_excluido)
-        try:
-            if enfermeiro_excluido is None:
-                raise Exception
-        except Exception:
-            self.__tela_enfermeiro.mostra_mesagem('Não foi possível excluir o enfermeiro, pois o CPF informado não está na lista!')
+        if cpf_enfermeiro_excluido == 'Cancelar':
+            self.__tela_enfermeiro.close()
+            self.__tela_enfermeiro.open()
         else:
-            self.__enfermeiros_DAO.remove(enfermeiro_excluido.cpf)
-            self.__tela_enfermeiro.mostra_mesagem('Enfermeiro excluído com sucesso!')
-            self.listar_enfermeiros()
+            enfermeiro_excluido = self.pega_enfermeiro_por_cpf(cpf_enfermeiro_excluido)
+            try:
+                if enfermeiro_excluido is None:
+                    raise Exception
+            except Exception:
+                self.__tela_enfermeiro.mostra_mesagem('Não foi possível excluir o enfermeiro, pois o CPF informado não está na lista!')
+            else:
+                self.__enfermeiros_DAO.remove(enfermeiro_excluido.cpf)
+                self.__tela_enfermeiro.mostra_mesagem('Enfermeiro excluído com sucesso!')
+                self.listar_enfermeiros()
 
     def altera_enfermeiro(self):
         self.listar_enfermeiros()
         cpf_enfermeiro_alterado = self.__tela_enfermeiro.seleciona_enfermeiro()
-        enfermeiro_alterado = self.pega_enfermeiro_por_cpf(cpf_enfermeiro_alterado)
-        try:
-            if enfermeiro_alterado is None:
-                raise Exception
-        except Exception:
-            self.__tela_enfermeiro.mostra_mesagem('Não foi possível alterar o enfermeiro, pois a matrícula informada não está na lista!')
+        if cpf_enfermeiro_alterado == 'Cancelar':
+            self.__tela_enfermeiro.close()
+            self.__tela_enfermeiro.open()
         else:
-            novos_dados_enfermeiro = self.__tela_enfermeiro.pega_dados_para_alterar_enfermeiro()
-            enfermeiro_alterado.nome = novos_dados_enfermeiro["nome"]
-            enfermeiro_alterado.idade = novos_dados_enfermeiro["idade"]
-            enfermeiro_alterado.endereco.rua = novos_dados_enfermeiro["rua"]
-            enfermeiro_alterado.endereco.numero = novos_dados_enfermeiro["numero"]
-            enfermeiro_alterado.endereco.complemento = novos_dados_enfermeiro["complemento"]
-            enfermeiro_alterado.salario = novos_dados_enfermeiro["salario"]
-            self.__tela_enfermeiro.mostra_mesagem('Enfermeiro alterado com sucesso!\n')
-            self.listar_enfermeiros()
+            enfermeiro_alterado = self.pega_enfermeiro_por_cpf(cpf_enfermeiro_alterado)
+            try:
+                if enfermeiro_alterado is None:
+                    raise Exception
+            except Exception:
+                self.__tela_enfermeiro.mostra_mesagem('Não foi possível alterar o enfermeiro, pois a matrícula informada não está na lista!')
+            else:
+                novos_dados_enfermeiro = self.__tela_enfermeiro.pega_dados_para_alterar_enfermeiro()
+                enfermeiro_alterado.nome = novos_dados_enfermeiro["nome"]
+                enfermeiro_alterado.idade = novos_dados_enfermeiro["idade"]
+                enfermeiro_alterado.endereco.rua = novos_dados_enfermeiro["rua"]
+                enfermeiro_alterado.endereco.numero = novos_dados_enfermeiro["numero"]
+                enfermeiro_alterado.endereco.complemento = novos_dados_enfermeiro["complemento"]
+                enfermeiro_alterado.salario = novos_dados_enfermeiro["salario"]
+                self.__tela_enfermeiro.mostra_mesagem('Enfermeiro alterado com sucesso!\n')
+                self.listar_enfermeiros()
 
     def listar_enfermeiros(self):
         dados_enfermeiros = []

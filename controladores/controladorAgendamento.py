@@ -26,75 +26,87 @@ class ControladorAgendamento:
         lista_de_medicos = self.__controlador_sistema.retorna_lista_medicos_sistema()
         lista_de_enfemeiros = self.__controlador_sistema.retorna_lista_enfermeiros_sistema()
         dados_agendamento = self.__tela_agendamento.pega_dados_agendamento()
-        for cliente in lista_de_clientes:
-            if dados_agendamento["cpf_cliente"] == cliente.cpf:
-                cliente_agendamento = cliente
-                break
-        if dados_agendamento["numero_tipoAgendamento"] == 2:
-            for medico in lista_de_medicos:
-                if dados_agendamento["cpf_medico_ou_enfermeiro"] == medico.cpf:
-                    medico_agendamento = medico
+        if dados_agendamento == 'Cancelar':
+            self.__tela_agendamento.close()
+            self.__tela_agendamento.open()
+        else:
+            for cliente in lista_de_clientes:
+                if dados_agendamento["cpf_cliente"] == cliente.cpf:
+                    cliente_agendamento = cliente
                     break
-            tipoAgendamento_agendamento = Consulta(dados_agendamento["nome_tipoAgendamento"],
-                                                 medico_agendamento)
-            agendamento_para_incluir = Agendamento(dados_agendamento["horario"], 150, dados_agendamento["data"],
-                                                   cliente_agendamento, tipoAgendamento_agendamento,
-                                                   dados_agendamento["codigo"])
-        elif dados_agendamento["numero_tipoAgendamento"] == 1:
-            for enfermeiro in lista_de_enfemeiros:
-                if dados_agendamento["cpf_medico_ou_enfermeiro"] == enfermeiro.cpf:
-                    enfermeiro_agendamento = enfermeiro
-                    break
-            tipoAgendamento_agendamento = Vacina(dados_agendamento["nome_tipoAgendamento"],
-                                                 enfermeiro_agendamento)
-            agendamento_para_incluir = Agendamento(dados_agendamento["horario"], 150, dados_agendamento["data"],
-                                                   cliente_agendamento, tipoAgendamento_agendamento,
-                                                   dados_agendamento["codigo"])
-        try:
-            if agendamento_para_incluir.cliente == '' or (enfermeiro_agendamento == '' and medico_agendamento == ''):
-                raise ClienteOuMedicoEnfermeiroNaoExiste()
-            for agendamento in self.__agendamento_DAO.get_all():
-                if agendamento.codigo == agendamento_para_incluir.codigo or (tipoAgendamento_agendamento == 0) or (agendamento.data == agendamento_para_incluir.data and agendamento.horario == agendamento_para_incluir.horario):
-                    raise Exception
-        except ClienteOuMedicoEnfermeiroNaoExiste:
-            self.__tela_agendamento.mostra_mesagem('Cliente ou Médico/Enfermeiros não cadastrados!')
-        except Exception:
-            self.__tela_agendamento.mostra_mesagem('Não foi possível cadastrar o agendamento pois o código ou horário já existe ou o tipo de agendamento não foi selecionado!')
-        else:  
-            self.__agendamento_DAO.add(agendamento_para_incluir)
-            self.__tela_agendamento.mostra_mesagem('Agendamento cadastrado com sucesso!')
+            if dados_agendamento["numero_tipoAgendamento"] == 2:
+                for medico in lista_de_medicos:
+                    if dados_agendamento["cpf_medico_ou_enfermeiro"] == medico.cpf:
+                        medico_agendamento = medico
+                        break
+                tipoAgendamento_agendamento = Consulta(dados_agendamento["nome_tipoAgendamento"],
+                                                     medico_agendamento)
+                agendamento_para_incluir = Agendamento(dados_agendamento["horario"], 150, dados_agendamento["data"],
+                                                       cliente_agendamento, tipoAgendamento_agendamento,
+                                                       dados_agendamento["codigo"])
+            elif dados_agendamento["numero_tipoAgendamento"] == 1:
+                for enfermeiro in lista_de_enfemeiros:
+                    if dados_agendamento["cpf_medico_ou_enfermeiro"] == enfermeiro.cpf:
+                        enfermeiro_agendamento = enfermeiro
+                        break
+                tipoAgendamento_agendamento = Vacina(dados_agendamento["nome_tipoAgendamento"],
+                                                     enfermeiro_agendamento)
+                agendamento_para_incluir = Agendamento(dados_agendamento["horario"], 150, dados_agendamento["data"],
+                                                       cliente_agendamento, tipoAgendamento_agendamento,
+                                                       dados_agendamento["codigo"])
+            try:
+                if agendamento_para_incluir.cliente == '' or (enfermeiro_agendamento == '' and medico_agendamento == ''):
+                    raise ClienteOuMedicoEnfermeiroNaoExiste()
+                for agendamento in self.__agendamento_DAO.get_all():
+                    if agendamento.codigo == agendamento_para_incluir.codigo or (tipoAgendamento_agendamento == 0) or (agendamento.data == agendamento_para_incluir.data and agendamento.horario == agendamento_para_incluir.horario):
+                        raise Exception
+            except ClienteOuMedicoEnfermeiroNaoExiste:
+                self.__tela_agendamento.mostra_mesagem('Cliente ou Médico/Enfermeiros não cadastrados!')
+            except Exception:
+                self.__tela_agendamento.mostra_mesagem('Não foi possível cadastrar o agendamento pois o código ou horário já existe ou o tipo de agendamento não foi selecionado!')
+            else:
+                self.__agendamento_DAO.add(agendamento_para_incluir)
+                self.__tela_agendamento.mostra_mesagem('Agendamento cadastrado com sucesso!')
 
     def exclui_agendamento(self):
         self.listar_agendamentos()
         codigo_agendamento_excluido = self.__tela_agendamento.seleciona_agendamento()
-        agendamento_excluido = self.pega_agendamento_por_codigo(codigo_agendamento_excluido)
-        try:
-            if agendamento_excluido is None:
-                raise Exception
-        except Exception:
-            self.__tela_agendamento.mostra_mesagem('Não foi possível excluir o agendamento, pois o código informado não está na lista!')
+        if codigo_agendamento_excluido == 'Cancelar':
+            self.__tela_agendamento.close()
+            self.__tela_agendamento.open()
         else:
-            for agendamento in self.__agendamento_DAO.get_all():
-                if agendamento.codigo == codigo_agendamento_excluido:
-                    self.__agendamento_DAO.remove(agendamento_excluido.codigo)
-                    self.__tela_agendamento.mostra_mesagem('Agendamento excluído com sucesso!')
-                    self.listar_agendamentos()
-                    break
+            agendamento_excluido = self.pega_agendamento_por_codigo(codigo_agendamento_excluido)
+            try:
+                if agendamento_excluido is None:
+                    raise Exception
+            except Exception:
+                self.__tela_agendamento.mostra_mesagem('Não foi possível excluir o agendamento, pois o código informado não está na lista!')
+            else:
+                for agendamento in self.__agendamento_DAO.get_all():
+                    if agendamento.codigo == codigo_agendamento_excluido:
+                        self.__agendamento_DAO.remove(agendamento_excluido.codigo)
+                        self.__tela_agendamento.mostra_mesagem('Agendamento excluído com sucesso!')
+                        self.listar_agendamentos()
+                        break
 
     def altera_agendamento(self):
         self.listar_agendamentos()
         codigo_agendamento_alterado = self.__tela_agendamento.seleciona_agendamento()
-        agendamento_alterado = self.pega_agendamento_por_codigo(codigo_agendamento_alterado)
-        try:
-            if agendamento_alterado is None:
-                raise Exception
-        except Exception:
-            self.__tela_agendamento.mostra_mesagem('Não foi possível alterar o agendamento, pois o código informado não está na lista!')
+        if codigo_agendamento_alterado == 'Cancelar':
+            self.__tela_agendamento.close()
+            self.__tela_agendamento.open()
         else:
-            dados_agendamento = self.__tela_agendamento.pega_dados_para_alterar_agendamento()
-            agendamento_alterado.horario = dados_agendamento["horario"]
-            agendamento_alterado.data = dados_agendamento["data"]
-            self.__tela_agendamento.mostra_mesagem('Agendamento alterado com sucesso!\n')
+            agendamento_alterado = self.pega_agendamento_por_codigo(codigo_agendamento_alterado)
+            try:
+                if agendamento_alterado is None:
+                    raise Exception
+            except Exception:
+                self.__tela_agendamento.mostra_mesagem('Não foi possível alterar o agendamento, pois o código informado não está na lista!')
+            else:
+                dados_agendamento = self.__tela_agendamento.pega_dados_para_alterar_agendamento()
+                agendamento_alterado.horario = dados_agendamento["horario"]
+                agendamento_alterado.data = dados_agendamento["data"]
+                self.__tela_agendamento.mostra_mesagem('Agendamento alterado com sucesso!\n')
 
     def listar_agendamentos(self):
         dados_agendamentos = []

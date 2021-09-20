@@ -55,7 +55,8 @@ class TelaAgendamento(AbstractTela):
         self.__window = sg.Window('Dados do Agendamento').Layout(layout)
 
         button, values = self.open()
-
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
         horario = self.le_horario(values['horario'])
         data = self.le_data(values['data'])
         cpf_cliente = values['cpf_cliente']
@@ -99,6 +100,8 @@ class TelaAgendamento(AbstractTela):
         self.__window = sg.Window('Seleciona Agendamento').Layout(layout)
 
         button, values = self.open()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
         codigo_agendamento = values['codigo_agendamento']
         self.close()
         return int(codigo_agendamento)

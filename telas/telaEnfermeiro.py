@@ -59,6 +59,8 @@ class TelaEnfermeiro(AbstractTela):
         ]
         self.__window = sg.Window('Dados do Enfermeiro').Layout(layout)
         button, values = self.open()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
         nome = self.le_nome(values['nome'])
         cpf = self.verifica_cpf(values['cpf'])
         idade = self.verifica_idade(values['idade'])
@@ -111,6 +113,8 @@ class TelaEnfermeiro(AbstractTela):
         self.__window = sg.Window('Seleciona Enfermeiro').Layout(layout)
 
         button, values = self.open()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
         cpf = values['cpf']
         self.close()
         return cpf
