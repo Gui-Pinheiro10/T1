@@ -204,15 +204,3 @@ class AbstractTela(ABC):
                 codigo_valido = True
         return int(codigo)
 
-    def verifica_tipoAgendamento(self, tipoAgendamento: int):
-        tipoAgendamento_valido = False
-        while not tipoAgendamento_valido:
-            try:
-                if tipoAgendamento == 0:
-                    raise Exception
-            except Exception:
-                sg.PopupOK("TIPO DE AGENDAMENTO NÃO SELECIONADO!.")
-                tipoAgendamento = [sg.Text('Tipo de agendamento:', size=(15, 1), font=("Garamond", 15)), sg.Radio('Vacina', "RD2", key='1', size=(5, 1), font=("Garamond", 15)), sg.Radio('Consulta', "RD2", key='2', size=(10, 1), font=("Garamond", 15))]
-            else:
-                tipoAgendamento_valido = True
-        return int(tipoAgendamento)
