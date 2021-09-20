@@ -3,7 +3,6 @@ import PySimpleGUI as sg
 
 
 class TelaMedico(AbstractTela):
-
     def __init__(self):
         self.__window = None
         self.init_opcoes()
@@ -48,7 +47,7 @@ class TelaMedico(AbstractTela):
             [sg.Text('Rua:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='rua')],
             [sg.Text('Número:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='numero')],
             [sg.Text('Complemento:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='complemento')],
-            [sg.Text('Matrícula:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='matricula')],
+            [sg.Text('Matrícula:', size=(15,1), font=("Garamond",18)), sg.InputText('', key='matricula')],
             [sg.Text('Salário:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='salario')],
             [sg.Text('CRM:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='crm')],
             [sg.Button('Confirmar', font=("Garamond", 15, 'bold')), sg.Cancel('Cancelar', font=("Garamond", 15, 'bold'))]
@@ -56,22 +55,26 @@ class TelaMedico(AbstractTela):
         self.__window = sg.Window('Sistema de Cadastro de Médicos').Layout(layout)
      #   while True:
         button, values = self.open()
-        #    try:
-        nome = values['nome']
-        cpf = values['cpf']
-        idade = (values['idade'])
-        rua = values['rua']
-        numero = (values['numero'])
-        complemento = (values['complemento'])
-        matricula = values['matricula']
-        salario = values['salario']
-        crm = values["crm"]
-        self.close()
-        return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
-                "matricula": matricula, "salario": salario, "crm": crm }
-            #except ValueError as e: # no momento, só to fznd tratamento de "idade"
-             #   self.mostra_mesagem(e)
+        try:
+            nome = values['nome']
+            cpf = values['cpf']
+            idade = int(values['idade'])
+            rua = values['rua']
+            numero = int(values['numero'])
+            complemento = (values['complemento'])
+            matricula = int(values['matricula'])
+            salario = int(values['salario'])
+            crm = values['crm']
+        except ValueError as e:
+            self.mostra_mesagem('Valor deve ser inteiro')
+        else:
+            return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
+                    "matricula": matricula, "salario": salario, "crm": crm}
+        finally:
+            self.close()
 
+        # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
+        # opção de tratamento: adicionar um if e só coletar nome e telefone se o button é 'Confirmar'
 
     def pega_dados_para_alterar_medico(self):
         sg.ChangeLookAndFeel('LightBrown2')
@@ -82,33 +85,39 @@ class TelaMedico(AbstractTela):
             [sg.Text('Rua:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='rua')],
             [sg.Text('Número:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='numero')],
             [sg.Text('Complemento:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='complemento')],
-            [sg.Text('Salário:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='salario')],
+            [sg.Text('Salário:', size=(15,1), font=("Garamond", 18)), sg.InputText('', key='salario')],
             [sg.Button('Confirmar', font=("Garamond", 15, 'bold')), sg.Cancel('Cancelar', font=("Garamond", 15, 'bold'))]
         ]
-        self.__window = sg.Window('Dados de Médico').Layout(layout)
+        self.__window = sg.Window('Sistema de Cadastro de Médicos').Layout(layout)
+
         button, values = self.open()
-        nome = (values['nome'])
-        idade = (values(['idade']))
-        rua = (values['rua'])
-        numero = (values['numero'])
-        complemento = (values['complemento'])
-        salario = values['salario']
-        self.close()
-        return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento, "salario": salario}
+        try:
+            nome = (values['nome'])
+            idade = int(values['idade'])
+            rua = (values['rua'])
+            numero = int(values['numero'])
+            complemento = (values['complemento'])
+            salario = int(values['salario'])
+        except ValueError:
+            self.mostra_mesagem('Idade, Número e Salário devem ser inteiros!')
+        else:
+            return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento, "salario": salario}
+        finally:
+            self.close()
 
     def mostra_medico(self, dados_medico):
         string_todos_medicos = ""
         for dado in dados_medico:
-            string_todos_medicos = string_todos_medicos + "NOME: "+ dado["nome"]+ '\n'
+            string_todos_medicos = string_todos_medicos + "NOME: " + dado["nome"] + '\n'
             string_todos_medicos = string_todos_medicos + "CPF: " + dado["cpf"] + '\n'
-            string_todos_medicos = string_todos_medicos + "IDADE: " + dado["idade"] + '\n'
-            string_todos_medicos = string_todos_medicos + "RUA: " + dado["rua"] + '\n'
-            string_todos_medicos = string_todos_medicos + "NÚMERO: " + dado["numero"] + '\n'
-            string_todos_medicos = string_todos_medicos + "COMPLEMENTO: " + dado["complemento"] + '\n'
-            string_todos_medicos = string_todos_medicos + "MATRÍCULA: " + dado["matricula"] + '\n'
-            string_todos_medicos = string_todos_medicos + "SALÁRIO: " + dado["salario"] + '\n'
-            string_todos_medicos = string_todos_medicos + "CRM: " + dado["crm"] + '\n\n'
-        sg.Popup('----------- LISTA DE MÉDICOS -------------')
+            string_todos_medicos = string_todos_medicos + "IDADE: " + str(dado["idade"]) + '\n'
+            string_todos_medicos = string_todos_medicos + "ENDEREÇO: Rua " + dado["rua"] + " // Número: " + str(dado["numero"])\
+            + " // Complemento: " + dado["complemento"] + '\n'
+            string_todos_medicos = string_todos_medicos + "MATRÍCULA: " + str(dado["matricula"]) + '\n'
+            string_todos_medicos = string_todos_medicos + "SALÁRIO: " + str(dado["salario"]) + '\n'
+            string_todos_medicos = string_todos_medicos + "CRM: " + str(dado["crm"]) + '\n\n'
+
+        sg.Popup('-------- LISTA DE MÉDICOS ----------', string_todos_medicos)
 
     def seleciona_medico(self):
         sg.ChangeLookAndFeel('LightBrown2')
@@ -121,7 +130,7 @@ class TelaMedico(AbstractTela):
         self.__window = sg.Window('Seleciona Médico').Layout(layout)
 
         button, values = self.open()
-        cpf = values["cpf"]
+        cpf = (values['cpf'])
         self.close()
         return cpf
 

@@ -83,16 +83,19 @@ class TelaCliente(AbstractTela):
         self.__window = sg.Window('Sistema de Cadastro de Clientes').Layout(layout)
 
         button, values = self.open()
-        nome = (values['nome'])
-        idade = (values(['idade']))
-        rua = (values['rua'])
-        numero = (values['numero'])
-        complemento = (values['complemento'])
-        self.close()
-        return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento}
+        try:
+            nome = (values['nome'])
+            idade = int(values['idade'])
+            rua = (values['rua'])
+            numero = int(values['numero'])
+            complemento = (values['complemento'])
+        except ValueError:
+            self.mostra_mesagem('Idade e Número devem ser inteiros!')
+        else:
+            return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento}
+        finally:
+            self.close()
 
-
-    # nao entendi pq esse método não funciona
     def mostra_cliente(self, dados_cliente):
         string_todos_clientes = ""
         for dado in dados_cliente:

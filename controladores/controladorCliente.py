@@ -33,7 +33,7 @@ class ControladorCliente:
 
 
     def altera_cliente(self):
-       # self.lista_clientes() # PORQUE NAO FUNCIONA?
+        self.lista_clientes()
         cpf_pessoa = self.__tela_cliente.seleciona_cliente()
         pessoa = self.pega_cliente_por_cpf(cpf_pessoa)
         try:
@@ -43,16 +43,17 @@ class ControladorCliente:
             self.__tela_cliente.mostra_mesagem("Não foi possível alterar este cadastro, pois este CPF não está cadastrado.")
         else:
             novos_dados_pessoa = self.__tela_cliente.pega_dados_para_alterar_cliente()
-            pessoa.nome = novos_dados_pessoa["nome"]
-            pessoa.idade = novos_dados_pessoa["idade"]
-            pessoa.endereco.rua = novos_dados_pessoa["rua"]
-            pessoa.endereco.numero = novos_dados_pessoa["numero"]
-            pessoa.endereco.complemento = novos_dados_pessoa["complemento"]
-            self.__tela_cliente.mostra_mesagem("Cliente alterado com sucesso!")
-            self.lista_clientes()
+            if novos_dados_pessoa is not None:
+                pessoa.nome = novos_dados_pessoa["nome"]
+                pessoa.idade = novos_dados_pessoa["idade"]
+                pessoa.endereco.rua = novos_dados_pessoa["rua"]
+                pessoa.endereco.numero = novos_dados_pessoa["numero"]
+                pessoa.endereco.complemento = novos_dados_pessoa["complemento"]
+                self.__tela_cliente.mostra_mesagem("Cliente alterado com sucesso!")
+                self.lista_clientes()
 
     def exclui_cliente(self):
-#        self.lista_clientes() # PORUQE ISSO NAO FUNCIONA??
+        self.lista_clientes()
         codigo_cliente = self.__tela_cliente.seleciona_cliente()
         cliente_excluido = self.pega_cliente_por_cpf(codigo_cliente)
         try:

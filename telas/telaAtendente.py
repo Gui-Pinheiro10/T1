@@ -48,64 +48,70 @@ class TelaAtendente(AbstractTela):
             [sg.Text('Rua:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='rua')],
             [sg.Text('Número:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='numero')],
             [sg.Text('Complemento:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='complemento')],
-            [sg.Text('Matrícula:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='matricula')],
-            [sg.Text('Salário:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='salario')],
+            [sg.Text('Matrícula:', size=(15,1), font=("Garamond", 18)), sg.InputText('', key='matricula')],
+            [sg.Text('Salário:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='salario')],
             [sg.Button('Confirmar', font=("Garamond", 15, 'bold')), sg.Cancel('Cancelar', font=("Garamond", 15, 'bold'))]
         ]
         self.__window = sg.Window('Sistema de Cadastro de Atendentes').Layout(layout)
-     #   while True:
         button, values = self.open()
-        #    try:
-        nome = values['nome']
-        cpf = values['cpf']
-        idade = (values['idade'])
-        rua = values['rua']
-        numero = values['numero']
-        complemento = (values['complemento'])
-        matricula = values['matricula']
-        salario = values['salario']
-        self.close()
-        return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
-                "matricula": matricula, "salario": salario}
-            #except ValueError as e: # no momento, só to fznd tratamento de "idade"
-             #   self.mostra_mesagem(e)
+        try:
+            nome = values['nome']
+            cpf = values['cpf']
+            idade = int(values['idade'])
+            rua = values['rua']
+            numero = int(values['numero'])
+            complemento = (values['complemento'])
+            matricula = int(values['matricula'])
+            salario = int(values['salario'])
+        except ValueError:
+            self.mostra_mesagem('Valor deve ser inteiro')
+        else:
+            return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
+                    "matricula": matricula, "salario": salario}
+        finally:
+            self.close()
 
     def pega_dados_para_alterar_atendente(self):
         sg.ChangeLookAndFeel('LightBrown2')
         layout = [
             [sg.Text('--------- DADOS PARA ALTERAR ATENDENTE ----------', font=("Garamond", 25, 'bold'))],
-            [sg.Text('ATENÇÃO! Não é permitido alterar CPF e matrícula de atendente.')],
             [sg.Text('Nome:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='nome')],
             [sg.Text('Idade:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='idade')],
             [sg.Text('Rua:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='rua')],
             [sg.Text('Número:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='numero')],
             [sg.Text('Complemento:',size=(15,1), font=("Garamond", 18)), sg.InputText('', key='complemento')],
-            [sg.Text('Salário:', size=(15, 1), font=("Garamond", 18)), sg.InputText('', key='salario')],
+            [sg.Text('Salário:', size=(15,1), font=("Garamond", 18)), sg.InputText('', key='salario')],
             [sg.Button('Confirmar', font=("Garamond", 15, 'bold')), sg.Cancel('Cancelar', font=("Garamond", 15, 'bold'))]
         ]
-        self.__window = sg.Window('Dados de Médico').Layout(layout)
+        self.__window = sg.Window('Sistema de Cadastro de Atendentes').Layout(layout)
+
         button, values = self.open()
-        nome = (values['nome'])
-        idade = (values(['idade']))
-        rua = (values['rua'])
-        numero = (values['numero'])
-        complemento = (values['complemento'])
-        salario = values['salario']
-        self.close()
-        return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento, "salario": salario}
+        try:
+            nome = (values['nome'])
+            idade = int(values['idade'])
+            rua = (values['rua'])
+            numero = int(values['numero'])
+            complemento = (values['complemento'])
+            salario = int(values['salario'])
+        except ValueError:
+            self.mostra_mesagem('Idade e Número devem ser inteiros!')
+        else:
+            return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
+                    "salario": salario}
+        finally:
+            self.close()
 
     def mostra_atendente(self, dados_atendente):
         string_todos_atendentes = ""
         for dado in dados_atendente:
             string_todos_atendentes = string_todos_atendentes + "NOME: "+ dado["nome"]+ '\n'
             string_todos_atendentes = string_todos_atendentes + "CPF: " + dado["cpf"] + '\n'
-            string_todos_atendentes = string_todos_atendentes + "IDADE: " + dado["idade"] + '\n'
-            string_todos_atendentes = string_todos_atendentes + "RUA: " + dado["rua"] + '\n'
-            string_todos_atendentes = string_todos_atendentes + "NÚMERO: " + dado["numero"] + '\n'
-            string_todos_atendentes = string_todos_atendentes + "COMPLEMENTO: " + dado["complemento"] + '\n'
-            string_todos_atendentes = string_todos_atendentes + "MATRÍCULA: " + dado["matricula"] + '\n'
-            string_todos_atendentes = string_todos_atendentes + "SALÁRIO: " + dado["salario"] + '\n\n'
-        sg.Popup('----------- LISTA DE ATENDENTES -------------')
+            string_todos_atendentes = string_todos_atendentes + "IDADE: " + str(dado["idade"]) + '\n'
+            string_todos_atendentes = string_todos_atendentes + "ENDEREÇO: Rua " + dado["rua"] + " // Número: " \
+                                      + str(dado["numero"]) + " // Complemento: " + dado["complemento"] + '\n'
+            string_todos_atendentes = string_todos_atendentes + "MATRÍCULA: " + str(dado["matricula"]) + '\n'
+            string_todos_atendentes = string_todos_atendentes + "SALÁRIO: " + str(dado["salario"]) + '\n\n'
+        sg.Popup('----------- LISTA DE ATENDENTES -------------', string_todos_atendentes)
 
     def seleciona_atendente(self):
         sg.ChangeLookAndFeel('LightBrown2')
