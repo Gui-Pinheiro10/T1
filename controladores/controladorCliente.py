@@ -79,7 +79,7 @@ class ControladorCliente:
                 dados_clientes.append({"nome": cliente.nome, "cpf": cliente.cpf, "idade": cliente.idade,
                                        "rua": cliente.endereco.rua, "numero": cliente.endereco.numero,
                                        "complemento": cliente.endereco.complemento})
-                self.__tela_cliente.mostra_cliente(dados_clientes)
+            self.__tela_cliente.mostra_cliente(dados_clientes)
 
 
     def retornar(self):
