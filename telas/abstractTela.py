@@ -138,11 +138,24 @@ class AbstractTela(ABC):
                 if len(complemento.strip()) == 0:
                     raise Exception
             except Exception:
-                sg.PopupOK("ENTRADA VAZIA PARA COMPLEMENTO.", title='ERRO NA COMPLEMENTO')
+                sg.PopupOK("ENTRADA VAZIA PARA COMPLEMENTO.", title='ERRO NO COMPLEMENTO')
                 complemento = sg.popup_get_text('Digite um complemento de endereço válido: ')
             else:
                 lido = True
         return complemento
+
+    def le_crm(self, crm: str):
+        lido = False
+        while not lido:
+            try:
+                if len(crm.strip()) == 0:
+                    raise Exception
+            except Exception:
+                sg.PopupOK("ENTRADA VAZIA PARA CRM.", title='ERRO NO CRM')
+                crm = sg.popup_get_text('Digite um CRM válido: ')
+            else:
+                lido = True
+        return crm
 
     def le_horario(self, horario: str):
         lido = False

@@ -50,24 +50,18 @@ class TelaCliente(AbstractTela):
             [sg.Button('Confirmar', font=("Garamond", 15, 'bold')), sg.Cancel('Cancelar', font=("Garamond", 15, 'bold'))]
         ]
         self.__window = sg.Window('Sistema de Cadastro de Clientes').Layout(layout)
-     #   while True:
         button, values = self.open()
-        try:
-            nome = values['nome']
-            cpf = values['cpf']
-            idade = int(values['idade'])
-            rua = values['rua']
-            numero = int(values['numero'])
-            complemento = (values['complemento'])
-        except ValueError as e: # no momento, só to fznd tratamento de "idade"
-            self.mostra_mesagem('Valor deve ser inteiro')
-        else:
-            return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento}
-        finally:
-            self.close()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
 
-        # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
-        # opção de tratamento: adicionar um if e só coletar nome e telefone se o button é 'Confirmar'
+        nome = self.le_nome(values['nome'])
+        cpf = self.verifica_cpf(values['cpf'])
+        idade = self.verifica_idade(values['idade'])
+        rua = self.le_rua(values['rua'])
+        numero = self.verifica_numero_rua(values['numero'])
+        complemento = self.le_complemento(values['complemento'])
+        self.close()
+        return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento}
 
     def pega_dados_para_alterar_cliente(self):
         sg.ChangeLookAndFeel('LightBrown2')
@@ -83,18 +77,16 @@ class TelaCliente(AbstractTela):
         self.__window = sg.Window('Sistema de Cadastro de Clientes').Layout(layout)
 
         button, values = self.open()
-        try:
-            nome = (values['nome'])
-            idade = int(values['idade'])
-            rua = (values['rua'])
-            numero = int(values['numero'])
-            complemento = (values['complemento'])
-        except ValueError:
-            self.mostra_mesagem('Idade e Número devem ser inteiros!')
-        else:
-            return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento}
-        finally:
-            self.close()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
+
+        nome = self.le_nome(values['nome'])
+        idade = self.verifica_idade(values['idade'])
+        rua = self.le_rua(values['rua'])
+        numero = self.verifica_numero_rua(values['numero'])
+        complemento = self.le_complemento(values['complemento'])
+        self.close()
+        return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento}
 
     def mostra_cliente(self, dados_cliente):
         string_todos_clientes = ""
@@ -119,6 +111,9 @@ class TelaCliente(AbstractTela):
         self.__window = sg.Window('Seleciona Cliente').Layout(layout)
 
         button, values = self.open()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
+
         cpf = (values['cpf'])
         self.close()
         return cpf
