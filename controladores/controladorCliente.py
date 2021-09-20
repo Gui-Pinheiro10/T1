@@ -18,7 +18,11 @@ class ControladorCliente:
 
     def inclui_cliente(self):
         dados_cliente = self.__tela_cliente.pega_dados_cliente()
-        if dados_cliente is not None:
+        if dados_cliente == 'Cancelar':
+            self.__tela_cliente.close()
+            self.__tela_cliente.open()
+       # if dados_cliente is not None:
+        else:
             try:
                 if self.pega_cliente_por_cpf(dados_cliente["cpf"]) is not None:
                     raise Exception
@@ -35,15 +39,19 @@ class ControladorCliente:
     def altera_cliente(self):
         self.lista_clientes()
         cpf_pessoa = self.__tela_cliente.seleciona_cliente()
-        pessoa = self.pega_cliente_por_cpf(cpf_pessoa)
-        try:
-            if pessoa is None:
-                raise Exception
-        except Exception:
-            self.__tela_cliente.mostra_mesagem("Não foi possível alterar este cadastro, pois este CPF não está cadastrado.")
+        if cpf_pessoa == 'Cancelar':
+            self.__tela_cliente.close()
+            self.__tela_cliente.open()
         else:
-            novos_dados_pessoa = self.__tela_cliente.pega_dados_para_alterar_cliente()
-            if novos_dados_pessoa is not None:
+            pessoa = self.pega_cliente_por_cpf(cpf_pessoa)
+            try:
+                if pessoa is None:
+                    raise Exception
+            except Exception:
+                self.__tela_cliente.mostra_mesagem("Não foi possível alterar este cadastro, pois este CPF não está cadastrado.")
+            else:
+                novos_dados_pessoa = self.__tela_cliente.pega_dados_para_alterar_cliente()
+              #  if novos_dados_pessoa is not None:
                 pessoa.nome = novos_dados_pessoa["nome"]
                 pessoa.idade = novos_dados_pessoa["idade"]
                 pessoa.endereco.rua = novos_dados_pessoa["rua"]
@@ -55,16 +63,20 @@ class ControladorCliente:
     def exclui_cliente(self):
         self.lista_clientes()
         codigo_cliente = self.__tela_cliente.seleciona_cliente()
-        cliente_excluido = self.pega_cliente_por_cpf(codigo_cliente)
-        try:
-            if cliente_excluido is None:
-                raise Exception
-        except Exception:
-            self.__tela_cliente.mostra_mesagem("Não foi possível excluir este cadastro, pois este CPF não está cadastrado.")
+        if codigo_cliente == 'Cancelar':
+            self.__tela_cliente.close()
+            self.__tela_cliente.open()
         else:
-            self.__cliente_DAO.remove(cliente_excluido.cpf)
-            self.__tela_cliente.mostra_mesagem('Cliente excluído com sucesso!')
-            self.lista_clientes()
+            cliente_excluido = self.pega_cliente_por_cpf(codigo_cliente)
+            try:
+                if cliente_excluido is None:
+                    raise Exception
+            except Exception:
+                self.__tela_cliente.mostra_mesagem("Não foi possível excluir este cadastro, pois este CPF não está cadastrado.")
+            else:
+                self.__cliente_DAO.remove(cliente_excluido.cpf)
+                self.__tela_cliente.mostra_mesagem('Cliente excluído com sucesso!')
+                self.lista_clientes()
 
     def lista_clientes(self):
         dados_clientes = []

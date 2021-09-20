@@ -18,7 +18,11 @@ class ControladorMedico:
 
     def inclui_medico(self):
         dados_medico = self.__tela_medico.pega_dados_medico()
-        if dados_medico is not None:
+        if dados_medico == 'Cancelar':
+            self.__tela_medico.close()
+            self.__tela_medico.open()
+        else:
+       # if dados_medico is not None:
             try:
                 if self.pega_medico_por_cpf(dados_medico["cpf"]) is not None:
                     raise Exception
@@ -36,37 +40,45 @@ class ControladorMedico:
     def altera_medico(self):
         self.lista_medicos()
         cpf_pessoa = self.__tela_medico.seleciona_medico()
-        medico_alterado = self.pega_medico_por_cpf(cpf_pessoa)
-        try:
-            if medico_alterado is None:
-                raise Exception
-        except Exception:
-            self.__tela_medico.mostra_mesagem("Não foi possível alterar este cadastro, pois este CPF não está cadastrado.")
+        if cpf_pessoa == 'Cancelar':
+            self.__tela_medico.close()
+            self.__tela_medico.open()
         else:
-            novos_dados_pessoa = self.__tela_medico.pega_dados_para_alterar_medico()
-            if novos_dados_pessoa is not None:
-                medico_alterado.nome = novos_dados_pessoa["nome"]
-                medico_alterado.idade = novos_dados_pessoa["idade"]
-                medico_alterado.endereco.rua = novos_dados_pessoa["rua"]
-                medico_alterado.endereco.numero = novos_dados_pessoa["numero"]
-                medico_alterado.endereco.complemento = novos_dados_pessoa["complemento"]
-                medico_alterado.salario = novos_dados_pessoa["salario"]
-                self.__tela_medico.mostra_mesagem("Médico alterado com sucesso!")
-                self.lista_medicos()
+            medico_alterado = self.pega_medico_por_cpf(cpf_pessoa)
+            try:
+                if medico_alterado is None:
+                    raise Exception
+            except Exception:
+                self.__tela_medico.mostra_mesagem("Não foi possível alterar este cadastro, pois este CPF não está cadastrado.")
+            else:
+                novos_dados_pessoa = self.__tela_medico.pega_dados_para_alterar_medico()
+                if novos_dados_pessoa is not None:
+                    medico_alterado.nome = novos_dados_pessoa["nome"]
+                    medico_alterado.idade = novos_dados_pessoa["idade"]
+                    medico_alterado.endereco.rua = novos_dados_pessoa["rua"]
+                    medico_alterado.endereco.numero = novos_dados_pessoa["numero"]
+                    medico_alterado.endereco.complemento = novos_dados_pessoa["complemento"]
+                    medico_alterado.salario = novos_dados_pessoa["salario"]
+                    self.__tela_medico.mostra_mesagem("Médico alterado com sucesso!")
+                    self.lista_medicos()
 
     def exclui_medico(self):
         self.lista_medicos()
         codigo_med = self.__tela_medico.seleciona_medico()
-        medico_excluido = self.pega_medico_por_cpf(codigo_med)
-        try:
-            if medico_excluido is None:
-                raise Exception
-        except Exception:
-            self.__tela_medico.mostra_mesagem("Não foi possível excluir este cadastro, pois este CPF não está cadastrado.")
+        if codigo_med == 'Cancelar':
+            self.__tela_medico.close()
+            self.__tela_medico.open()
         else:
-            self.__medico_DAO.remove(medico_excluido.cpf)
-            self.__tela_medico.mostra_mesagem('Médico excluído com sucesso!')
-            self.lista_medicos()
+            medico_excluido = self.pega_medico_por_cpf(codigo_med)
+            try:
+                if medico_excluido is None:
+                    raise Exception
+            except Exception:
+                self.__tela_medico.mostra_mesagem("Não foi possível excluir este cadastro, pois este CPF não está cadastrado.")
+            else:
+                self.__medico_DAO.remove(medico_excluido.cpf)
+                self.__tela_medico.mostra_mesagem('Médico excluído com sucesso!')
+                self.lista_medicos()
 
     def lista_medicos(self):
         dados_medicos = []

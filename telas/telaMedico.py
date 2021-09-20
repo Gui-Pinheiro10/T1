@@ -53,28 +53,22 @@ class TelaMedico(AbstractTela):
             [sg.Button('Confirmar', font=("Garamond", 15, 'bold')), sg.Cancel('Cancelar', font=("Garamond", 15, 'bold'))]
         ]
         self.__window = sg.Window('Sistema de Cadastro de Médicos').Layout(layout)
-     #   while True:
         button, values = self.open()
-        try:
-            nome = values['nome']
-            cpf = values['cpf']
-            idade = int(values['idade'])
-            rua = values['rua']
-            numero = int(values['numero'])
-            complemento = (values['complemento'])
-            matricula = int(values['matricula'])
-            salario = int(values['salario'])
-            crm = values['crm']
-        except ValueError as e:
-            self.mostra_mesagem('Valor deve ser inteiro')
-        else:
-            return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
-                    "matricula": matricula, "salario": salario, "crm": crm}
-        finally:
-            self.close()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
 
-        # fazer aqui tratamento dos dados, caso a entrada seja diferente do esperado
-        # opção de tratamento: adicionar um if e só coletar nome e telefone se o button é 'Confirmar'
+        nome = self.le_nome(values['nome'])
+        cpf = self.verifica_cpf(values['cpf'])
+        idade = self.verifica_idade(values['idade'])
+        rua = self.le_rua(values['rua'])
+        numero = self.verifica_numero_rua(values['numero'])
+        complemento = self.le_complemento(values['complemento'])
+        matricula = self.verifica_matricula(values['matricula'])
+        salario = self.verifica_salario(values['salario'])
+        crm = self.le_crm(values['crm'])
+        self.close()
+        return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
+                "matricula": matricula, "salario": salario, "crm": crm}
 
     def pega_dados_para_alterar_medico(self):
         sg.ChangeLookAndFeel('LightBrown2')
@@ -91,19 +85,17 @@ class TelaMedico(AbstractTela):
         self.__window = sg.Window('Sistema de Cadastro de Médicos').Layout(layout)
 
         button, values = self.open()
-        try:
-            nome = (values['nome'])
-            idade = int(values['idade'])
-            rua = (values['rua'])
-            numero = int(values['numero'])
-            complemento = (values['complemento'])
-            salario = int(values['salario'])
-        except ValueError:
-            self.mostra_mesagem('Idade, Número e Salário devem ser inteiros!')
-        else:
-            return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento, "salario": salario}
-        finally:
-            self.close()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
+
+        nome = self.le_nome(values['nome'])
+        idade = self.verifica_idade(values['idade'])
+        rua = self.le_rua(values['rua'])
+        numero = self.verifica_numero_rua(values['numero'])
+        complemento = self.le_complemento(values['complemento'])
+        salario = self.verifica_salario(values['salario'])
+        self.close()
+        return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento, "salario": salario}
 
     def mostra_medico(self, dados_medico):
         string_todos_medicos = ""
@@ -130,6 +122,9 @@ class TelaMedico(AbstractTela):
         self.__window = sg.Window('Seleciona Médico').Layout(layout)
 
         button, values = self.open()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
+
         cpf = (values['cpf'])
         self.close()
         return cpf

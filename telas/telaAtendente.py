@@ -54,22 +54,20 @@ class TelaAtendente(AbstractTela):
         ]
         self.__window = sg.Window('Sistema de Cadastro de Atendentes').Layout(layout)
         button, values = self.open()
-        try:
-            nome = values['nome']
-            cpf = values['cpf']
-            idade = int(values['idade'])
-            rua = values['rua']
-            numero = int(values['numero'])
-            complemento = (values['complemento'])
-            matricula = int(values['matricula'])
-            salario = int(values['salario'])
-        except ValueError:
-            self.mostra_mesagem('Valor deve ser inteiro')
-        else:
-            return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
-                    "matricula": matricula, "salario": salario}
-        finally:
-            self.close()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
+
+        nome = self.le_nome(values['nome'])
+        cpf = self.verifica_cpf(values['cpf'])
+        idade = self.verifica_idade(values['idade'])
+        rua = self.le_rua(values['rua'])
+        numero = self.verifica_numero_rua(values['numero'])
+        complemento = self.le_complemento(values['complemento'])
+        matricula = self.verifica_matricula(values['matricula'])
+        salario = self.verifica_salario(values['salario'])
+        self.close()
+        return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
+                "matricula": matricula, "salario": salario}
 
     def pega_dados_para_alterar_atendente(self):
         sg.ChangeLookAndFeel('LightBrown2')
@@ -86,20 +84,18 @@ class TelaAtendente(AbstractTela):
         self.__window = sg.Window('Sistema de Cadastro de Atendentes').Layout(layout)
 
         button, values = self.open()
-        try:
-            nome = (values['nome'])
-            idade = int(values['idade'])
-            rua = (values['rua'])
-            numero = int(values['numero'])
-            complemento = (values['complemento'])
-            salario = int(values['salario'])
-        except ValueError:
-            self.mostra_mesagem('Idade e Número devem ser inteiros!')
-        else:
-            return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
-                    "salario": salario}
-        finally:
-            self.close()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
+
+        nome = self.le_nome(values['nome'])
+        idade = self.verifica_idade(values['idade'])
+        rua = self.le_rua(values['rua'])
+        numero = self.verifica_numero_rua(values['numero'])
+        complemento = self.le_complemento(values['complemento'])
+        salario = self.verifica_salario(values['salario'])
+        self.close()
+        return {"nome": nome, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
+                "salario": salario}
 
     def mostra_atendente(self, dados_atendente):
         string_todos_atendentes = ""
@@ -124,6 +120,9 @@ class TelaAtendente(AbstractTela):
         self.__window = sg.Window('Seleciona Atendente').Layout(layout)
 
         button, values = self.open()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
+
         cpf = values["cpf"]
         self.close()
         return cpf
