@@ -60,6 +60,10 @@ class TelaLimpeza(AbstractTela):
         self.__window = sg.Window('Dados do Funcionário da Limpeza').Layout(layout)
 
         button, values = self.open()
+
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
+
         nome = self.le_nome(values['nome'])
         cpf = self.verifica_cpf(values['cpf'])
         idade = self.verifica_idade(values['idade'])
@@ -69,10 +73,11 @@ class TelaLimpeza(AbstractTela):
         numero = self.verifica_numero_rua(values['numero'])
         complemento = self.le_complemento(values['complemento'])
 
-        self.close()
-
-        return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero, "complemento": complemento,
+        return {"nome": nome, "cpf": cpf, "idade": idade, "rua": rua, "numero": numero,
+                "complemento": complemento,
                 "matricula": matricula, "salario": salario}
+
+        self.close()
 
     def pega_dados_para_alterar_limpeza(self):
         sg.ChangeLookAndFeel('LightBrown2')
@@ -112,6 +117,8 @@ class TelaLimpeza(AbstractTela):
         self.__window = sg.Window('Seleciona Funcionário da Limpeza').Layout(layout)
 
         button, values = self.open()
+        if button in (None, 'Cancelar'):
+            return 'Cancelar'
         cpf = values['cpf']
         self.close()
         return cpf
@@ -123,10 +130,10 @@ class TelaLimpeza(AbstractTela):
     def mostra_limpeza(self, dados_limpeza):
         string_todos_limpeza = ""
         for dado in dados_limpeza:
-            string_todos_limpeza = string_todos_limpeza + "NOME DO FUNCIONÁRIO DA LIMPEZA: " + dado["nome"] + '\n'
-            string_todos_limpeza = string_todos_limpeza + "CPF DO FUNCIONÁRIO DA LIMPEZA: " + dado["cpf"] + '\n'
-            string_todos_limpeza = string_todos_limpeza + "IDADE DO FUNCIONÁRIO DA LIMPEZA: " + str(dado["idade"]) + '\n'
-            string_todos_limpeza = string_todos_limpeza + "ENDEREÇO DO FUNCIONÁRIO DA LIMPEZA: Rua " + dado[
+            string_todos_limpeza = string_todos_limpeza + "Nome: " + dado["nome"] + '\n'
+            string_todos_limpeza = string_todos_limpeza + "CPF: " + dado["cpf"] + '\n'
+            string_todos_limpeza = string_todos_limpeza + "Idade: " + str(dado["idade"]) + '\n'
+            string_todos_limpeza = string_todos_limpeza + "Endereço: Rua " + dado[
                                                           "rua"] + " // Número: " + str(dado["numero"]) \
                                                           + " // Complemento: " + dado["complemento"] + '\n\n'
 

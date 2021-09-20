@@ -18,51 +18,63 @@ class ControladorLimpeza:
 
     def inclui_limpeza(self):
         dados_limpeza = self.__tela_limpeza.pega_dados_limpeza()
-        try:
-            if self.pega_limpeza_por_cpf(dados_limpeza["cpf"]) is not None:
-                raise Exception
-        except Exception:
-            self.__tela_limpeza.mostra_mesagem('Não foi possível cadastrar o funcionário pois o CPF já está cadastrado!')
+        if dados_limpeza == 'Cancelar':
+            self.__tela_limpeza.close()
+            self.__tela_limpeza.open()
         else:
-            limpeza = Limpeza(dados_limpeza["nome"], dados_limpeza["cpf"], dados_limpeza["idade"], dados_limpeza["rua"],
-                              dados_limpeza["numero"],
-                              dados_limpeza["complemento"], dados_limpeza["matricula"], dados_limpeza["salario"])
-            self.__limpezas_DAO.add(limpeza)
-            self.__tela_limpeza.mostra_mesagem('Funcionário da Limpeza adicionado com sucesso!')
+            try:
+                if self.pega_limpeza_por_cpf(dados_limpeza["cpf"]) is not None:
+                    raise Exception
+            except Exception:
+                self.__tela_limpeza.mostra_mesagem('Não foi possível cadastrar o funcionário pois o CPF já está cadastrado!')
+            else:
+                limpeza = Limpeza(dados_limpeza["nome"], dados_limpeza["cpf"], dados_limpeza["idade"], dados_limpeza["rua"],
+                                  dados_limpeza["numero"],
+                                  dados_limpeza["complemento"], dados_limpeza["matricula"], dados_limpeza["salario"])
+                self.__limpezas_DAO.add(limpeza)
+                self.__tela_limpeza.mostra_mesagem('Funcionário da Limpeza adicionado com sucesso!')
 
     def exclui_limpeza(self):
         self.listar_limpezas()
         cpf_funcionario_excluido =  self.__tela_limpeza.seleciona_limpeza()
-        funcionario_excluido = self.pega_limpeza_por_cpf(cpf_funcionario_excluido)
-        try:
-            if funcionario_excluido is None:
-                raise Exception
-        except Exception:
-            self.__tela_limpeza.mostra_mesagem('Não foi possível excluir o funcionário, pois o CPF informado informada não está na lista!')
+        if cpf_funcionario_excluido == 'Cancelar':
+            self.__tela_limpeza.close()
+            self.__tela_limpeza.open()
         else:
-            self.__limpezas_DAO.remove(funcionario_excluido.cpf)
-            self.__tela_limpeza.mostra_mesagem('Funcionário da Limpeza excluído com sucesso!')
-            self.listar_limpezas()
+            funcionario_excluido = self.pega_limpeza_por_cpf(cpf_funcionario_excluido)
+            try:
+                if funcionario_excluido is None:
+                    raise Exception
+            except Exception:
+                self.__tela_limpeza.mostra_mesagem('Não foi possível excluir o funcionário, pois o CPF informado informada não está na lista!')
+            else:
+                self.__limpezas_DAO.remove(funcionario_excluido.cpf)
+                self.__tela_limpeza.mostra_mesagem('Funcionário da Limpeza excluído com sucesso!')
+                self.listar_limpezas()
 
     def altera_limpeza(self):
         self.listar_limpezas()
         cpf_funcionario_alterado = self.__tela_limpeza.seleciona_limpeza()
-        funcionario_alterado = self.pega_limpeza_por_cpf(cpf_funcionario_alterado)
-        try:
-            if funcionario_alterado is None:
-                raise Exception
-        except Exception:
-            self.__tela_limpeza.mostra_mesagem('Não foi possível alterar o funcionário, pois a matrícula informada não está na lista!')
+        if cpf_funcionario_alterado == 'Cancelar':
+            self.__tela_limpeza.close()
+            self.__tela_limpeza.open()
         else:
-            novos_dados_limpeza = self.__tela_limpeza.pega_dados_para_alterar_limpeza()
-            funcionario_alterado.nome = novos_dados_limpeza["nome"]
-            funcionario_alterado.idade = novos_dados_limpeza["idade"]
-            funcionario_alterado.endereco.rua = novos_dados_limpeza["rua"]
-            funcionario_alterado.endereco.numero = novos_dados_limpeza["numero"]
-            funcionario_alterado.endereco.complemento = novos_dados_limpeza["complemento"]
-            funcionario_alterado.salario = novos_dados_limpeza["salario"]
-            self.__tela_limpeza.mostra_mesagem('Funcionário da limpeza alterado com sucesso!\n')
-            self.listar_limpezas()
+            funcionario_alterado = self.pega_limpeza_por_cpf(cpf_funcionario_alterado)
+            try:
+                if funcionario_alterado is None:
+                    raise Exception
+            except Exception:
+                self.__tela_limpeza.mostra_mesagem('Não foi possível alterar o funcionário, pois o CPF informado não está na lista!')
+            else:
+                novos_dados_limpeza = self.__tela_limpeza.pega_dados_para_alterar_limpeza()
+                funcionario_alterado.nome = novos_dados_limpeza["nome"]
+                funcionario_alterado.idade = novos_dados_limpeza["idade"]
+                funcionario_alterado.endereco.rua = novos_dados_limpeza["rua"]
+                funcionario_alterado.endereco.numero = novos_dados_limpeza["numero"]
+                funcionario_alterado.endereco.complemento = novos_dados_limpeza["complemento"]
+                funcionario_alterado.salario = novos_dados_limpeza["salario"]
+                self.__tela_limpeza.mostra_mesagem('Funcionário da limpeza alterado com sucesso!\n')
+                self.listar_limpezas()
 
     def listar_limpezas(self):
         dados_limpezas = []

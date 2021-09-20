@@ -57,6 +57,6 @@ class TelaSistema(AbstractTela):
             string_todos_clientes_com_agendamento = string_todos_clientes_com_agendamento + "CPF DO CLIENTE: " + dado["cpf_cliente"] + '\n'
             string_todos_clientes_com_agendamento = string_todos_clientes_com_agendamento + "CÓDIGO DO AGENDAMENTO: " + str(dado["agendamento_codigo"]) + '\n'
             string_todos_clientes_com_agendamento = string_todos_clientes_com_agendamento + "HORÁRIO: " + str(dado["agendamento_horario"]) + '\n'
-            string_todos_clientes_com_agendamento = string_todos_clientes_com_agendamento + "DATA : " + str(dado["agendamento_data"]) + '\n\n'
+            string_todos_clientes_com_agendamento = string_todos_clientes_com_agendamento + "DATA: " + str(dado["agendamento_data"]) + '\n\n'
 
         sg.Popup('-------- LISTA DE CLIENTES COM AGENDAMENTO ----------', string_todos_clientes_com_agendamento)

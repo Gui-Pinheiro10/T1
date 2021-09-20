@@ -43,7 +43,7 @@ class AbstractTela(ABC):
                 if not matricula.isnumeric():
                     raise ValueError
             except ValueError:
-                sg.PopupOK("MATRÍCULA INVÁLIDA.")
+                sg.PopupOK("MATRÍCULA INVÁLIDA.", title='ERRO NA MATRÍCULA')
                 matricula = sg.popup_get_text('Digite uma matrícula válida: ')
             else:
                 lido = True
@@ -56,7 +56,7 @@ class AbstractTela(ABC):
                 if not salario.isnumeric():
                     raise ValueError
             except ValueError:
-                sg.PopupOK("SALÁRIO INVÁLIDO.")
+                sg.PopupOK("SALÁRIO INVÁLIDO.", title='ERRO NO SALÁRIO')
                 salario = sg.popup_get_text('Digite um salário válido: ')
             else:
                 lido = True
@@ -69,7 +69,7 @@ class AbstractTela(ABC):
                 if not numero_rua.isnumeric():
                     raise ValueError
             except ValueError:
-                sg.PopupOK("NÚMERO DO ENDEREÇO INVÁLIDO.")
+                sg.PopupOK("NÚMERO DO ENDEREÇO INVÁLIDO.", title='ERRO NO ENDEREÇO')
                 numero_rua = sg.popup_get_text('Digite um número do endereço válido: ')
             else:
                 lido = True
@@ -84,7 +84,7 @@ class AbstractTela(ABC):
                 if not cpf.isnumeric():
                     raise Exception
             except Exception:
-                sg.PopupOK('CPF informado incorretamente. Favor fornecer CPF válido!')
+                sg.PopupOK('CPF informado incorretamente. Favor fornecer CPF válido!', title='ERRO NO CPF')
                 cpf = sg.popup_get_text("Digite o CPF novamente: ")
             else:
                 cpf_valido = True
@@ -99,7 +99,7 @@ class AbstractTela(ABC):
                 if int(idade) < 0 or int(idade) > 150:
                     raise Exception
             except Exception:
-                sg.PopupOK("VALOR INVÁLIDO! Digite um valor numérico inteiro entre 0 e 150.")
+                sg.PopupOK("VALOR INVÁLIDO! Digite um valor numérico inteiro entre 0 e 150.", title='ERRO NA IDADE')
                 idade = sg.popup_get_text('Digite a idade novamente: ')
             else:
                 idade_valida = True
@@ -112,7 +112,7 @@ class AbstractTela(ABC):
                 if len(nome.strip()) == 0:
                     raise Exception
             except Exception:
-                sg.PopupOK("ENTRADA VAZIA PARA NOME.")
+                sg.PopupOK("ENTRADA VAZIA PARA NOME.", title='ERRO NO NOME')
                 nome = sg.popup_get_text('Digite um nome válido: ')
             else:
                 lido = True
@@ -125,7 +125,7 @@ class AbstractTela(ABC):
                 if len(rua.strip()) == 0:
                     raise Exception
             except Exception:
-                sg.PopupOK("ENTRADA VAZIA PARA RUA.")
+                sg.PopupOK("ENTRADA VAZIA PARA RUA.", title='ERRO NA RUA')
                 rua = sg.popup_get_text('Digite uma rua válida: ')
             else:
                 lido = True
@@ -138,7 +138,7 @@ class AbstractTela(ABC):
                 if len(complemento.strip()) == 0:
                     raise Exception
             except Exception:
-                sg.PopupOK("ENTRADA VAZIA PARA COMPLEMENTO.")
+                sg.PopupOK("ENTRADA VAZIA PARA COMPLEMENTO.", title='ERRO NA COMPLEMENTO')
                 complemento = sg.popup_get_text('Digite um complemento de endereço válido: ')
             else:
                 lido = True
@@ -155,7 +155,7 @@ class AbstractTela(ABC):
                 if horario[2] != ":":
                     raise Exception
             except Exception:
-                sg.PopupOK("ENTRADA INVÁLIDA PARA HORÁRIO.")
+                sg.PopupOK("ENTRADA INVÁLIDA PARA HORÁRIO.", title='ERRO NO HORÁRIO')
                 horario = sg.popup_get_text('Digite um horário no formato XX:XX: ')
             else:
                 lido = True
@@ -172,7 +172,7 @@ class AbstractTela(ABC):
                 if (data[2] != "/") or (data[5] != "/"):
                     raise Exception
             except Exception:
-                sg.PopupOK("ENTRADA INVÁLIDA PARA DATA.")
+                sg.PopupOK("ENTRADA INVÁLIDA PARA DATA.", title='ERRO NA DATA')
                 data = sg.popup_get_text('Digite uma data no formato DD/MM/AA: ')
             else:
                 lido = True
@@ -185,7 +185,7 @@ class AbstractTela(ABC):
                 if len(especialidade_ou_tipo_de_vacina.strip()) == 0:
                     raise Exception
             except Exception:
-                sg.PopupOK("ENTRADA VAZIA PARA ESPECIALIDADE DE CONSULTA OU TIPO DE VACINA.")
+                sg.PopupOK("ENTRADA VAZIA PARA ESPECIALIDADE DE CONSULTA OU TIPO DE VACINA.", title='ERRO NO TIPO DE AGENDAMENTO')
                 especialidade_ou_tipo_de_vacina = sg.popup_get_text('Digite uma especialidade ou tipo de vacina: ')
             else:
                 lido = True
@@ -198,9 +198,8 @@ class AbstractTela(ABC):
                 if not codigo.isnumeric():
                     raise Exception
             except Exception:
-                sg.PopupOK("CÓDIGO DE AGENDAMENTO INVÁLIDO!.")
+                sg.PopupOK("CÓDIGO DE AGENDAMENTO INVÁLIDO!.", title='ERRO NO CÓDIGO DO AGENDAMENTO')
                 codigo = sg.popup_get_text('Digite o código do agendamento novamente: ')
             else:
                 codigo_valido = True
         return int(codigo)
-
