@@ -81,7 +81,7 @@ class ControladorMedico:
                                          "rua": med.endereco.rua, "numero": med.endereco.numero,
                                          "complemento": med.endereco.complemento, "matricula": med.matricula,
                                          "salario": med.salario, "crm": med.crm})
-                self.__tela_medico.mostra_medico(dados_medicos)
+            self.__tela_medico.mostra_medico(dados_medicos)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

@@ -81,7 +81,7 @@ class ControladorAtendente:
                                          "rua": atendente.endereco.rua, "numero": atendente.endereco.numero,
                                          "complemento": atendente.endereco.complemento, "matricula": atendente.matricula,
                                          "salario": atendente.salario})
-                self.__tela_atendente.mostra_atendente(dados_atendentes)
+            self.__tela_atendente.mostra_atendente(dados_atendentes)
 
 
     def retornar(self):
