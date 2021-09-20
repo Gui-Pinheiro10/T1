@@ -4,6 +4,7 @@ from entidade.agendamento import Agendamento
 from telas.telaAgendamento import TelaAgendamento
 from DAOs.agendamenteo_dao import AgendamentoDAO
 from Cliente_ou_Medico_Enfermeiro_Nao_Existe import ClienteOuMedicoEnfermeiroNaoExiste
+from Agendamento_Duplicado import AgendamentoDuplicado
 
 
 class ControladorAgendamento:
@@ -59,10 +60,10 @@ class ControladorAgendamento:
                     raise ClienteOuMedicoEnfermeiroNaoExiste()
                 for agendamento in self.__agendamento_DAO.get_all():
                     if agendamento.codigo == agendamento_para_incluir.codigo or (tipoAgendamento_agendamento == 0) or (agendamento.data == agendamento_para_incluir.data and agendamento.horario == agendamento_para_incluir.horario):
-                        raise Exception
+                        raise AgendamentoDuplicado()
             except ClienteOuMedicoEnfermeiroNaoExiste:
                 self.__tela_agendamento.mostra_mesagem('Cliente ou Médico/Enfermeiros não cadastrados!')
-            except Exception:
+            except AgendamentoDuplicado:
                 self.__tela_agendamento.mostra_mesagem('Não foi possível cadastrar o agendamento pois o código ou horário já existe ou o tipo de agendamento não foi selecionado!')
             else:
                 self.__agendamento_DAO.add(agendamento_para_incluir)
