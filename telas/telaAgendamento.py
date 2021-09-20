@@ -119,4 +119,4 @@ class TelaAgendamento(AbstractTela):
             string_todos_agendamentos = string_todos_agendamentos + "CLIENTE: " + str(dado["cliente"]) + '\n'
             string_todos_agendamentos = string_todos_agendamentos + "CÓDIGO : " + str(dado["codigo"]) + '\n\n'
 
-        sg.Popup('-------- LISTA DE FUNCIONÁRIOS DA LIMPEZA ----------', string_todos_agendamentos)
+        sg.Popup('-------- LISTA DE AGENDAMENTOS ----------', string_todos_agendamentos)

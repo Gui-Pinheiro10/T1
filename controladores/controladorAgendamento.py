@@ -119,3 +119,6 @@ class ControladorAgendamento:
             opcao = self.__tela_agendamento.tela_opcoes()
             funcao_escolhida = opcoes[opcao]
             funcao_escolhida()
+
+    def retorna_lista_agendamentos(self):
+        return self.__agendamento_DAO.get_all()

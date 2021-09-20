@@ -23,6 +23,8 @@ class TelaSistema(AbstractTela):
             opcao = 5
         if values['6']:
             opcao = 6
+        if values['7']:
+            opcao = 7
         if values['0'] or button in (None, 'Cancelar'):
             opcao = 0
         self.close()
@@ -42,7 +44,19 @@ class TelaSistema(AbstractTela):
             [sg.Radio("ENFERMEIROS", "RD1", key='4', font=("Garamond", 18))],
             [sg.Radio("ATENDENTES", "RD1", key='5', font=("Garamond", 18))],
             [sg.Radio("AGENDAMENTO", "RD1", key='6', font=("Garamond", 18))],
+            [sg.Radio("CLIENTES COM AGENDAMENTOS", "RD1", key='7', font=("Garamond", 18))],
             [sg.Radio("FINALIZAR SISTEMA", "RD1", key='0', font=("Garamond", 18))],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Sistema Clínica Médica').Layout(layout)
+
+    def mostra_cliente_com_agendamento(self, dados_clientes_com_agendamento):
+        string_todos_clientes_com_agendamento = ""
+        for dado in dados_clientes_com_agendamento:
+            string_todos_clientes_com_agendamento = string_todos_clientes_com_agendamento + "NOME DO CLIENTE: " + dado["nome_cliente"] + '\n'
+            string_todos_clientes_com_agendamento = string_todos_clientes_com_agendamento + "CPF DO CLIENTE: " + dado["cpf_cliente"] + '\n'
+            string_todos_clientes_com_agendamento = string_todos_clientes_com_agendamento + "CÓDIGO DO AGENDAMENTO: " + str(dado["agendamento_codigo"]) + '\n'
+            string_todos_clientes_com_agendamento = string_todos_clientes_com_agendamento + "HORÁRIO: " + str(dado["agendamento_horario"]) + '\n'
+            string_todos_clientes_com_agendamento = string_todos_clientes_com_agendamento + "DATA : " + str(dado["agendamento_data"]) + '\n\n'
+
+        sg.Popup('-------- LISTA DE CLIENTES COM AGENDAMENTO ----------', string_todos_clientes_com_agendamento)
